@@ -158,7 +158,7 @@ git branch -vv
 
 ## 현재 진행 상태 (2026-07-24 방향 재정립)
 
-`~/.claude/projects/C--Users-Jinwon-Desktop-2dgame/memory/project_tether.md` 의 **환경/셋업 상태** 섹션이 항상 최신. 새 세션 시 그 파일 먼저 참조.
+아래 bullet list가 팀 공유 authoritative. 상세 셋업 이력은 커밋 히스토리 참조.
 
 - ✅ **Phase -1 (v1) — 이전 Tether 컨셉**: 사이드뷰 픽셀 액션 메트로배니아 방향 (2026-06~07). 방향 재정립으로 무효화, docs/archive에 백업 예정.
 - ⏳ **Phase -1 (v2) — 새 방향 재정립**: **Ball x Pit 스타일 로그라이트 + 동방 2차 창작 라인**. kimringo 협의 진행 중.

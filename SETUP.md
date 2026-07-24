@@ -264,7 +264,7 @@ Unity Smart Merge가 씬/프리팹 conflict를 자동 완화. 실패 시:
 - [CONCEPT.md](CONCEPT.md) — 게임 컨셉
 - [README.md](README.md) — 프로젝트 소개
 - [CONTRIBUTING.md](CONTRIBUTING.md) — 기여 가이드
-- [docs/MAP_SYSTEM.md](docs/MAP_SYSTEM.md) — 지도/레벨 시스템 설계
+- [docs/archive/MAP_SYSTEM_tether_v1.md](docs/archive/MAP_SYSTEM_tether_v1.md) — 구 방향 지도/레벨 시스템 설계 (archived)
 
 ---
 
