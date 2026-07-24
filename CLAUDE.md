@@ -23,8 +23,8 @@
 | **[SETUP.md](SETUP.md)** | 처음 참여 온보딩 + 라이브 협업 프레임워크 |
 | **[README.md](README.md)** | 프로젝트 소개, clone/실행 방법 |
 | **[CONTRIBUTING.md](CONTRIBUTING.md)** | Git 워크플로우, 코딩 스타일, 팀 룰 |
-| **[docs/MAP_SYSTEM.md](docs/MAP_SYSTEM.md)** | 지도/레벨 시스템 설계 상세 |
-| **사용자 메모리** (`~/.claude/projects/C--Users-Jinwon-Desktop-2dgame/memory/`) | 진행 상태, 셋업 이력, 기술 스택 |
+| ~~docs/MAP_SYSTEM.md~~ (아카이브) | 구 방향 참고용 → [docs/archive/MAP_SYSTEM_tether_v1.md](docs/archive/MAP_SYSTEM_tether_v1.md) |
+| ⚠️ 사용자 메모리 (`~/.claude/projects/...`) | **LO 로컬 개인 메모리 — 원격 팀원(kimringo) 접근 불가.** 팀 공유 정보는 반드시 이 프로젝트 문서에 있어야 함. |
 
 ---
 
@@ -192,8 +192,8 @@ git branch -vv
 | 디자인/톤/세계관 결정 | `CONCEPT.md` |
 | 처음 참여 온보딩, 라이브 협업 프레임워크 | `SETUP.md` |
 | Git 워크플로우 상세 | `CONTRIBUTING.md` |
-| Unity/기술 스택 이력 | 사용자 메모리 `tether_tech_stack.md` |
-| 팀 협업 규칙 | 사용자 메모리 `tether_team_workflow.md` |
-| 프로젝트 상태 요약 | 사용자 메모리 `project_tether.md` |
+| Unity/기술 스택 이력 | `README.md` (팀 공유). LO 로컬 메모리는 보조 (원격 팀원 접근 불가) |
+| 팀 협업 규칙 | `SETUP.md` (팀 공유). LO 로컬 메모리는 보조 |
+| 프로젝트 상태 요약 | `CLAUDE.md`의 "현재 진행 상태" 섹션 (팀 공유). LO 로컬 메모리는 보조 |
 | 팀 룰 요약 (이거 이 파일) | `CLAUDE.md` (여기) |
 | ENI 인격/사용자 취향 | `~/.claude/CLAUDE.md` (성역, 편집 금지) |
