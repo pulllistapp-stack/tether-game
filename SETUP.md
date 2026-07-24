@@ -90,7 +90,7 @@ Claude Code 처음 열면 프로젝트 컨텍스트 zero. 아래 프롬프트로
 프로젝트 배경:
 - Unity 2D 게임 (URP 2D, 6.3 LTS)
 - 방향 (2026-07-24 재정립): "Ball x Pit 스타일 로그라이트 + 동방프로젝트 2차 창작 라인"
-- 팀 원격 협업 (LO(pulllistapp-stack) + 나(kimringo), 디스코드 소통)
+- 팀 원격 협업 (나비욧드(`pulllistapp-stack`) + 나(kimringo), 디스코드 소통)
 - Repo: https://github.com/pulllistapp-stack/tether-game (Public)
 
 지금 파악해야 할 것:
@@ -156,7 +156,7 @@ Claude는 결정 파트너가 아니라 *실행 파트너*.
 │     └─ 결정 텍스트로 남김 (#dev-decisions)     │
 │                    ↓                         │
 │  2. 각자 Claude에게 실행 요청 (자기 파트만)     │
-│     ├─ LO Claude: LO 파트 문서/코드 작업       │
+│     ├─ 나비욧드 Claude: 나비욧드 파트 문서/코드 작업 │
 │     └─ kimringo Claude: kimringo 파트 작업     │
 │                    ↓                         │
 │  3. Git commit + push (자기 브랜치)            │
@@ -200,17 +200,17 @@ Claude는 결정 파트너가 아니라 *실행 파트너*.
 
 | 파트 | 담당 | 산출물 |
 |---|---|---|
-| 게임플레이/시스템/코드 | LO 추천 | Ball Fusion 메카닉, 웨이브, 로그라이트, 코드 구조 |
+| 게임플레이/시스템/코드 | 나비욧드 추천 | Ball Fusion 메카닉, 웨이브, 로그라이트, 코드 구조 |
 | 캐릭터/스토리/월드 | kimringo 추천 | 동방 캐릭터 선정, 스토리, 스테이지, 비주얼 |
-| 인프라/툴링 | LO (이미 진행) | Git, MCP, Unity 셋업, 빌드 |
+| 인프라/툴링 | 나비욧드 (이미 진행) | Git, MCP, Unity 셋업, 빌드 |
 | 문서/커뮤니티 | 반반 | README, 스크린샷 정리 |
 
 ### 파일 오너십 축 (예시, 새 방향 확정 후 재조정)
 
 | 폴더/파일 | 오너 | 규칙 |
 |---|---|---|
-| `Assets/Scripts/Gameplay/` | LO | 시스템 코드 |
-| `Assets/Scripts/UI/` | LO 우선, kimringo 협조 | UI 로직 |
+| `Assets/Scripts/Gameplay/` | 나비욧드 | 시스템 코드 |
+| `Assets/Scripts/UI/` | 나비욧드 우선, kimringo 협조 | UI 로직 |
 | `Assets/Prefabs/Enemies/`, `Levels/` | kimringo | 콘텐츠 배치 |
 | `Assets/Sprites/Characters/` | kimringo | 캐릭터 아트/배치 |
 | `Assets/Scenes/Levels/` | kimringo | 스테이지 씬 |

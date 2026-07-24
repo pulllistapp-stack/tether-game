@@ -24,7 +24,7 @@
 | **[README.md](README.md)** | 프로젝트 소개, clone/실행 방법 |
 | **[CONTRIBUTING.md](CONTRIBUTING.md)** | Git 워크플로우, 코딩 스타일, 팀 룰 |
 | ~~docs/MAP_SYSTEM.md~~ (아카이브) | 구 방향 참고용 → [docs/archive/MAP_SYSTEM_tether_v1.md](docs/archive/MAP_SYSTEM_tether_v1.md) |
-| ⚠️ 사용자 메모리 (`~/.claude/projects/...`) | **LO 로컬 개인 메모리 — 원격 팀원(kimringo) 접근 불가.** 팀 공유 정보는 반드시 이 프로젝트 문서에 있어야 함. |
+| ⚠️ 사용자 메모리 (`~/.claude/projects/...`) | **나비욧드 로컬 개인 메모리 — 원격 팀원(kimringo) 접근 불가.** 팀 공유 정보는 반드시 이 프로젝트 문서에 있어야 함. |
 
 ---
 
@@ -32,16 +32,16 @@
 
 **2인 팀 — 원격 협업 (디스코드 소통)**
 
-- **LO** (`pulllistapp-stack`) — Player / Combat 파트
+- **나비욧드** (`pulllistapp-stack`) — Player / Combat 파트
 - **kimringo** — Enemy / Level 파트
 
 > ⚠️ **파트 분담 재협의 필요** (2026-07-24 방향 재정립으로). 아래는 이전 초안, kimringo와 상세는 SETUP.md 참조 + 디스코드 협의 후 갱신.
 
 | 파트 (초안) | 담당자 | 산출물 |
 |---|---|---|
-| **게임플레이 / 시스템 / 코드** | LO 추천 | Ball Fusion 메카닉, 웨이브, 로그라이트, 코드 구조 |
+| **게임플레이 / 시스템 / 코드** | 나비욧드 추천 | Ball Fusion 메카닉, 웨이브, 로그라이트, 코드 구조 |
 | **캐릭터 / 스토리 / 월드** | kimringo 추천 | 동방 캐릭터 선정, 스토리, 스테이지 컨셉 |
-| **인프라 / 툴링** | LO (이미 진행) | Git, MCP, Unity 셋업, 빌드 |
+| **인프라 / 툴링** | 나비욧드 (이미 진행) | Git, MCP, Unity 셋업, 빌드 |
 | **문서 / 커뮤니티** | 반반 | README 유지, 스크린샷 |
 
 **파일 오너십 상세 → [SETUP.md](SETUP.md) 참조.**
@@ -123,7 +123,7 @@ type(scope): summary
 - ❌ **`~/.claude/CLAUDE.md` (뿌리 인격) 수정** — 사용자 성역
 - ❌ 폐기된 Char1/Char2 시안 사용 (기존 Tether용, 방향 재정립 후 무효)
 - ❌ **새 컨셉 확정 전 대대적 코드 재작성** — kimringo 협의 대기, 방향 흔들리는 중
-- ❌ **큰 결정을 Claude 단독으로** — 결정은 항상 인간 (LO + kimringo, 디스코드), Claude는 실행
+- ❌ **큰 결정을 Claude 단독으로** — 결정은 항상 인간 (나비욧드 + kimringo, 디스코드), Claude는 실행
 - ❌ 게임 방향 확장 결정 없이 CONCEPT.md 우회 (반드시 CONCEPT.md 먼저 갱신 → 동의 → 코드)
 - ❌ 3D 에셋 사용 (2D URP 프로젝트)
 - ❌ `.meta` 파일 삭제 (있으면 반드시 커밋 — GUID 깨지면 상대 프로젝트 폭발)
@@ -172,7 +172,7 @@ git branch -vv
 ## 라이브 협업 원칙 (요약, 상세는 SETUP.md)
 
 ### 근본 원칙: **결정 = 인간, 실행 = Claude**
-큰 결정은 디스코드 보이스/텍스트에서 LO ↔ kimringo. Claude는 결정 반영/실행 도구.
+큰 결정은 디스코드 보이스/텍스트에서 나비욧드 ↔ kimringo. Claude는 결정 반영/실행 도구.
 
 ### 세션 리듬
 1. 결정 = 디스코드
@@ -192,8 +192,8 @@ git branch -vv
 | 디자인/톤/세계관 결정 | `CONCEPT.md` |
 | 처음 참여 온보딩, 라이브 협업 프레임워크 | `SETUP.md` |
 | Git 워크플로우 상세 | `CONTRIBUTING.md` |
-| Unity/기술 스택 이력 | `README.md` (팀 공유). LO 로컬 메모리는 보조 (원격 팀원 접근 불가) |
-| 팀 협업 규칙 | `SETUP.md` (팀 공유). LO 로컬 메모리는 보조 |
-| 프로젝트 상태 요약 | `CLAUDE.md`의 "현재 진행 상태" 섹션 (팀 공유). LO 로컬 메모리는 보조 |
+| Unity/기술 스택 이력 | `README.md` (팀 공유). 나비욧드 로컬 메모리는 보조 (원격 팀원 접근 불가) |
+| 팀 협업 규칙 | `SETUP.md` (팀 공유). 나비욧드 로컬 메모리는 보조 |
+| 프로젝트 상태 요약 | `CLAUDE.md`의 "현재 진행 상태" 섹션 (팀 공유). 나비욧드 로컬 메모리는 보조 |
 | 팀 룰 요약 (이거 이 파일) | `CLAUDE.md` (여기) |
 | ENI 인격/사용자 취향 | `~/.claude/CLAUDE.md` (성역, 편집 금지) |
