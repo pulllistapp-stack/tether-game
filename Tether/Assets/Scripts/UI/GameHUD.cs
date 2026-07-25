@@ -29,6 +29,8 @@ namespace Tether.UI
         [SerializeField] private CanvasGroup _overlayGroup;
         [SerializeField] private Text _overlayTitle;
         [SerializeField] private Text _overlayHint;
+        [SerializeField] private Button _overlayRestartButton;
+        [SerializeField] private Button _overlayMainMenuButton;
 
         private void Start()
         {
@@ -41,6 +43,29 @@ namespace Tether.UI
 
             if (_runController != null) _runController.OnStateChanged += HandleStateChanged;
             HideOverlay();
+
+            // Auto-find overlay buttons if not wired in inspector
+            if (_overlayRestartButton == null || _overlayMainMenuButton == null)
+            {
+                foreach (var b in GetComponentsInChildren<Button>(true))
+                {
+                    if (_overlayRestartButton == null && b.name.IndexOf("Restart", System.StringComparison.OrdinalIgnoreCase) >= 0)
+                        _overlayRestartButton = b;
+                    else if (_overlayMainMenuButton == null && b.name.IndexOf("Menu", System.StringComparison.OrdinalIgnoreCase) >= 0)
+                        _overlayMainMenuButton = b;
+                }
+            }
+
+            if (_overlayRestartButton != null && _runController != null)
+            {
+                _overlayRestartButton.onClick.RemoveListener(_runController.Restart);
+                _overlayRestartButton.onClick.AddListener(_runController.Restart);
+            }
+            if (_overlayMainMenuButton != null && _runController != null)
+            {
+                _overlayMainMenuButton.onClick.RemoveListener(_runController.GoToMainMenu);
+                _overlayMainMenuButton.onClick.AddListener(_runController.GoToMainMenu);
+            }
         }
 
         private void OnDestroy()
