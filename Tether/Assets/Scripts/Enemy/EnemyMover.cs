@@ -24,6 +24,9 @@ namespace Tether.Enemy
         private Transform _playerTf;
         private float _sineSeedX;
         private float _spawnTime;
+        private float _floatY = 3.5f;
+        private float _floatBobAmp = 0.6f;
+        private float _floatDriftAmp = 2.5f;
 
         public void SetSpeedMultiplier(float mul) => _speedMultiplier = mul;
 
@@ -35,6 +38,9 @@ namespace Tether.Enemy
             _behavior = data.behavior;
             _sineAmplitude = data.sineAmplitude;
             _sineFrequency = data.sineFrequency;
+            _floatY = data.floatY;
+            _floatBobAmp = data.floatBobAmp;
+            _floatDriftAmp = data.floatDriftAmp;
         }
 
         private void Awake()
@@ -70,6 +76,17 @@ namespace Tether.Enemy
                     float targetX = _sineSeedX + Mathf.Sin(t * Mathf.PI * 2f * _sineFrequency) * _sineAmplitude;
                     float dx = Mathf.Clamp(targetX - pos.x, -1f, 1f);
                     velocity = new Vector2(dx * _fallSpeed * 2f, -_fallSpeed) * _speedMultiplier;
+                    break;
+                }
+
+                case EnemyBehavior.FloatSteady:
+                {
+                    float t = Time.time - _spawnTime;
+                    float targetY = _floatY + Mathf.Sin(t * 1.2f) * _floatBobAmp;
+                    float targetX = Mathf.Sin(t * 0.5f) * _floatDriftAmp;
+                    Vector2 target = new Vector2(targetX, targetY);
+                    Vector2 delta = target - pos;
+                    velocity = delta * 1.5f * _speedMultiplier;
                     break;
                 }
 

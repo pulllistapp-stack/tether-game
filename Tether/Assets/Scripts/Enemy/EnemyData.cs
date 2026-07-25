@@ -7,6 +7,7 @@ namespace Tether.Enemy
         FallHoming,   // baseline: drift down + horizontal homing
         FallStraight, // no homing (heavy tank)
         Sidewind,     // sine-wave horizontal weave while falling
+        FloatSteady,  // hovers around _floatY, bobs slowly (boss)
     }
 
     /// <summary>
@@ -32,5 +33,17 @@ namespace Tether.Enemy
         public float sineAmplitude = 1.5f;
         [Tooltip("Sidewind only: oscillations per second.")]
         public float sineFrequency = 0.6f;
+
+        [Header("FloatSteady (boss)")]
+        [Tooltip("Y position the boss hovers around.")]
+        public float floatY = 3.5f;
+        [Tooltip("Vertical bob amplitude.")]
+        public float floatBobAmp = 0.6f;
+        [Tooltip("Horizontal drift amplitude around center X.")]
+        public float floatDriftAmp = 2.5f;
+
+        [Header("Boss")]
+        [Tooltip("Marks this data as the run's boss — WaveSystem attaches BossBehavior at spawn.")]
+        public bool isBoss = false;
     }
 }

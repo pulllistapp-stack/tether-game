@@ -159,6 +159,9 @@ MonoBehaviour:
   _deathHitStop: 0.04
   _data: {fileID: 0}
   _sprite: {fileID: 133267072351613570}
+  _coinPrefab: {fileID: 1396317247528373398, guid: 77b7ab21824c5bb45a3d0ddee93f534c,
+    type: 3}
+  _coinValue: 1
 --- !u!50 &9199795054185324530
 Rigidbody2D:
   serializedVersion: 5

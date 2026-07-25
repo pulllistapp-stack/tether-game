@@ -101,6 +101,9 @@ namespace Tether.Systems
             }
         }
 
+        [Header("Boss")]
+        [SerializeField] private Enemy.EnemyData _bossMinionData;
+
         private void SpawnOne(Enemy.EnemyData data, float speedMul)
         {
             if (_enemyPrefab == null) return;
@@ -119,6 +122,11 @@ namespace Tether.Systems
             if (go.TryGetComponent<Enemy.EnemyMover>(out var mover))
             {
                 mover.SetSpeedMultiplier(speedMul <= 0f ? 1f : speedMul);
+            }
+            if (data != null && data.isBoss)
+            {
+                var boss = go.AddComponent<Enemy.BossBehavior>();
+                boss.Configure(_enemyPrefab, _bossMinionData != null ? _bossMinionData : data);
             }
         }
 

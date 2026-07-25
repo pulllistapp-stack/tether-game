@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 8890386425759770308}
   - component: {fileID: 4602866914691117465}
   - component: {fileID: 4008258808698691028}
+  - component: {fileID: 7873131266760739525}
+  - component: {fileID: 5156536097955900478}
   m_Layer: 13
   m_Name: Player
   m_TagString: Player
@@ -328,6 +330,46 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d9c778c1274bf6b438c9f6bc4217f69b, type: 2}
   - {fileID: 11400000, guid: fd50fa4d07e77074188cd33beda0de22, type: 2}
   _startIndex: 0
+--- !u!114 &7873131266760739525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237159654626511003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 834303fc1b5fced418f602cad8cabd84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tether.Player.PlayerDash
+  _dashKey: 32
+  _dashDistance: 3.2
+  _dashDuration: 0.16
+  _cooldown: 1.4
+  _minX: -5.5
+  _maxX: 5.5
+--- !u!114 &5156536097955900478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237159654626511003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c1cddce05181364bb6eda8adb736115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tether.Player.NovaBomb
+  _key: 101
+  _cooldown: 10
+  _radius: 4.5
+  _damage: 6
+  _enemyLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  _shake: 0.6
+  _hitStop: 0.06
+  _flashColor: {r: 0.6, g: 0.85, b: 1, a: 0.7}
 --- !u!1 &2282872535106983640
 GameObject:
   m_ObjectHideFlags: 0

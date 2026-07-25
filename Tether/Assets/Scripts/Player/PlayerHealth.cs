@@ -63,6 +63,12 @@ namespace Tether.Player
             Gizmos.DrawWireSphere(transform.position, _hitboxRadius);
         }
 
+        /// Force invuln on/off (used by dash). Independent of the flash coroutine.
+        public void SetInvulnerable(bool on)
+        {
+            IsInvulnerable = on;
+        }
+
         public void Heal(int amount)
         {
             if (IsDead || amount <= 0) return;

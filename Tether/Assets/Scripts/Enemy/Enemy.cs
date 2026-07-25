@@ -58,6 +58,7 @@ namespace Tether.Enemy
         private void Die()
         {
             OnDeath?.Invoke(this);
+            Meta.SceneEnemyListener.ReportDeath();
 
             if (CameraSystems.CameraShaker.Instance != null)
                 CameraSystems.CameraShaker.Instance.Shake(_deathShake);
@@ -65,8 +66,20 @@ namespace Tether.Enemy
                 Utility.HitStop.Instance.Freeze(_deathHitStop);
             Audio.AudioManager.Instance?.Play("enemy_die");
 
+            DropCoin();
             SpawnDeathParticles();
             Destroy(gameObject);
+        }
+
+        [Header("Loot")]
+        [SerializeField] private GameObject _coinPrefab;
+        [SerializeField] private int _coinValue = 1;
+
+        private void DropCoin()
+        {
+            if (_coinPrefab == null) return;
+            var c = Instantiate(_coinPrefab, transform.position, Quaternion.identity);
+            // (Coin.cs handles its own drift / magnet / pickup)
         }
 
         private void SpawnDeathParticles()
