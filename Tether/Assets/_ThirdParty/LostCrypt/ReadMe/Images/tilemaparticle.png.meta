@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: fc5b16f3021a4444e8932311cf90958b
+AssetOrigin:
+  serializedVersion: 1
+  productId: 158673
+  packageName: Lost Crypt - 2D Sample Project
+  packageVersion: 1.61
+  assetPath: Assets/ReadMe/Images/tilemaparticle.png
+  uploadId: 722352
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -154,10 +161,3 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 158673
-  packageName: Lost Crypt - 2D Sample Project
-  packageVersion: 1.61
-  assetPath: Assets/ReadMe/Images/tilemaparticle.png
-  uploadId: 722352
