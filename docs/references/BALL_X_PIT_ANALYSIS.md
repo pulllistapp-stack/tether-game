@@ -227,3 +227,120 @@ Level 3 볼 2개 → Fusion Reactor에서 융합
 - [Buildings Guide — Deltia's Gaming](https://deltiasgaming.com/ball-x-pit-buildings-guide/)
 - [Levels & Bosses Guide](https://ballxpit.wiki.gg/wiki/Levels)
 - [Wikipedia — Ball x Pit](https://en.wikipedia.org/wiki/Ball_x_Pit)
+
+---
+
+# Part 4 — 영상 시청 후 발견 (v2 update, 2026-07-24)
+
+> **출처**: Dry Bear의 "ULTIMATE Beginner's Guide" 영상 (17분) 시청 결과
+> **성격**: 웹 리서치로 못 잡았던 UX/시스템 발견들
+
+## ⭐ 캐릭터 조합 시스템 (Character Combo) — 큰 발견
+
+- **1 런 = 2 캐릭터 조합** (Primary + Secondary)
+- "Bring a Second Character?" 화면에서 페어 선택
+- 두 passive/base ball이 결합 → 완전히 다른 플레이
+- 예시 (영상에서 시연):
+  - **The Shade × The Embedded** = "볼이 뒤에서 발사 + 치명타 10% + 벽 도달까지 관통"
+
+**우리 프로젝트 매핑 (동방 특화)** — 이거 진짜 강력:
+- **동방은 커플/듀오/트리오가 원래 많음** — 팬 서비스 극대화
+- 매핑 후보:
+  - **레이무 × 마리사** (원작 짝꿍, 필수)
+  - **레미리아 × 플랑도르** (스카알렛 자매)
+  - **사쿠야 × 홍 메이링** (홍마관 동료)
+  - **유유코 × 요우무** (명계 주종)
+  - **알리스 × 마리사** (팬 인기)
+  - **유카리 × 란** (경계 & 시키가미)
+- **팬 서비스 밀도가 원작 오마주 관점에서 최고 지점**
+
+## Attributes 시스템 (스탯)
+
+캐릭터 정보 화면에 6개 스탯:
+- **Endurance** (내구)
+- **Strength** (힘)
+- **Leadership** (지도력)
+- **Speed** (속도)
+- **Dexterity** (민첩)
+- **Intelligence** (지력)
+
+Ball 데미지 계산 외에 캐릭터 스탯 시스템 존재. 우리 초기 분석에 없었던 요소.
+
+**우리 프로젝트 결정 필요**: 도입 여부. 도입 시 캐릭터별 개성 명확화. 미도입 시 Base Ball + passive만으로 차이 냄.
+
+## Baby balls vs Main balls (핵심 시스템)
+
+**Main balls** (기본):
+- **Boomerang 형태** — 나갔다가 돌아옴
+- **잡아야 함** (숙련도 요소!) — 못 잡으면 딜레이
+- 우리 게임에서: 나비욧드 강점 (숙련도 게임 필/타이밍)
+
+**Baby balls** (파생):
+- 여러 spawn 방법 (특정 볼/이벤트로)
+- **자유롭게 bounce & damage** — 잡을 필요 X
+- Vampire Survivors식 자동 공격 요소
+
+**빌드 개념 = 이 둘의 조합.** Main 위주 = 정밀 컨트롤, Baby 위주 = 자동 자원 확장.
+
+**우리 매핑**: 
+- Main = 캐릭터의 스펠카드 (원작 대표기)
+- Baby = 파생 탄막 (원작 부속 탄막)
+- 예: 마리사 Main = 마스터 스파크 / Baby = 별탄
+
+## Passives 시스템 (부적/유물)
+
+Fusion recipe와 별도로 **Passives 그리드 컬렉션** 존재:
+- Passives 화면에 여러 아이템 그리드 (한 페이지 4×5 = 20+)
+- 언락형 (일부는 ??? 표시)
+- Hollow Knight 부적 시스템과 유사
+
+**우리 프로젝트 매핑**: 우리 컨셉의 "유물 슬롯"이 이거. 확정.
+
+## In-match Level Up + 3-choice
+
+- Blue gem 수집 = XP
+- Level up 시 **3 offering** 선택 (item + ball 섞임)
+- **매 레벨업이 결정 순간** — 게임 리듬의 핵심
+- Vampire Survivors 라인 정확
+
+## 시각/UI 발견
+
+- **정면 세로 스크롤 아레나** — 우리 뷰 방향 확정 (변경 X)
+- **환경 다양성 (biome)** — 각 스테이지마다 색조/톤 명확
+- **홈베이스 UI (New Ballbylon)** — 격자 배치, 자원 4종 (Gold/Wheat/Wood/Stone) 상단 표시, 좌측 도구 버튼
+- **캐릭터 선택 UI** — 그리드 15+ 아이콘, 언락 %표시 (+20%, +25% 등)
+- **UI 톤** — Dark theme + Gold accent + Gothic. 우리 UI 참고 (근데 우리는 동방 톤 필요)
+
+---
+
+# Part 5 — 세션 논의 추가 항목 (v2, 캐릭터 조합 기반)
+
+기존 Part 2 매핑에 추가로:
+
+## 캐릭터 조합 시스템 도입 결정 (⭐ 핵심)
+
+**세션 아젠다 추가**:
+- 캐릭터 조합 시스템 채택 여부
+- 채택 시: 초기 로스터에 어떤 페어를 넣을지 (레이무×마리사 필수, 나머지는?)
+- Primary + Secondary 뜻이 우리 게임에서 뭐 (같이 싸움? 하나만 활성?)
+
+## Attributes 스탯 시스템 도입 결정
+
+- 도입 vs 스킵
+- 도입 시: 6개 그대로 vs 3~4개로 축소 (Simplicity)
+- 원작 캐릭터마다 스탯 다르게 (레이무는 균형, 마리사는 Intelligence 높음 등)
+
+## Baby ball 개념
+
+- Baby balls을 우리 게임 어디에 매핑?
+  - 동방 미니 탄막 (원작 스펠카드의 파생 탄)
+  - 별도 자동 공격 (완전 자동)
+- 초기엔 Main만? Baby도 넣기?
+
+---
+
+# Part 6 — 갱신 이력
+
+- **v1 (2026-07-24 초기)**: 웹 리서치 기반. Part 1~3.
+- **v2 (2026-07-24 오후)**: 영상 시청 발견 반영. Part 4~5 추가. 특히 캐릭터 조합 시스템 발견은 큰 함의.
+
