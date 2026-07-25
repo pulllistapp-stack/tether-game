@@ -3,25 +3,39 @@ using UnityEngine;
 namespace Tether.Enemy
 {
     /// <summary>
-    /// Phase 2 enemy AI. Drifts downward with slight horizontal homing on the player.
-    /// Requires Kinematic Rigidbody2D so it triggers overlap events on the Player.
+    /// Phase 3 config-driven mover. Reads EnemyData for behavior; falls back
+    /// to inspector defaults when no data is set. Requires Kinematic Rigidbody2D.
     /// </summary>
     [RequireComponent(typeof(Rigidbody2D))]
     public class EnemyMover : MonoBehaviour
     {
-        [Header("Speed")]
+        [Header("Fallback config")]
         [SerializeField] private float _fallSpeed = 0.6f;
-        [Tooltip("How strongly the enemy homes horizontally toward the player (0=no home, 1=snap).")]
         [Range(0f, 1f)]
         [SerializeField] private float _homingStrength = 0.25f;
+        [SerializeField] private EnemyBehavior _behavior = EnemyBehavior.FallHoming;
+        [SerializeField] private float _sineAmplitude = 1.5f;
+        [SerializeField] private float _sineFrequency = 0.6f;
 
-        [Header("Runtime scale (set by WaveSystem)")]
+        [Header("Runtime scaling (set by WaveSystem)")]
         [SerializeField] private float _speedMultiplier = 1f;
 
         private Rigidbody2D _rb;
         private Transform _playerTf;
+        private float _sineSeedX;
+        private float _spawnTime;
 
         public void SetSpeedMultiplier(float mul) => _speedMultiplier = mul;
+
+        public void ApplyData(EnemyData data)
+        {
+            if (data == null) return;
+            _fallSpeed = data.fallSpeed;
+            _homingStrength = data.homingStrength;
+            _behavior = data.behavior;
+            _sineAmplitude = data.sineAmplitude;
+            _sineFrequency = data.sineFrequency;
+        }
 
         private void Awake()
         {
@@ -29,6 +43,8 @@ namespace Tether.Enemy
             _rb.bodyType = RigidbodyType2D.Kinematic;
             _rb.gravityScale = 0f;
             _rb.freezeRotation = true;
+            _sineSeedX = transform.position.x;
+            _spawnTime = Time.time;
         }
 
         private void Start()
@@ -40,14 +56,33 @@ namespace Tether.Enemy
         private void FixedUpdate()
         {
             Vector2 pos = _rb.position;
+            Vector2 velocity;
 
-            float dx = 0f;
-            if (_playerTf != null)
+            switch (_behavior)
             {
-                dx = Mathf.Sign(_playerTf.position.x - pos.x) * _homingStrength;
+                case EnemyBehavior.FallStraight:
+                    velocity = Vector2.down * _fallSpeed * _speedMultiplier;
+                    break;
+
+                case EnemyBehavior.Sidewind:
+                {
+                    float t = Time.time - _spawnTime;
+                    float targetX = _sineSeedX + Mathf.Sin(t * Mathf.PI * 2f * _sineFrequency) * _sineAmplitude;
+                    float dx = Mathf.Clamp(targetX - pos.x, -1f, 1f);
+                    velocity = new Vector2(dx * _fallSpeed * 2f, -_fallSpeed) * _speedMultiplier;
+                    break;
+                }
+
+                default: // FallHoming
+                {
+                    float dx = 0f;
+                    if (_playerTf != null)
+                        dx = Mathf.Sign(_playerTf.position.x - pos.x) * _homingStrength;
+                    velocity = new Vector2(dx, -1f).normalized * _fallSpeed * _speedMultiplier;
+                    break;
+                }
             }
 
-            Vector2 velocity = new Vector2(dx, -1f).normalized * _fallSpeed * _speedMultiplier;
             _rb.MovePosition(pos + velocity * Time.fixedDeltaTime);
         }
     }

@@ -6,18 +6,28 @@ using System.Collections.Generic;
 namespace Tether.Systems
 {
     /// <summary>
-    /// Phase 2 wave system. Spawns a sequence of waves with scaling difficulty.
-    /// Waits for all enemies destroyed before advancing. Emits win event when done.
+    /// Phase 3 wave system. Each wave defines a mix of EnemyData + count.
+    /// Spawns are shuffled within a wave for visual variety. Waits for all
+    /// enemies destroyed before firing OnWaveCleared. Upgrade system can
+    /// pause with Time.timeScale to gate advancement between waves.
     /// </summary>
     public class WaveSystem : MonoBehaviour
     {
         [Serializable]
+        public struct WaveEnemyEntry
+        {
+            public Enemy.EnemyData data;
+            public int count;
+        }
+
+        [Serializable]
         public struct WaveDefinition
         {
-            public int enemyCount;
-            [Tooltip("Multiplier applied to enemy movement speed.")]
+            public string label;
+            public WaveEnemyEntry[] mix;
+            [Tooltip("Multiplier applied to enemy fall speed.")]
             public float enemySpeedMultiplier;
-            [Tooltip("Delay before the wave begins spawning.")]
+            [Tooltip("Delay before the wave begins spawning (real world seconds passed to WaitForSeconds; pauses if Time.timeScale = 0).")]
             public float startDelay;
             [Tooltip("Interval between individual spawns.")]
             public float spawnInterval;
@@ -29,14 +39,10 @@ namespace Tether.Systems
         [SerializeField] private Vector2 _spawnAreaMax = new Vector2(4f, 7f);
 
         [Header("Waves")]
-        [SerializeField] private WaveDefinition[] _waves = new WaveDefinition[] {
-            new WaveDefinition { enemyCount = 4, enemySpeedMultiplier = 1.0f, startDelay = 1.5f, spawnInterval = 0.35f },
-            new WaveDefinition { enemyCount = 6, enemySpeedMultiplier = 1.2f, startDelay = 2.5f, spawnInterval = 0.30f },
-            new WaveDefinition { enemyCount = 9, enemySpeedMultiplier = 1.4f, startDelay = 3.0f, spawnInterval = 0.25f },
-        };
+        [SerializeField] private WaveDefinition[] _waves = new WaveDefinition[0];
 
         public int CurrentWaveIndex { get; private set; } = -1;
-        public int TotalWaves => _waves.Length;
+        public int TotalWaves => _waves != null ? _waves.Length : 0;
         public int EnemiesAlive => _tracked.Count;
         public bool AllWavesCleared { get; private set; }
 
@@ -71,14 +77,23 @@ namespace Tether.Systems
             yield return new WaitForSeconds(w.startDelay);
             OnWaveStarted?.Invoke(index, _waves.Length);
 
-            for (int i = 0; i < w.enemyCount; i++)
+            // Build spawn list from mix, shuffle for variety
+            var spawnList = new List<Enemy.EnemyData>();
+            if (w.mix != null)
             {
-                SpawnOne(w.enemySpeedMultiplier);
+                foreach (var entry in w.mix)
+                    for (int k = 0; k < entry.count; k++)
+                        spawnList.Add(entry.data);
+            }
+            Shuffle(spawnList);
+
+            foreach (var data in spawnList)
+            {
+                SpawnOne(data, w.enemySpeedMultiplier);
                 if (w.spawnInterval > 0f)
                     yield return new WaitForSeconds(w.spawnInterval);
             }
 
-            // Wait until all tracked enemies are gone
             while (_tracked.Count > 0)
             {
                 _tracked.RemoveAll(e => e == null);
@@ -86,7 +101,7 @@ namespace Tether.Systems
             }
         }
 
-        private void SpawnOne(float speedMul)
+        private void SpawnOne(Enemy.EnemyData data, float speedMul)
         {
             if (_enemyPrefab == null) return;
 
@@ -97,18 +112,30 @@ namespace Tether.Systems
             var go = Instantiate(_enemyPrefab, pos, Quaternion.identity);
             if (go.TryGetComponent<Enemy.Enemy>(out var enemy))
             {
+                if (data != null) enemy.Configure(data);
                 _tracked.Add(enemy);
                 enemy.OnDeath += HandleEnemyDeath;
             }
             if (go.TryGetComponent<Enemy.EnemyMover>(out var mover))
             {
-                mover.SetSpeedMultiplier(speedMul);
+                mover.SetSpeedMultiplier(speedMul <= 0f ? 1f : speedMul);
             }
         }
 
         private void HandleEnemyDeath(Enemy.Enemy e)
         {
             _tracked.Remove(e);
+        }
+
+        private static void Shuffle<T>(IList<T> list)
+        {
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = UnityEngine.Random.Range(0, n + 1);
+                var tmp = list[k]; list[k] = list[n]; list[n] = tmp;
+            }
         }
 
         private void OnDrawGizmosSelected()

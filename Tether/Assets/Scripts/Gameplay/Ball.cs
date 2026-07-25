@@ -64,15 +64,29 @@ namespace Tether.Gameplay
                 );
                 _trail.colorGradient = grad;
             }
-            if (data.sizeMultiplier != 1f)
-                transform.localScale = Vector3.one * data.sizeMultiplier;
+            float sizeMul = data.sizeMultiplier * SizeUpgradeMul();
+            transform.localScale = Vector3.one * sizeMul;
         }
 
         public void Launch(Vector2 direction)
         {
             float speed = _data != null ? _data.speed : _speed;
+            speed *= SpeedUpgradeMul();
             _rb.linearVelocity = direction.normalized * speed;
         }
+
+        private float SpeedUpgradeMul() =>
+            Systems.UpgradeApplier.Instance != null ? Systems.UpgradeApplier.Instance.BallSpeedMul : 1f;
+        private float DamageUpgradeMul() =>
+            Systems.UpgradeApplier.Instance != null ? Systems.UpgradeApplier.Instance.BallDamageMul : 1f;
+        private float SizeUpgradeMul() =>
+            Systems.UpgradeApplier.Instance != null ? Systems.UpgradeApplier.Instance.BallSizeMul : 1f;
+        private float ExplosionRadiusUpgradeMul() =>
+            Systems.UpgradeApplier.Instance != null ? Systems.UpgradeApplier.Instance.ExplosionRadiusMul : 1f;
+        private int SplitCountUpgradeAdd() =>
+            Systems.UpgradeApplier.Instance != null ? Systems.UpgradeApplier.Instance.SplitCountAdd : 0;
+        private int SplitDepthUpgradeAdd() =>
+            Systems.UpgradeApplier.Instance != null ? Systems.UpgradeApplier.Instance.SplitDepthAdd : 0;
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
@@ -81,37 +95,41 @@ namespace Tether.Gameplay
             bool hitEnemy = collision.gameObject.TryGetComponent<Enemy.Enemy>(out var enemy);
             bool hitWall  = collision.gameObject.GetComponent<Wall>() != null;
 
-            float damage = _data != null ? _data.damage : _damage;
+            float damage = (_data != null ? _data.damage : _damage) * DamageUpgradeMul();
             if (hitEnemy) enemy.TakeDamage(damage);
 
             // Subtle screen shake on wall bounce for kinetic feel
             if (hitWall && CameraSystems.CameraShaker.Instance != null)
                 CameraSystems.CameraShaker.Instance.Shake(0.06f);
 
+            if (hitWall)  Audio.AudioManager.Instance?.Play("ball_bounce");
+            if (hitEnemy) Audio.AudioManager.Instance?.Play("ball_hit_enemy");
+
             // Behavior branches
             var behavior = _data != null ? _data.behavior : BallBehavior.Normal;
 
             if (behavior == BallBehavior.Explosive && hitEnemy && _data != null)
             {
+                float radius = _data.explosionRadius * ExplosionRadiusUpgradeMul();
                 var hits = Physics2D.OverlapCircleAll(
-                    collision.GetContact(0).point, _data.explosionRadius, _enemyLayers);
+                    collision.GetContact(0).point, radius, _enemyLayers);
                 foreach (var h in hits)
                 {
                     if (h.gameObject == collision.gameObject) continue;
                     if (h.TryGetComponent<Enemy.Enemy>(out var otherEnemy))
-                        otherEnemy.TakeDamage(_data.explosionDamage);
+                        otherEnemy.TakeDamage(_data.explosionDamage * DamageUpgradeMul());
                 }
-                // Small visual: could add particle here in polish pass
             }
 
-            if (behavior == BallBehavior.Split && hitWall && _data != null && _splitDepth < _data.splitMaxDepth)
+            int splitDepthLimit = (_data != null ? _data.splitMaxDepth : 0) + SplitDepthUpgradeAdd();
+            if (behavior == BallBehavior.Split && hitWall && _data != null && _splitDepth < splitDepthLimit)
             {
                 SpawnSplitChildren();
                 Destroy(gameObject);
                 return;
             }
 
-            float speedNow = _data != null ? _data.speed : _speed;
+            float speedNow = (_data != null ? _data.speed : _speed) * SpeedUpgradeMul();
             if (_preserveSpeedOnBounce)
             {
                 _rb.linearVelocity = _rb.linearVelocity.normalized * speedNow;
@@ -131,9 +149,10 @@ namespace Tether.Gameplay
             Vector2 baseDir = _rb.linearVelocity.normalized;
             if (baseDir == Vector2.zero) baseDir = Vector2.up;
 
-            for (int i = 0; i < _data.splitCount; i++)
+            int count = _data.splitCount + SplitCountUpgradeAdd();
+            for (int i = 0; i < count; i++)
             {
-                float t = _data.splitCount == 1 ? 0f : (float)i / (_data.splitCount - 1);
+                float t = count == 1 ? 0f : (float)i / (count - 1);
                 float angle = Mathf.Lerp(-_data.splitAngle, _data.splitAngle, t);
                 Vector2 dir = Quaternion.Euler(0f, 0f, angle) * baseDir;
 

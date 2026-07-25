@@ -4,26 +4,46 @@ using System;
 namespace Tether.Enemy
 {
     /// <summary>
-    /// Phase 1 baseline Enemy. HP + damage receiving + destroy on death.
-    /// Extended later with AI, movement patterns, wave rewards.
+    /// Baseline Enemy. Takes damage, dies with juice.
+    /// Phase 3: Configure(EnemyData) applies visuals, HP, and mover behavior.
     /// </summary>
     [RequireComponent(typeof(Collider2D))]
     public class Enemy : MonoBehaviour
     {
-        [Header("Stats")]
+        [Header("Fallback stats (used when EnemyData is null)")]
         [SerializeField] private float _maxHp = 5f;
 
         [Header("Feel (on death)")]
         [SerializeField] private float _deathShake = 0.4f;
         [SerializeField] private float _deathHitStop = 0.04f;
 
+        [Header("Runtime refs")]
+        [SerializeField] private EnemyData _data;
+        [SerializeField] private SpriteRenderer _sprite;
+
         public event Action<Enemy> OnDeath;
+        public EnemyData Data => _data;
 
         private float _currentHp;
 
         private void Awake()
         {
-            _currentHp = _maxHp;
+            if (_sprite == null) _sprite = GetComponent<SpriteRenderer>();
+            _currentHp = _data != null ? _data.maxHp : _maxHp;
+        }
+
+        public void Configure(EnemyData data)
+        {
+            _data = data;
+            if (data == null) return;
+
+            _currentHp = data.maxHp;
+            if (_sprite != null) _sprite.color = data.tintColor;
+            transform.localScale = Vector3.one * data.sizeMultiplier;
+
+            // Push movement config into EnemyMover if present
+            var mover = GetComponent<EnemyMover>();
+            if (mover != null) mover.ApplyData(data);
         }
 
         public void TakeDamage(float damage)
@@ -43,6 +63,7 @@ namespace Tether.Enemy
                 CameraSystems.CameraShaker.Instance.Shake(_deathShake);
             if (Utility.HitStop.Instance != null)
                 Utility.HitStop.Instance.Freeze(_deathHitStop);
+            Audio.AudioManager.Instance?.Play("enemy_die");
 
             SpawnDeathParticles();
             Destroy(gameObject);
@@ -50,8 +71,7 @@ namespace Tether.Enemy
 
         private void SpawnDeathParticles()
         {
-            var sr = GetComponent<SpriteRenderer>();
-            if (sr == null || sr.sprite == null) return;
+            if (_sprite == null || _sprite.sprite == null) return;
 
             const int count = 5;
             for (int i = 0; i < count; i++)
@@ -60,9 +80,9 @@ namespace Tether.Enemy
                 pGO.transform.position = transform.position;
                 pGO.transform.localScale = Vector3.one * 0.35f;
                 var psr = pGO.AddComponent<SpriteRenderer>();
-                psr.sprite = sr.sprite;
-                psr.color = sr.color;
-                psr.sortingOrder = sr.sortingOrder + 1;
+                psr.sprite = _sprite.sprite;
+                psr.color = _sprite.color;
+                psr.sortingOrder = _sprite.sortingOrder + 1;
                 var rb = pGO.AddComponent<Rigidbody2D>();
                 rb.gravityScale = 0f;
                 rb.linearDamping = 4f;

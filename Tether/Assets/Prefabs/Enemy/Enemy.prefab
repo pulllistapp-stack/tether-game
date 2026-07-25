@@ -155,6 +155,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tether.Enemy.Enemy
   _maxHp: 5
+  _deathShake: 0.4
+  _deathHitStop: 0.04
+  _data: {fileID: 0}
+  _sprite: {fileID: 133267072351613570}
 --- !u!50 &9199795054185324530
 Rigidbody2D:
   serializedVersion: 5
@@ -196,4 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tether.Enemy.EnemyMover
   _fallSpeed: 0.6
   _homingStrength: 0.25
+  _behavior: 0
+  _sineAmplitude: 1.5
+  _sineFrequency: 0.6
   _speedMultiplier: 1

@@ -63,6 +63,21 @@ namespace Tether.Player
             Gizmos.DrawWireSphere(transform.position, _hitboxRadius);
         }
 
+        public void Heal(int amount)
+        {
+            if (IsDead || amount <= 0) return;
+            CurrentHp = Mathf.Min(_maxHp, CurrentHp + amount);
+            OnDamaged?.Invoke(CurrentHp, _maxHp);
+        }
+
+        public void ExtendMaxHp(int add)
+        {
+            if (add <= 0) return;
+            _maxHp += add;
+            CurrentHp += add; // also grant the extra HP up-front
+            OnDamaged?.Invoke(CurrentHp, _maxHp);
+        }
+
         public void TakeDamage(int damage)
         {
             if (IsDead || IsInvulnerable) return;

@@ -68,18 +68,36 @@ namespace Tether.Player
 
         private void TryFire(Vector2 dir)
         {
-            if (Time.time - _lastFireTime < _fireCooldown) return;
+            float cooldownMul = Systems.UpgradeApplier.Instance != null
+                ? Systems.UpgradeApplier.Instance.FireCooldownMul : 1f;
+            int extras = Systems.UpgradeApplier.Instance != null
+                ? Systems.UpgradeApplier.Instance.ExtraProjectiles : 0;
+
+            if (Time.time - _lastFireTime < _fireCooldown * cooldownMul) return;
             if (_ballPrefab == null) return;
 
             _lastFireTime = Time.time;
 
+            Audio.AudioManager.Instance?.Play("ball_fire");
+
+            int total = 1 + Mathf.Max(0, extras);
+            const float spreadDegPerExtra = 8f;
+            float halfSpread = (total - 1) * spreadDegPerExtra * 0.5f;
+            for (int i = 0; i < total; i++)
+            {
+                float angleOffset = total == 1 ? 0f : -halfSpread + i * spreadDegPerExtra;
+                Vector2 shotDir = Quaternion.Euler(0f, 0f, angleOffset) * dir;
+                SpawnAndLaunchBall(shotDir);
+            }
+        }
+
+        private void SpawnAndLaunchBall(Vector2 dir)
+        {
             var ballObj = Instantiate(_ballPrefab, _firePoint.position, Quaternion.identity);
             if (ballObj.TryGetComponent<Gameplay.Ball>(out var ball))
             {
                 if (_slots != null && _slots.CurrentData != null)
-                {
                     ball.Configure(_slots.CurrentData);
-                }
                 ball.Launch(dir);
             }
         }
