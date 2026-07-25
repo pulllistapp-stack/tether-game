@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 56906e7ffd6614bb28718c99d65323b0
+AssetOrigin:
+  serializedVersion: 1
+  productId: 158673
+  packageName: Lost Crypt - 2D Sample Project
+  packageVersion: 1.61
+  assetPath: Assets/ReadMe/Images/icon 1.png
+  uploadId: 722352
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -154,10 +161,3 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 158673
-  packageName: Lost Crypt - 2D Sample Project
-  packageVersion: 1.61
-  assetPath: Assets/ReadMe/Images/icon 1.png
-  uploadId: 722352

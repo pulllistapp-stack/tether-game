@@ -58,6 +58,7 @@ Material:
     m_Floats: []
     m_Colors:
     - Color_353D90DF: {r: 0, g: 0, b: 0, a: 0}
+    - White: {r: 1, g: 1, b: 1, a: 1}
     - _FogColor: {r: 1, g: 1, b: 1, a: 0}
     - _TimeOfDay: {r: 1, g: 1, b: 1, a: 0}
     - _TintColor: {r: 0.7775454, g: 0.88446766, b: 0.9528302, a: 0.9411765}

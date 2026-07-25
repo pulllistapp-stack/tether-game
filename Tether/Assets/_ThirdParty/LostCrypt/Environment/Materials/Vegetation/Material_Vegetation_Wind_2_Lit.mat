@@ -59,6 +59,7 @@ Material:
     - Color_3C5F263D: {r: 1, g: 0.8718326, b: 0.33490568, a: 1}
     - RimColor: {r: 0.6415094, g: 0.5047918, b: 0.20274118, a: 1}
     - Vector2_AB971143: {r: 2, g: -0.2, b: 0, a: 0}
+    - White: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &5921051463182887925

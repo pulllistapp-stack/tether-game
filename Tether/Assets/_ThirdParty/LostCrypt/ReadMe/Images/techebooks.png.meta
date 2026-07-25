@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 7288b822d2fed434f82a211159a015f7
+AssetOrigin:
+  serializedVersion: 1
+  productId: 158673
+  packageName: Lost Crypt - 2D Sample Project
+  packageVersion: 1.61
+  assetPath: Assets/ReadMe/Images/techebooks.png
+  uploadId: 722352
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -94,7 +101,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: iPhone
+    buildTarget: iOS
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
@@ -120,7 +127,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: Windows Store Apps
+    buildTarget: WindowsStoreApps
     maxTextureSize: 8192
     resizeAlgorithm: 0
     textureFormat: -1
@@ -167,10 +174,3 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 158673
-  packageName: Lost Crypt - 2D Sample Project
-  packageVersion: 1.61
-  assetPath: Assets/ReadMe/Images/techebooks.png
-  uploadId: 722352
