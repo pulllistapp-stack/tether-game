@@ -3,8 +3,7 @@ using UnityEngine;
 namespace Tether.Player
 {
     /// <summary>
-    /// Phase 2 player movement. WASD / arrow keys → left-right strafe.
-    /// Position clamped to arena bounds so the player can't leave the play area.
+    /// Player movement. WASD / arrow keys → 8-way movement inside the arena.
     /// Uses Rigidbody2D.MovePosition when a Kinematic RB is present, else transform.
     /// </summary>
     public class PlayerMovement : MonoBehaviour
@@ -12,11 +11,11 @@ namespace Tether.Player
         [Header("Movement")]
         [SerializeField] private float _speed = 6f;
         [Tooltip("If true, allow vertical movement too; else strafe only.")]
-        [SerializeField] private bool _verticalMovement = false;
+        [SerializeField] private bool _verticalMovement = true;
 
         [Header("Bounds (world units)")]
         [SerializeField] private Vector2 _boundsMin = new Vector2(-5.5f, -7f);
-        [SerializeField] private Vector2 _boundsMax = new Vector2(5.5f, -3f);
+        [SerializeField] private Vector2 _boundsMax = new Vector2(5.5f, 6.5f);
 
         private Rigidbody2D _rb;
 

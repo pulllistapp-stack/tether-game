@@ -288,9 +288,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tether.Player.PlayerMovement
   _speed: 6
-  _verticalMovement: 0
+  _verticalMovement: 1
   _boundsMin: {x: -5.5, y: -7}
-  _boundsMax: {x: 5.5, y: -3}
+  _boundsMax: {x: 5.5, y: 6.5}
 --- !u!114 &4602866914691117465
 MonoBehaviour:
   m_ObjectHideFlags: 0

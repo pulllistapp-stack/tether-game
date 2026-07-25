@@ -180,6 +180,9 @@ MonoBehaviour:
   _enemyLayers:
     serializedVersion: 2
     m_Bits: 1024
+  _returnAfterBounces: 5
+  _returnSpeed: 14
+  _returnPickupRadius: 0.4
 --- !u!96 &8213475866595161068
 TrailRenderer:
   serializedVersion: 4

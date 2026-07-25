@@ -25,9 +25,18 @@ namespace Tether.Gameplay
         [Header("Enemy layer for AoE queries")]
         [SerializeField] private LayerMask _enemyLayers = ~0;
 
+        [Header("Return to Player")]
+        [Tooltip("After this many bounces the ball turns off collisions and homes back to the player, then disappears on arrival. -1 disables.")]
+        [SerializeField] private int _returnAfterBounces = 5;
+        [SerializeField] private float _returnSpeed = 14f;
+        [SerializeField] private float _returnPickupRadius = 0.4f;
+
         private Rigidbody2D _rb;
+        private Collider2D _collider;
         private int _bounceCount;
         private int _splitDepth;
+        private bool _returning;
+        private Transform _returnTarget;
 
         public BallData Data => _data;
 
@@ -36,11 +45,51 @@ namespace Tether.Gameplay
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
+            _collider = GetComponent<Collider2D>();
             _rb.gravityScale = 0f;
             _rb.linearDamping = 0f;
             _rb.freezeRotation = true;
             if (_sprite == null) _sprite = GetComponent<SpriteRenderer>();
             if (_trail == null)  _trail  = GetComponent<TrailRenderer>();
+        }
+
+        private void FixedUpdate()
+        {
+            if (!_returning) return;
+
+            if (_returnTarget == null)
+            {
+                var p = GameObject.FindGameObjectWithTag("Player");
+                if (p != null) _returnTarget = p.transform;
+                if (_returnTarget == null) { Destroy(gameObject); return; }
+            }
+
+            Vector2 pos = _rb.position;
+            Vector2 toPlayer = ((Vector2)_returnTarget.position - pos);
+            float dist = toPlayer.magnitude;
+            if (dist <= _returnPickupRadius) { Destroy(gameObject); return; }
+
+            Vector2 dir = toPlayer / Mathf.Max(0.001f, dist);
+            _rb.linearVelocity = dir * _returnSpeed;
+        }
+
+        private void EnterReturnMode()
+        {
+            _returning = true;
+            // Disable further bounce/hit interactions so the ball doesn't ricochet on the way home
+            if (_collider != null) _collider.enabled = false;
+            // Cool-down the trail alpha so the return arc reads differently
+            if (_trail != null)
+            {
+                var g = _trail.colorGradient;
+                var alphaKeys = new GradientAlphaKey[] {
+                    new GradientAlphaKey(0.35f, 0f),
+                    new GradientAlphaKey(0f, 1f)
+                };
+                var newG = new Gradient();
+                newG.SetKeys(g.colorKeys, alphaKeys);
+                _trail.colorGradient = newG;
+            }
         }
 
         public void Configure(BallData data)
@@ -139,6 +188,13 @@ namespace Tether.Gameplay
             if (maxB > 0 && _bounceCount >= maxB)
             {
                 Destroy(gameObject);
+                return;
+            }
+
+            // Return to player after N bounces (skips for Split children mid-tree to keep them lively)
+            if (_returnAfterBounces > 0 && _bounceCount >= _returnAfterBounces && !_returning)
+            {
+                EnterReturnMode();
             }
         }
 
