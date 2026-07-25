@@ -13,9 +13,12 @@ GameObject:
   - component: {fileID: 7818807837390506505}
   - component: {fileID: 773043743365730497}
   - component: {fileID: 3758234084044360371}
+  - component: {fileID: 8890386425759770308}
+  - component: {fileID: 4602866914691117465}
+  - component: {fileID: 4008258808698691028}
   m_Layer: 13
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -269,6 +272,62 @@ MonoBehaviour:
   _fireCooldown: 0.35
   _aimLine: {fileID: 773043743365730497}
   _aimLineLength: 2.5
+  _minAimY: 0.15
+--- !u!114 &8890386425759770308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237159654626511003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63929b3d5a90c3c4daee0923203e39ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tether.Player.PlayerMovement
+  _speed: 6
+  _verticalMovement: 0
+  _boundsMin: {x: -5.5, y: -7}
+  _boundsMax: {x: 5.5, y: -3}
+--- !u!114 &4602866914691117465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237159654626511003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1db0c126c2ae2284da4efe3ae19fd9cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tether.Player.PlayerHealth
+  _maxHp: 5
+  _contactDamage: 1
+  _invulnDuration: 0.7
+  _hitboxRadius: 0.35
+  _enemyLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  _flashRenderer: {fileID: 6892469988816336400}
+  _flashColor: {r: 1, g: 0.3, b: 0.3, a: 1}
+  _flashInterval: 0.08
+--- !u!114 &4008258808698691028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237159654626511003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e4a8ed6b45ed084aaee864f44dd6a0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Tether.Player.BallSlotManager
+  _slots:
+  - {fileID: 11400000, guid: 555a89d05f5a5294297307b000faa264, type: 2}
+  - {fileID: 11400000, guid: d9c778c1274bf6b438c9f6bc4217f69b, type: 2}
+  - {fileID: 11400000, guid: fd50fa4d07e77074188cd33beda0de22, type: 2}
+  _startIndex: 0
 --- !u!1 &2282872535106983640
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Arena/Arena_Test.unity
+    guid: 98757f1d155044b4dbfdb1270acc2bd7
+  - enabled: 1
     path: Assets/_ThirdParty/LostCrypt/Main.unity
     guid: a2b58d8c2e473104380da39b8eb2a7e5
   m_configObjects: {}

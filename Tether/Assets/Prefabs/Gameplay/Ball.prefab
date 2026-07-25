@@ -171,9 +171,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tether.Gameplay.Ball
   _speed: 12
-  _preserveSpeedOnBounce: 1
   _damage: 1
   _maxBounces: -1
+  _preserveSpeedOnBounce: 1
+  _data: {fileID: 0}
+  _sprite: {fileID: 1535753211721422527}
+  _trail: {fileID: 8213475866595161068}
+  _enemyLayers:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!96 &8213475866595161068
 TrailRenderer:
   serializedVersion: 4

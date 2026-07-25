@@ -3,27 +3,35 @@ using UnityEngine;
 namespace Tether.Gameplay
 {
     /// <summary>
-    /// Phase 1 baseline Ball. Bounces off walls/enemies via Rigidbody2D physics.
-    /// Deals damage on contact. Extended later for Fusion / Baby ball / Character combo.
+    /// Baseline Ball. Bounces off walls/enemies via Rigidbody2D physics.
+    /// Phase 2: reads optional BallData for speed/damage/color/behavior; falls
+    /// back to inspector defaults when no data is assigned.
     /// </summary>
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(Collider2D))]
     public class Ball : MonoBehaviour
     {
-        [Header("Physics")]
+        [Header("Fallback config (used when BallData is null)")]
         [SerializeField] private float _speed = 12f;
-        [Tooltip("If true, ball keeps constant speed after every bounce.")]
+        [SerializeField] private float _damage = 1f;
+        [SerializeField] private int _maxBounces = -1;
         [SerializeField] private bool _preserveSpeedOnBounce = true;
 
-        [Header("Combat")]
-        [SerializeField] private float _damage = 1f;
+        [Header("Runtime refs")]
+        [SerializeField] private BallData _data;
+        [SerializeField] private SpriteRenderer _sprite;
+        [SerializeField] private TrailRenderer _trail;
 
-        [Header("Lifetime")]
-        [Tooltip("-1 = infinite bounces until caught / lost.")]
-        [SerializeField] private int _maxBounces = -1;
+        [Header("Enemy layer for AoE queries")]
+        [SerializeField] private LayerMask _enemyLayers = ~0;
 
         private Rigidbody2D _rb;
         private int _bounceCount;
+        private int _splitDepth;
+
+        public BallData Data => _data;
+
+        public void SetSplitDepth(int depth) => _splitDepth = depth;
 
         private void Awake()
         {
@@ -31,30 +39,111 @@ namespace Tether.Gameplay
             _rb.gravityScale = 0f;
             _rb.linearDamping = 0f;
             _rb.freezeRotation = true;
+            if (_sprite == null) _sprite = GetComponent<SpriteRenderer>();
+            if (_trail == null)  _trail  = GetComponent<TrailRenderer>();
+        }
+
+        public void Configure(BallData data)
+        {
+            _data = data;
+            if (data == null) return;
+
+            if (_sprite != null) _sprite.color = data.tintColor;
+            if (_trail  != null)
+            {
+                var grad = new Gradient();
+                grad.SetKeys(
+                    new GradientColorKey[] {
+                        new GradientColorKey(data.tintColor, 0f),
+                        new GradientColorKey(data.tintColor * 0.7f, 1f)
+                    },
+                    new GradientAlphaKey[] {
+                        new GradientAlphaKey(0.85f, 0f),
+                        new GradientAlphaKey(0f, 1f)
+                    }
+                );
+                _trail.colorGradient = grad;
+            }
+            if (data.sizeMultiplier != 1f)
+                transform.localScale = Vector3.one * data.sizeMultiplier;
         }
 
         public void Launch(Vector2 direction)
         {
-            _rb.linearVelocity = direction.normalized * _speed;
+            float speed = _data != null ? _data.speed : _speed;
+            _rb.linearVelocity = direction.normalized * speed;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
             _bounceCount++;
 
-            if (collision.gameObject.TryGetComponent<Enemy.Enemy>(out var enemy))
+            bool hitEnemy = collision.gameObject.TryGetComponent<Enemy.Enemy>(out var enemy);
+            bool hitWall  = collision.gameObject.GetComponent<Wall>() != null;
+
+            float damage = _data != null ? _data.damage : _damage;
+            if (hitEnemy) enemy.TakeDamage(damage);
+
+            // Subtle screen shake on wall bounce for kinetic feel
+            if (hitWall && CameraSystems.CameraShaker.Instance != null)
+                CameraSystems.CameraShaker.Instance.Shake(0.06f);
+
+            // Behavior branches
+            var behavior = _data != null ? _data.behavior : BallBehavior.Normal;
+
+            if (behavior == BallBehavior.Explosive && hitEnemy && _data != null)
             {
-                enemy.TakeDamage(_damage);
+                var hits = Physics2D.OverlapCircleAll(
+                    collision.GetContact(0).point, _data.explosionRadius, _enemyLayers);
+                foreach (var h in hits)
+                {
+                    if (h.gameObject == collision.gameObject) continue;
+                    if (h.TryGetComponent<Enemy.Enemy>(out var otherEnemy))
+                        otherEnemy.TakeDamage(_data.explosionDamage);
+                }
+                // Small visual: could add particle here in polish pass
             }
 
+            if (behavior == BallBehavior.Split && hitWall && _data != null && _splitDepth < _data.splitMaxDepth)
+            {
+                SpawnSplitChildren();
+                Destroy(gameObject);
+                return;
+            }
+
+            float speedNow = _data != null ? _data.speed : _speed;
             if (_preserveSpeedOnBounce)
             {
-                _rb.linearVelocity = _rb.linearVelocity.normalized * _speed;
+                _rb.linearVelocity = _rb.linearVelocity.normalized * speedNow;
             }
 
-            if (_maxBounces > 0 && _bounceCount >= _maxBounces)
+            int maxB = _data != null ? _data.maxBounces : _maxBounces;
+            if (maxB > 0 && _bounceCount >= maxB)
             {
                 Destroy(gameObject);
+            }
+        }
+
+        private void SpawnSplitChildren()
+        {
+            if (_data == null) return;
+            var childData = _data.splitChild != null ? _data.splitChild : _data;
+            Vector2 baseDir = _rb.linearVelocity.normalized;
+            if (baseDir == Vector2.zero) baseDir = Vector2.up;
+
+            for (int i = 0; i < _data.splitCount; i++)
+            {
+                float t = _data.splitCount == 1 ? 0f : (float)i / (_data.splitCount - 1);
+                float angle = Mathf.Lerp(-_data.splitAngle, _data.splitAngle, t);
+                Vector2 dir = Quaternion.Euler(0f, 0f, angle) * baseDir;
+
+                var childObj = Instantiate(gameObject, transform.position, Quaternion.identity);
+                if (childObj.TryGetComponent<Ball>(out var childBall))
+                {
+                    childBall.SetSplitDepth(_splitDepth + 1);
+                    childBall.Configure(childData);
+                    childBall.Launch(dir);
+                }
             }
         }
     }

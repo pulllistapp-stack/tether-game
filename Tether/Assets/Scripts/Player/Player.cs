@@ -16,9 +16,13 @@ namespace Tether.Player
         [Header("Aim (optional visual)")]
         [SerializeField] private LineRenderer _aimLine;
         [SerializeField] private float _aimLineLength = 3f;
+        [Tooltip("Minimum Y component of aim direction (0..1). Clamps aim to upper hemisphere.")]
+        [Range(0f, 1f)]
+        [SerializeField] private float _minAimY = 0.15f;
 
         private Camera _camera;
         private float _lastFireTime;
+        private BallSlotManager _slots;
 
         private void Awake()
         {
@@ -27,6 +31,7 @@ namespace Tether.Player
             {
                 _firePoint = transform;
             }
+            _slots = GetComponent<BallSlotManager>();
         }
 
         private void Update()
@@ -44,7 +49,13 @@ namespace Tether.Player
         {
             Vector3 mouseWorld = _camera.ScreenToWorldPoint(Input.mousePosition);
             mouseWorld.z = 0f;
-            return ((Vector2)(mouseWorld - _firePoint.position)).normalized;
+            Vector2 dir = ((Vector2)(mouseWorld - _firePoint.position)).normalized;
+            if (dir.y < _minAimY)
+            {
+                dir.y = _minAimY;
+                dir = dir.normalized;
+            }
+            return dir;
         }
 
         private void UpdateAimLine(Vector2 dir)
@@ -65,6 +76,10 @@ namespace Tether.Player
             var ballObj = Instantiate(_ballPrefab, _firePoint.position, Quaternion.identity);
             if (ballObj.TryGetComponent<Gameplay.Ball>(out var ball))
             {
+                if (_slots != null && _slots.CurrentData != null)
+                {
+                    ball.Configure(_slots.CurrentData);
+                }
                 ball.Launch(dir);
             }
         }
