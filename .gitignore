@@ -10,6 +10,8 @@
 [Tt]ether/[Uu]ser[Ss]ettings/
 [Tt]ether/[Mm]emoryCaptures/
 [Tt]ether/[Rr]ecordings/
+[Tt]ether/[Aa]ssets/[Ss]creenshots/
+[Tt]ether/[Aa]ssets/[Ss]creenshots.meta
 
 # Asset meta data should NEVER be ignored
 !/[Tt]ether/[Aa]ssets/**/*.meta
