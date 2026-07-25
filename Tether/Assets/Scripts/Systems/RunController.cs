@@ -66,5 +66,13 @@ namespace Tether.Systems
             Time.timeScale = 1f;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+
+        [SerializeField] private string _mainMenuSceneName = "MainMenu";
+
+        public void GoToMainMenu()
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene(_mainMenuSceneName);
+        }
     }
 }
