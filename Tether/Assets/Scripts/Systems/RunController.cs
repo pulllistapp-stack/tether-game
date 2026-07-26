@@ -82,6 +82,9 @@ namespace Tether.Systems
         private void SetState(RunState s)
         {
             State = s;
+            // Freeze the world when the run is over so waves/balls don't keep
+            // ticking behind the overlay. Restart / GoToMainMenu reset to 1.
+            if (s != RunState.Playing) Time.timeScale = 0f;
             OnStateChanged?.Invoke(s);
         }
 

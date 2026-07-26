@@ -66,10 +66,20 @@ namespace Tether.UI
             }
         }
 
+        private Systems.RunController _runController;
+
         private void Update()
         {
             if (Input.GetKeyDown(_toggleKey))
             {
+                if (_runController == null)
+                    _runController = FindFirstObjectByType<Systems.RunController>();
+                // Don't pause-toggle when the run is already over — R / on-screen
+                // buttons own that flow and stacking overlays gets confusing.
+                if (_runController != null &&
+                    _runController.State != Systems.RunController.RunState.Playing)
+                    return;
+
                 if (IsPaused) Resume(); else Pause();
             }
         }

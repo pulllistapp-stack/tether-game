@@ -207,7 +207,8 @@ namespace Tether.UI
         {
             if (_overlayGroup == null) return;
             _overlayGroup.alpha = 1f;
-            _overlayGroup.blocksRaycasts = false;
+            _overlayGroup.blocksRaycasts = true;
+            _overlayGroup.interactable = true;
             if (_overlayTitle != null) _overlayTitle.text = title;
             if (_overlayHint  != null) _overlayHint.text  = hint;
         }
