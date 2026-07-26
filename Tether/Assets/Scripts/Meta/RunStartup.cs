@@ -39,6 +39,10 @@ namespace Tether.Meta
                     case ShopEffect.FasterNova:
                         if (nova != null) nova.ReduceCooldown(item.magnitude);
                         break;
+                    case ShopEffect.StartingRelic:
+                        if (item.relicToGrant != null && Systems.RelicSystem.Instance != null)
+                            Systems.RelicSystem.Instance.Grant(item.relicToGrant);
+                        break;
                 }
             }
         }

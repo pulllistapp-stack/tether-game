@@ -260,6 +260,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 563e4ee400eeefb4ebc413c496b95689, type: 2}
   - {fileID: 11400000, guid: 2577a62a5a3a7ac40902ed532ac20277, type: 2}
   - {fileID: 11400000, guid: e0d3a9a1170c607408ec9e162742e060, type: 2}
+  - {fileID: 11400000, guid: ceb0fc1d8b4ed1841a85925600e33de4, type: 2}
+  - {fileID: 11400000, guid: db9552387cb1fc94a84e730001ab216a, type: 2}
+  - {fileID: 11400000, guid: f02beb9a29f36414e8ab22373aab2938, type: 2}
 --- !u!225 &135614416
 CanvasGroup:
   m_ObjectHideFlags: 0

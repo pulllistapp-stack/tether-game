@@ -33,6 +33,8 @@ namespace Tether.Systems
             public float spawnInterval;
             [Tooltip("Enemies spawned side-by-side per row (evenly spaced across the spawn width). 0 or 1 = one at a time.")]
             public int rowSize;
+            [Tooltip("If true, only one entry (by weighted-random pick using count as weight) is spawned. Used for boss selection.")]
+            public bool pickOneFromMix;
         }
 
         [Header("Spawn")]
@@ -83,9 +85,25 @@ namespace Tether.Systems
             var spawnList = new List<Enemy.EnemyData>();
             if (w.mix != null)
             {
-                foreach (var entry in w.mix)
-                    for (int k = 0; k < entry.count; k++)
-                        spawnList.Add(entry.data);
+                if (w.pickOneFromMix)
+                {
+                    // Weighted pick: entry.count = weight
+                    int totalW = 0;
+                    foreach (var entry in w.mix) totalW += Mathf.Max(1, entry.count);
+                    int roll = UnityEngine.Random.Range(0, Mathf.Max(1, totalW));
+                    int running = 0;
+                    foreach (var entry in w.mix)
+                    {
+                        running += Mathf.Max(1, entry.count);
+                        if (roll < running) { spawnList.Add(entry.data); break; }
+                    }
+                }
+                else
+                {
+                    foreach (var entry in w.mix)
+                        for (int k = 0; k < entry.count; k++)
+                            spawnList.Add(entry.data);
+                }
             }
             Shuffle(spawnList);
 

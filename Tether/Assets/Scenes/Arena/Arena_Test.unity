@@ -1027,6 +1027,7 @@ MonoBehaviour:
     startDelay: 1.5
     spawnInterval: 1.2
     rowSize: 5
+    pickOneFromMix: 0
   - label: Wave 2
     mix:
     - data: {fileID: 11400000, guid: 4e2525a07cdc5fe48947d3b80ccdb13f, type: 2}
@@ -1041,6 +1042,7 @@ MonoBehaviour:
     startDelay: 2.5
     spawnInterval: 1.2
     rowSize: 4
+    pickOneFromMix: 0
   - label: Wave 3
     mix:
     - data: {fileID: 11400000, guid: 4e2525a07cdc5fe48947d3b80ccdb13f, type: 2}
@@ -1061,14 +1063,20 @@ MonoBehaviour:
     startDelay: 3
     spawnInterval: 1.1
     rowSize: 5
-  - label: "Wave 4 \u2014 BOSS"
+    pickOneFromMix: 0
+  - label: "Wave 4 \u2014 Scarlet Devil"
     mix:
-    - data: {fileID: 11400000, guid: ec8e37b67e4206844bd62d51b44e3f14, type: 2}
+    - data: {fileID: 11400000, guid: f985ccdf095e1a844ace0f91eb5e571e, type: 2}
+      count: 1
+    - data: {fileID: 11400000, guid: 566fad1d0474442448118affb6710a5b, type: 2}
+      count: 1
+    - data: {fileID: 11400000, guid: 8316f19562f7e9541b48580f4b6fc630, type: 2}
       count: 1
     enemySpeedMultiplier: 1
     startDelay: 3.5
     spawnInterval: 0
     rowSize: 0
+    pickOneFromMix: 1
   _bossMinionData: {fileID: 11400000, guid: 4e2525a07cdc5fe48947d3b80ccdb13f, type: 2}
   _enemyProjectilePrefab: {fileID: 609373263121856775, guid: 493e7c4544d611a438d0ae68c3a0570d,
     type: 3}
@@ -2428,6 +2436,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 563e4ee400eeefb4ebc413c496b95689, type: 2}
   - {fileID: 11400000, guid: 2577a62a5a3a7ac40902ed532ac20277, type: 2}
   - {fileID: 11400000, guid: e0d3a9a1170c607408ec9e162742e060, type: 2}
+  - {fileID: 11400000, guid: ceb0fc1d8b4ed1841a85925600e33de4, type: 2}
+  - {fileID: 11400000, guid: db9552387cb1fc94a84e730001ab216a, type: 2}
+  - {fileID: 11400000, guid: f02beb9a29f36414e8ab22373aab2938, type: 2}
 --- !u!4 &959084304
 Transform:
   m_ObjectHideFlags: 0

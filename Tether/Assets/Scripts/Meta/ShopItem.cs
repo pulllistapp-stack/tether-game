@@ -8,6 +8,7 @@ namespace Tether.Meta
         StartingHpBonus,  // +N max HP at run start
         StartingCoins,    // begin the run with N coins
         FasterNova,       // reduce nova cooldown by seconds
+        StartingRelic,    // grants a Relic at run start (Sakuya costume flavor)
     }
 
     /// <summary>
@@ -33,5 +34,7 @@ namespace Tether.Meta
         public float magnitude = 1f;
         [Tooltip("Ball data for UnlockBall effect.")]
         public Gameplay.BallData ballDataUnlock;
+        [Tooltip("Relic granted on run start for StartingRelic effect.")]
+        public Systems.Relic relicToGrant;
     }
 }
