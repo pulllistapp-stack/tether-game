@@ -9,6 +9,8 @@ namespace Tether.Gameplay
         Explosive,
         Piercing,
         Homing,
+        Lightning,
+        Freeze,
     }
 
     /// <summary>
@@ -55,5 +57,19 @@ namespace Tether.Gameplay
         public float homingTurnRate = 220f;
         [Tooltip("Max range for homing detection (world units).")]
         public float homingRange = 6f;
+
+        [Header("Lightning (Lightning-behavior only)")]
+        [Tooltip("Number of additional enemies zapped when a Lightning ball hits an enemy.")]
+        public int chainCount = 3;
+        [Tooltip("Search radius for chain targets (world units).")]
+        public float chainRange = 3.5f;
+        [Tooltip("Damage applied to each chained enemy (before upgrade multipliers).")]
+        public float chainDamage = 1f;
+
+        [Header("Freeze (Freeze-behavior only)")]
+        [Tooltip("How long the hit enemy is slowed (seconds).")]
+        public float freezeDuration = 2.5f;
+        [Tooltip("Speed multiplier applied while slowed (0.2 = 20% speed).")]
+        public float freezeSlowFactor = 0.15f;
     }
 }

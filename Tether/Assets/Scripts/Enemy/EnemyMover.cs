@@ -30,6 +30,38 @@ namespace Tether.Enemy
 
         public void SetSpeedMultiplier(float mul) => _speedMultiplier = mul;
 
+        private float _slowUntil = -1f;
+        private float _slowFactor = 1f;
+        private float _baseSpeedMultiplier;
+
+        /// <summary>Temporarily multiply this enemy's move speed by `factor` for `duration` seconds.
+        /// If a slow is already active, the stronger (lower factor) or later expiry wins.</summary>
+        public void ApplySlow(float duration, float factor)
+        {
+            if (duration <= 0f) return;
+            factor = Mathf.Clamp01(factor);
+            float newExpiry = Time.time + duration;
+
+            if (_slowUntil < 0f)
+            {
+                _baseSpeedMultiplier = _speedMultiplier;
+            }
+            if (factor < _slowFactor) _slowFactor = factor;
+            if (newExpiry > _slowUntil) _slowUntil = newExpiry;
+
+            _speedMultiplier = _baseSpeedMultiplier * _slowFactor;
+        }
+
+        private void Update()
+        {
+            if (_slowUntil > 0f && Time.time >= _slowUntil)
+            {
+                _speedMultiplier = _baseSpeedMultiplier;
+                _slowUntil = -1f;
+                _slowFactor = 1f;
+            }
+        }
+
         public void ApplyData(EnemyData data)
         {
             if (data == null) return;

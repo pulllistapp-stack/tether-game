@@ -25,6 +25,9 @@ namespace Tether.Systems
         public int PlayerMaxHpAdd { get; private set; } = 0;
         public int SplitCountAdd { get; private set; } = 0;
         public int SplitDepthAdd { get; private set; } = 0;
+        public int BounceExtensionAdd { get; private set; } = 0;
+        public int CoinPerKillAdd { get; private set; } = 0;
+        public int XpPerKillAdd { get; private set; } = 0;
 
         public event Action<UpgradeCard> OnUpgradeApplied;
 
@@ -59,6 +62,9 @@ namespace Tether.Systems
                 case UpgradeEffect.PlayerMaxHp:      PlayerMaxHpAdd += Mathf.RoundToInt(card.magnitude); break;
                 case UpgradeEffect.SplitCount:       SplitCountAdd += Mathf.RoundToInt(card.magnitude); break;
                 case UpgradeEffect.SplitDepth:       SplitDepthAdd += Mathf.RoundToInt(card.magnitude); break;
+                case UpgradeEffect.BounceExtension:  BounceExtensionAdd += Mathf.RoundToInt(card.magnitude); break;
+                case UpgradeEffect.CoinPerKill:      CoinPerKillAdd += Mathf.RoundToInt(card.magnitude); break;
+                case UpgradeEffect.XpPerKill:        XpPerKillAdd += Mathf.RoundToInt(card.magnitude); break;
 
                 case UpgradeEffect.PlayerHeal:
                 {

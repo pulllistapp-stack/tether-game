@@ -164,6 +164,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 775c540b60db85a4e86c9e5dff138528, type: 2}
   - {fileID: 11400000, guid: 73cfe63027a5d11408567be810eaf548, type: 2}
   - {fileID: 11400000, guid: 4eac1c29d0e8f00409188790c8574754, type: 2}
+  - {fileID: 11400000, guid: b196cd7d243ae094f9add5373aa822ac, type: 2}
+  - {fileID: 11400000, guid: a076eb6e0aed4bd4384b881a18c29778, type: 2}
+  - {fileID: 11400000, guid: 7eecfe980fab2bf43abc3dfe4b385b55, type: 2}
+  - {fileID: 11400000, guid: b937711a658f49b44b72c6174f83f3a9, type: 2}
+  - {fileID: 11400000, guid: 8611cb760de510449a47a7dfe11bd537, type: 2}
   _waveSystem: {fileID: 0}
   _applier: {fileID: 0}
   _ui: {fileID: 1142721505}
@@ -191,30 +196,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 737371501}
     m_Modifications:
+    - target: {fileID: 1094848185198783106, guid: 0a83490f656f2c844aaa268ad8a124c4,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1094848185198783106, guid: 0a83490f656f2c844aaa268ad8a124c4,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642133474557576844, guid: 0a83490f656f2c844aaa268ad8a124c4,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642133474557576844, guid: 0a83490f656f2c844aaa268ad8a124c4,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1642133474557576844, guid: 0a83490f656f2c844aaa268ad8a124c4,
         type: 3}
       propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1094848185198783106, guid: 0a83490f656f2c844aaa268ad8a124c4,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 1094848185198783106, guid: 0a83490f656f2c844aaa268ad8a124c4,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1642133474557576844, guid: 0a83490f656f2c844aaa268ad8a124c4,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 1642133474557576844, guid: 0a83490f656f2c844aaa268ad8a124c4,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1642133474557576844, guid: 0a83490f656f2c844aaa268ad8a124c4,
         type: 3}
@@ -902,6 +907,8 @@ MonoBehaviour:
       count: 2
     - data: {fileID: 11400000, guid: 53089452257c8ac4bb69c96935c1c251, type: 2}
       count: 1
+    - data: {fileID: 11400000, guid: f73b16332003a234d9758421468e9f2b, type: 2}
+      count: 1
     enemySpeedMultiplier: 1.1
     startDelay: 2.5
     spawnInterval: 1.2
@@ -918,6 +925,10 @@ MonoBehaviour:
       count: 2
     - data: {fileID: 11400000, guid: c78bdf884337b1a428859494d4448eb3, type: 2}
       count: 2
+    - data: {fileID: 11400000, guid: f73b16332003a234d9758421468e9f2b, type: 2}
+      count: 2
+    - data: {fileID: 11400000, guid: 5a787f6f35d00c845b03b8ab0f387ffd, type: 2}
+      count: 1
     enemySpeedMultiplier: 1.2
     startDelay: 3
     spawnInterval: 1.1
@@ -929,6 +940,7 @@ MonoBehaviour:
     enemySpeedMultiplier: 1
     startDelay: 3.5
     spawnInterval: 0
+    rowSize: 0
   _bossMinionData: {fileID: 11400000, guid: 4e2525a07cdc5fe48947d3b80ccdb13f, type: 2}
   _enemyProjectilePrefab: {fileID: 609373263121856775, guid: 493e7c4544d611a438d0ae68c3a0570d,
     type: 3}
@@ -2286,6 +2298,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 69473435c3652e24f9e2acd7764b289a, type: 2}
   - {fileID: 11400000, guid: 61ffb8c9a5de0bc4287ee2b1c4569cbf, type: 2}
   - {fileID: 11400000, guid: 563e4ee400eeefb4ebc413c496b95689, type: 2}
+  - {fileID: 11400000, guid: 2577a62a5a3a7ac40902ed532ac20277, type: 2}
+  - {fileID: 11400000, guid: e0d3a9a1170c607408ec9e162742e060, type: 2}
 --- !u!4 &959084304
 Transform:
   m_ObjectHideFlags: 0
@@ -3587,7 +3601,7 @@ MonoBehaviour:
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 64
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1

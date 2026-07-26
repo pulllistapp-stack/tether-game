@@ -65,5 +65,18 @@ namespace Tether.Enemy
         public bool isSplitter = false;
         public EnemyData splitInto;
         public int splitCount = 2;
+
+        [Header("Teleporter")]
+        [Tooltip("If true, blinks to a new random X position on cadence.")]
+        public bool isTeleporter = false;
+        public float teleportInterval = 2.5f;
+        public float teleportRangeX = 4f;
+
+        [Header("Healer")]
+        [Tooltip("If true, periodically heals nearby enemies within radius.")]
+        public bool isHealer = false;
+        public float healInterval = 3f;
+        public float healRadius = 2.5f;
+        public float healAmount = 2f;
     }
 }

@@ -45,10 +45,11 @@ namespace Tether.UI
             if (_runController != null) _runController.OnStateChanged += HandleStateChanged;
             HideOverlay();
 
-            // Auto-find overlay buttons if not wired in inspector
-            if (_overlayRestartButton == null || _overlayMainMenuButton == null)
+            // Auto-find overlay buttons if not wired in inspector — scope search to the
+            // overlay's own subtree so we don't accidentally grab Pause modal buttons.
+            if ((_overlayRestartButton == null || _overlayMainMenuButton == null) && _overlayGroup != null)
             {
-                foreach (var b in GetComponentsInChildren<Button>(true))
+                foreach (var b in _overlayGroup.GetComponentsInChildren<Button>(true))
                 {
                     if (_overlayRestartButton == null && b.name.IndexOf("Restart", System.StringComparison.OrdinalIgnoreCase) >= 0)
                         _overlayRestartButton = b;

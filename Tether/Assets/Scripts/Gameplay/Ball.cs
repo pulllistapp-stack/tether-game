@@ -189,6 +189,8 @@ namespace Tether.Gameplay
             Systems.UpgradeApplier.Instance != null ? Systems.UpgradeApplier.Instance.SplitCountAdd : 0;
         private int SplitDepthUpgradeAdd() =>
             Systems.UpgradeApplier.Instance != null ? Systems.UpgradeApplier.Instance.SplitDepthAdd : 0;
+        private int BounceExtensionUpgradeAdd() =>
+            Systems.UpgradeApplier.Instance != null ? Systems.UpgradeApplier.Instance.BounceExtensionAdd : 0;
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
@@ -234,6 +236,34 @@ namespace Tether.Gameplay
                 }
             }
 
+            // Lightning: chain damage to N nearest enemies within range on hit
+            if (behavior == BallBehavior.Lightning && hitEnemy && _data != null)
+            {
+                var hits = Physics2D.OverlapCircleAll(
+                    enemy.transform.position, _data.chainRange, _enemyLayers);
+                int hopped = 0;
+                foreach (var h in hits)
+                {
+                    if (hopped >= _data.chainCount) break;
+                    if (h.gameObject == enemy.gameObject) continue;
+                    if (h.TryGetComponent<Enemy.Enemy>(out var chained))
+                    {
+                        chained.TakeDamage(_data.chainDamage * DamageUpgradeMul());
+                        hopped++;
+                    }
+                }
+                Audio.AudioManager.Instance?.Play("ball_hit_enemy", 0.7f, 0.06f);
+            }
+
+            // Freeze: slow the hit enemy briefly
+            if (behavior == BallBehavior.Freeze && hitEnemy && _data != null)
+            {
+                var mover = enemy.GetComponent<Enemy.EnemyMover>();
+                if (mover != null) mover.ApplySlow(_data.freezeDuration, _data.freezeSlowFactor);
+                var sr = enemy.GetComponent<SpriteRenderer>();
+                if (sr != null) sr.color = Color.Lerp(sr.color, new Color(0.6f, 0.85f, 1f), 0.45f);
+            }
+
             int splitDepthLimit = (_data != null ? _data.splitMaxDepth : 0) + SplitDepthUpgradeAdd();
             if (behavior == BallBehavior.Split && hitWall && _data != null && _splitDepth < splitDepthLimit)
             {
@@ -261,7 +291,8 @@ namespace Tether.Gameplay
                 }
 
                 // Return to player after N bounces (skips for Split children mid-tree to keep them lively)
-                if (_returnAfterBounces > 0 && _bounceCount >= _returnAfterBounces && !_returning)
+                int bounceCap = _returnAfterBounces + BounceExtensionUpgradeAdd();
+                if (bounceCap > 0 && _bounceCount >= bounceCap && !_returning)
                 {
                     EnterReturnMode();
                 }

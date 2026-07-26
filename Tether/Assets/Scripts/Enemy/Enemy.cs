@@ -55,6 +55,12 @@ namespace Tether.Enemy
             }
         }
 
+        public void Heal(float amount)
+        {
+            float max = _data != null ? _data.maxHp : _maxHp;
+            _currentHp = Mathf.Min(max, _currentHp + Mathf.Abs(amount));
+        }
+
         private void Die()
         {
             OnDeath?.Invoke(this);
@@ -92,7 +98,9 @@ namespace Tether.Enemy
         private void DropCoin()
         {
             if (_coinPrefab == null) return;
-            int coinCount = _data != null ? _data.coinReward : _coinValue;
+            int baseCount = _data != null ? _data.coinReward : _coinValue;
+            int bonus = Systems.UpgradeApplier.Instance != null ? Systems.UpgradeApplier.Instance.CoinPerKillAdd : 0;
+            int coinCount = Mathf.Max(0, baseCount + bonus);
             for (int i = 0; i < coinCount; i++)
             {
                 Vector2 offset = coinCount > 1
@@ -105,7 +113,9 @@ namespace Tether.Enemy
         private void DropXpOrb()
         {
             if (_xpOrbPrefab == null) return;
-            int xp = _data != null ? _data.xpReward : 1;
+            int baseXp = _data != null ? _data.xpReward : 1;
+            int bonus = Systems.UpgradeApplier.Instance != null ? Systems.UpgradeApplier.Instance.XpPerKillAdd : 0;
+            int xp = Mathf.Max(0, baseXp + bonus);
             if (xp <= 0) return;
 
             var go = Instantiate(_xpOrbPrefab, transform.position, Quaternion.identity);

@@ -155,6 +155,16 @@ namespace Tether.Systems
                 var shooter = go.AddComponent<Enemy.RangedShooterBehavior>();
                 shooter.Configure(_enemyProjectilePrefab, data);
             }
+            if (data.isTeleporter)
+            {
+                var tp = go.AddComponent<Enemy.TeleporterBehavior>();
+                tp.Configure(data);
+            }
+            if (data.isHealer)
+            {
+                var heal = go.AddComponent<Enemy.HealerBehavior>();
+                heal.Configure(data);
+            }
         }
 
         private void SpawnOne(Enemy.EnemyData data, float speedMul)

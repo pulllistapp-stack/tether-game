@@ -14,6 +14,9 @@ namespace Tether.Systems
         ExplosionRadius,     // multiplier (Explosive only)
         SplitCount,          // additive int (Split only)
         SplitDepth,          // additive int (Split only)
+        BounceExtension,     // additive int (adds to ball _returnAfterBounces)
+        CoinPerKill,         // additive int (bonus coins per enemy death)
+        XpPerKill,           // additive int (bonus XP per enemy death)
     }
 
     /// <summary>
