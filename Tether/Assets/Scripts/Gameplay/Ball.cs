@@ -91,7 +91,8 @@ namespace Tether.Gameplay
                 return;
             }
 
-            // Homing behavior: gently turn toward the nearest enemy in range
+            // Homing behavior: turn toward the nearest enemy every fixed step.
+            // Range check gated only when homingRange > 0; 0 means arena-wide.
             if (_data != null && _data.behavior == BallBehavior.Homing)
             {
                 Vector2 vel = _rb.linearVelocity;
@@ -101,7 +102,8 @@ namespace Tether.Gameplay
                 if (target == null) return;
 
                 Vector2 toTarget = ((Vector2)target.position - _rb.position);
-                if (toTarget.sqrMagnitude > _data.homingRange * _data.homingRange) return;
+                if (_data.homingRange > 0f &&
+                    toTarget.sqrMagnitude > _data.homingRange * _data.homingRange) return;
 
                 float currentAngle = Mathf.Atan2(vel.y, vel.x) * Mathf.Rad2Deg;
                 float desiredAngle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
@@ -262,6 +264,7 @@ namespace Tether.Gameplay
                 var hits = Physics2D.OverlapCircleAll(
                     enemy.transform.position, _data.chainRange, _enemyLayers);
                 int hopped = 0;
+                Vector3 arcFrom = enemy.transform.position;
                 foreach (var h in hits)
                 {
                     if (hopped >= _data.chainCount) break;
@@ -269,6 +272,8 @@ namespace Tether.Gameplay
                     if (h.TryGetComponent<Enemy.Enemy>(out var chained))
                     {
                         chained.TakeDamage(_data.chainDamage * DamageUpgradeMul());
+                        SpawnLightningArc(arcFrom, chained.transform.position);
+                        arcFrom = chained.transform.position;
                         hopped++;
                     }
                 }
@@ -317,6 +322,29 @@ namespace Tether.Gameplay
                     EnterReturnMode();
                 }
             }
+        }
+
+        private void SpawnLightningArc(Vector3 from, Vector3 to)
+        {
+            var go = new GameObject("LightningArc");
+            go.transform.position = from;
+            var lr = go.AddComponent<LineRenderer>();
+            lr.positionCount = 2;
+            lr.SetPosition(0, from);
+            lr.SetPosition(1, to);
+            lr.startWidth = 0.12f;
+            lr.endWidth = 0.05f;
+            lr.numCapVertices = 2;
+            lr.sortingOrder = 15;
+            lr.material = new Material(Shader.Find("Sprites/Default"));
+            var grad = new Gradient();
+            var c = new Color(0.75f, 0.95f, 1f);
+            grad.SetKeys(
+                new GradientColorKey[] { new GradientColorKey(c, 0f), new GradientColorKey(c, 1f) },
+                new GradientAlphaKey[] { new GradientAlphaKey(1f, 0f), new GradientAlphaKey(0f, 1f) }
+            );
+            lr.colorGradient = grad;
+            go.AddComponent<Utility.LightningArcFade>();
         }
 
         private void SpawnKniveChildren()

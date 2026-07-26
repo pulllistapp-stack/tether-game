@@ -26,5 +26,10 @@ MonoBehaviour:
   splitMaxDepth: 1
   explosionRadius: 1.2
   explosionDamage: 1
-  homingTurnRate: 240
-  homingRange: 8
+  homingTurnRate: 320
+  homingRange: 0
+  chainCount: 3
+  chainRange: 3.5
+  chainDamage: 1
+  freezeDuration: 2.5
+  freezeSlowFactor: 0.15
