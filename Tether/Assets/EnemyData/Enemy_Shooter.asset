@@ -10,27 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9afded11a797c974fb6bff5601894ea9, type: 3}
-  m_Name: Enemy_Tank
+  m_Name: Enemy_Shooter
   m_EditorClassIdentifier: Assembly-CSharp::Tether.Enemy.EnemyData
-  displayName: Tank
-  tintColor: {r: 0.55, g: 0.15, b: 0.25, a: 1}
-  sizeMultiplier: 1.6
-  maxHp: 15
+  displayName: Shooter
+  tintColor: {r: 0.35, g: 0.85, b: 0.55, a: 1}
+  sizeMultiplier: 1.1
+  maxHp: 6
   behavior: 1
   fallSpeed: 0.35
-  homingStrength: 0
+  homingStrength: 0.25
   sineAmplitude: 1.5
   sineFrequency: 0.6
   floatY: 3.5
   floatBobAmp: 0.6
   floatDriftAmp: 2.5
   isBoss: 0
-  xpReward: 3
-  coinReward: 3
-  isRangedShooter: 0
-  shootInterval: 2.2
-  shootStartDelay: 1.4
-  projectileSpeed: 5
+  xpReward: 2
+  coinReward: 2
+  isRangedShooter: 1
+  shootInterval: 2.4
+  shootStartDelay: 1.5
+  projectileSpeed: 5.5
   projectileDamage: 1
   isSplitter: 0
   splitInto: {fileID: 0}

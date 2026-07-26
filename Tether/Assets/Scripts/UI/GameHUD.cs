@@ -26,6 +26,7 @@ namespace Tether.UI
         [SerializeField] private Text _comboLabel;
         [SerializeField] private Text _dashLabel;
         [SerializeField] private Text _novaLabel;
+        [SerializeField] private Text _levelLabel;
         [SerializeField] private CanvasGroup _overlayGroup;
         [SerializeField] private Text _overlayTitle;
         [SerializeField] private Text _overlayHint;
@@ -109,6 +110,12 @@ namespace Tether.UI
 
             if (_novaLabel != null && _nova != null)
                 _novaLabel.text = _nova.IsReady ? "NOVA  <e>" : "NOVA  " + Mathf.Max(0f, _nova.Cooldown - _nova.TimeSinceLastFire).ToString("F1") + "s";
+
+            if (_levelLabel != null && Meta.LevelSystem.Instance != null)
+            {
+                var ls = Meta.LevelSystem.Instance;
+                _levelLabel.text = "LVL " + ls.Level + "  (" + ls.CurrentXp + "/" + ls.XpToNext + ")";
+            }
         }
 
         private void HandleStateChanged(Systems.RunController.RunState s)

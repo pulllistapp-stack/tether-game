@@ -67,19 +67,49 @@ namespace Tether.Enemy
             Audio.AudioManager.Instance?.Play("enemy_die");
 
             DropCoin();
+            DropXpOrb();
+            SpawnSplitChildrenIfSplitter();
             SpawnDeathParticles();
             Destroy(gameObject);
+        }
+
+        private void SpawnSplitChildrenIfSplitter()
+        {
+            if (_data == null || !_data.isSplitter) return;
+            if (_data.splitInto == null) return;
+
+            var wave = FindFirstObjectByType<Systems.WaveSystem>();
+            if (wave == null) return;
+
+            wave.SpawnExtra(_data.splitInto, _data.splitCount, transform.position);
         }
 
         [Header("Loot")]
         [SerializeField] private GameObject _coinPrefab;
         [SerializeField] private int _coinValue = 1;
+        [SerializeField] private GameObject _xpOrbPrefab;
 
         private void DropCoin()
         {
             if (_coinPrefab == null) return;
-            var c = Instantiate(_coinPrefab, transform.position, Quaternion.identity);
-            // (Coin.cs handles its own drift / magnet / pickup)
+            int coinCount = _data != null ? _data.coinReward : _coinValue;
+            for (int i = 0; i < coinCount; i++)
+            {
+                Vector2 offset = coinCount > 1
+                    ? new Vector2(UnityEngine.Random.Range(-0.3f, 0.3f), UnityEngine.Random.Range(-0.3f, 0.3f))
+                    : Vector2.zero;
+                Instantiate(_coinPrefab, (Vector2)transform.position + offset, Quaternion.identity);
+            }
+        }
+
+        private void DropXpOrb()
+        {
+            if (_xpOrbPrefab == null) return;
+            int xp = _data != null ? _data.xpReward : 1;
+            if (xp <= 0) return;
+
+            var go = Instantiate(_xpOrbPrefab, transform.position, Quaternion.identity);
+            if (go.TryGetComponent<Meta.XpOrb>(out var orb)) orb.SetValue(xp);
         }
 
         private void SpawnDeathParticles()

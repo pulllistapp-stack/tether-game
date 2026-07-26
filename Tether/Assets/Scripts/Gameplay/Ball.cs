@@ -37,6 +37,7 @@ namespace Tether.Gameplay
         private int _splitDepth;
         private bool _returning;
         private Transform _returnTarget;
+        private Vector2 _prevVelocity;
 
         public BallData Data => _data;
 
@@ -55,22 +56,60 @@ namespace Tether.Gameplay
 
         private void FixedUpdate()
         {
-            if (!_returning) return;
+            _prevVelocity = _rb.linearVelocity;
 
-            if (_returnTarget == null)
+            if (_returning)
             {
-                var p = GameObject.FindGameObjectWithTag("Player");
-                if (p != null) _returnTarget = p.transform;
-                if (_returnTarget == null) { Destroy(gameObject); return; }
+                if (_returnTarget == null)
+                {
+                    var p = GameObject.FindGameObjectWithTag("Player");
+                    if (p != null) _returnTarget = p.transform;
+                    if (_returnTarget == null) { Destroy(gameObject); return; }
+                }
+
+                Vector2 pos = _rb.position;
+                Vector2 toPlayer = ((Vector2)_returnTarget.position - pos);
+                float dist = toPlayer.magnitude;
+                if (dist <= _returnPickupRadius) { Destroy(gameObject); return; }
+
+                Vector2 dir = toPlayer / Mathf.Max(0.001f, dist);
+                _rb.linearVelocity = dir * _returnSpeed;
+                return;
             }
 
-            Vector2 pos = _rb.position;
-            Vector2 toPlayer = ((Vector2)_returnTarget.position - pos);
-            float dist = toPlayer.magnitude;
-            if (dist <= _returnPickupRadius) { Destroy(gameObject); return; }
+            // Homing behavior: gently turn toward the nearest enemy in range
+            if (_data != null && _data.behavior == BallBehavior.Homing)
+            {
+                Vector2 vel = _rb.linearVelocity;
+                if (vel.sqrMagnitude < 0.01f) return;
 
-            Vector2 dir = toPlayer / Mathf.Max(0.001f, dist);
-            _rb.linearVelocity = dir * _returnSpeed;
+                var target = FindNearestEnemy();
+                if (target == null) return;
+
+                Vector2 toTarget = ((Vector2)target.position - _rb.position);
+                if (toTarget.sqrMagnitude > _data.homingRange * _data.homingRange) return;
+
+                float currentAngle = Mathf.Atan2(vel.y, vel.x) * Mathf.Rad2Deg;
+                float desiredAngle = Mathf.Atan2(toTarget.y, toTarget.x) * Mathf.Rad2Deg;
+                float newAngle = Mathf.MoveTowardsAngle(currentAngle, desiredAngle,
+                    _data.homingTurnRate * Time.fixedDeltaTime);
+                float rad = newAngle * Mathf.Deg2Rad;
+                _rb.linearVelocity = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad)) * vel.magnitude;
+            }
+        }
+
+        private Transform FindNearestEnemy()
+        {
+            var enemies = FindObjectsByType<Enemy.Enemy>(FindObjectsSortMode.None);
+            Transform best = null;
+            float bestDist = float.MaxValue;
+            Vector2 pos = transform.position;
+            foreach (var e in enemies)
+            {
+                float d = ((Vector2)e.transform.position - pos).sqrMagnitude;
+                if (d < bestDist) { bestDist = d; best = e.transform; }
+            }
+            return best;
         }
 
         private void EnterReturnMode()
@@ -156,6 +195,16 @@ namespace Tether.Gameplay
 
             // Behavior branches
             var behavior = _data != null ? _data.behavior : BallBehavior.Normal;
+
+            // Piercing: don't bounce off enemies — restore pre-collision velocity direction
+            if (behavior == BallBehavior.Piercing && hitEnemy)
+            {
+                _bounceCount--; // undo the count so wall bounces stay the primary trigger
+                float pspeed = (_data != null ? _data.speed : _speed) * SpeedUpgradeMul();
+                Vector2 dir = _prevVelocity.sqrMagnitude > 0.01f ? _prevVelocity.normalized : _rb.linearVelocity.normalized;
+                _rb.linearVelocity = dir * pspeed;
+                return;
+            }
 
             if (behavior == BallBehavior.Explosive && hitEnemy && _data != null)
             {

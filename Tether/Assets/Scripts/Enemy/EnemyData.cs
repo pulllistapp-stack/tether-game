@@ -45,5 +45,25 @@ namespace Tether.Enemy
         [Header("Boss")]
         [Tooltip("Marks this data as the run's boss — WaveSystem attaches BossBehavior at spawn.")]
         public bool isBoss = false;
+
+        [Header("Rewards")]
+        [Tooltip("XP value the dropped orb carries.")]
+        public int xpReward = 1;
+        [Tooltip("Coin drop count (each coin is worth 1).")]
+        public int coinReward = 1;
+
+        [Header("Ranged Shooter")]
+        [Tooltip("Marks this data as a shooter — WaveSystem attaches RangedShooterBehavior at spawn.")]
+        public bool isRangedShooter = false;
+        public float shootInterval = 2.2f;
+        public float shootStartDelay = 1.4f;
+        public float projectileSpeed = 5f;
+        public float projectileDamage = 1f;
+
+        [Header("Splitter (on-death behavior)")]
+        [Tooltip("If true, spawn N of splitInto on death.")]
+        public bool isSplitter = false;
+        public EnemyData splitInto;
+        public int splitCount = 2;
     }
 }

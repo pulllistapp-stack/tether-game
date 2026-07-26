@@ -58,5 +58,22 @@ namespace Tether.Player
             CurrentIndex = index;
             OnSlotChanged?.Invoke(CurrentIndex, CurrentData);
         }
+
+        /// <summary>Add a BallData to the roster if it isn't already present.</summary>
+        public void AddSlotIfMissing(Gameplay.BallData data)
+        {
+            if (data == null) return;
+            if (_slots != null)
+            {
+                foreach (var s in _slots)
+                    if (s == data) return;
+            }
+
+            int oldLen = _slots != null ? _slots.Length : 0;
+            var newArr = new Gameplay.BallData[oldLen + 1];
+            for (int i = 0; i < oldLen; i++) newArr[i] = _slots[i];
+            newArr[oldLen] = data;
+            _slots = newArr;
+        }
     }
 }

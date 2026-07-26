@@ -22,24 +22,47 @@ namespace Tether.Systems
         public event Action OnOffered;
         public event Action OnPicked;
 
+        private Meta.LevelSystem _levelSystem;
+        private bool _modalOpen;
+        private readonly System.Collections.Generic.Queue<string> _pendingOffers =
+            new System.Collections.Generic.Queue<string>();
+
         private void Start()
         {
             if (_waveSystem == null) _waveSystem = FindFirstObjectByType<WaveSystem>();
             if (_applier == null)    _applier    = FindFirstObjectByType<UpgradeApplier>();
             if (_ui == null)         _ui         = FindFirstObjectByType<UI.UpgradeUI>();
+            if (_levelSystem == null) _levelSystem = FindFirstObjectByType<Meta.LevelSystem>();
 
             if (_waveSystem != null) _waveSystem.OnWaveCleared += HandleWaveCleared;
+            if (_levelSystem != null) _levelSystem.OnLeveledUp += HandleLeveledUp;
         }
 
         private void OnDestroy()
         {
             if (_waveSystem != null) _waveSystem.OnWaveCleared -= HandleWaveCleared;
+            if (_levelSystem != null) _levelSystem.OnLeveledUp -= HandleLeveledUp;
         }
 
         private void HandleWaveCleared(int index)
         {
             // Skip after final wave — VictoryUI handles that
             if (_waveSystem == null || index >= _waveSystem.TotalWaves - 1) return;
+            TryOffer("wave");
+        }
+
+        private void HandleLeveledUp(int newLevel)
+        {
+            TryOffer("level");
+        }
+
+        private void TryOffer(string source)
+        {
+            if (_modalOpen)
+            {
+                _pendingOffers.Enqueue(source);
+                return;
+            }
             OfferCards();
         }
 
@@ -50,6 +73,7 @@ namespace Tether.Systems
             var picks = WeightedDraw(_cardPool, _cardsPerOffer);
             if (picks.Count == 0) return;
 
+            _modalOpen = true;
             _ui.Show(picks, HandleCardPicked);
             OnOffered?.Invoke();
             // Defer pause past any active HitStop so its restore-to-1 doesn't wipe us
@@ -67,7 +91,15 @@ namespace Tether.Systems
             if (_applier != null) _applier.Apply(card);
             Time.timeScale = 1f;
             _ui.Hide();
+            _modalOpen = false;
             OnPicked?.Invoke();
+
+            // Drain any queued offers (e.g., double level-up during a wave clear)
+            if (_pendingOffers.Count > 0)
+            {
+                _pendingOffers.Dequeue();
+                OfferCards();
+            }
         }
 
         private static List<UpgradeCard> WeightedDraw(UpgradeCard[] pool, int count)

@@ -104,14 +104,28 @@ namespace Tether.Systems
         [Header("Boss")]
         [SerializeField] private Enemy.EnemyData _bossMinionData;
 
-        private void SpawnOne(Enemy.EnemyData data, float speedMul)
+        [Header("Ranged Shooter")]
+        [SerializeField] private GameObject _enemyProjectilePrefab;
+
+        /// <summary>
+        /// External entry point for on-death splitters or boss minions to
+        /// register spawned enemies into the wave's tracked list.
+        /// </summary>
+        public void SpawnExtra(Enemy.EnemyData data, int count, Vector3 originPos)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                Vector2 offset = new Vector2(
+                    UnityEngine.Random.Range(-0.6f, 0.6f),
+                    UnityEngine.Random.Range(-0.4f, 0.4f)
+                );
+                SpawnAt(data, 1f, (Vector2)originPos + offset);
+            }
+        }
+
+        private void SpawnAt(Enemy.EnemyData data, float speedMul, Vector2 pos)
         {
             if (_enemyPrefab == null) return;
-
-            Vector2 pos = new Vector2(
-                UnityEngine.Random.Range(_spawnAreaMin.x, _spawnAreaMax.x),
-                UnityEngine.Random.Range(_spawnAreaMin.y, _spawnAreaMax.y)
-            );
             var go = Instantiate(_enemyPrefab, pos, Quaternion.identity);
             if (go.TryGetComponent<Enemy.Enemy>(out var enemy))
             {
@@ -120,14 +134,32 @@ namespace Tether.Systems
                 enemy.OnDeath += HandleEnemyDeath;
             }
             if (go.TryGetComponent<Enemy.EnemyMover>(out var mover))
-            {
                 mover.SetSpeedMultiplier(speedMul <= 0f ? 1f : speedMul);
-            }
-            if (data != null && data.isBoss)
+            AttachOptionalBehaviors(go, data);
+        }
+
+        private void AttachOptionalBehaviors(GameObject go, Enemy.EnemyData data)
+        {
+            if (data == null) return;
+            if (data.isBoss)
             {
                 var boss = go.AddComponent<Enemy.BossBehavior>();
                 boss.Configure(_enemyPrefab, _bossMinionData != null ? _bossMinionData : data);
             }
+            if (data.isRangedShooter)
+            {
+                var shooter = go.AddComponent<Enemy.RangedShooterBehavior>();
+                shooter.Configure(_enemyProjectilePrefab, data);
+            }
+        }
+
+        private void SpawnOne(Enemy.EnemyData data, float speedMul)
+        {
+            Vector2 pos = new Vector2(
+                UnityEngine.Random.Range(_spawnAreaMin.x, _spawnAreaMax.x),
+                UnityEngine.Random.Range(_spawnAreaMin.y, _spawnAreaMax.y)
+            );
+            SpawnAt(data, speedMul, pos);
         }
 
         private void HandleEnemyDeath(Enemy.Enemy e)

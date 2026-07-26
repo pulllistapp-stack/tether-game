@@ -7,6 +7,8 @@ namespace Tether.Gameplay
         Normal,
         Split,
         Explosive,
+        Piercing,
+        Homing,
     }
 
     /// <summary>
@@ -47,5 +49,11 @@ namespace Tether.Gameplay
         public float explosionRadius = 1.2f;
         [Tooltip("Damage dealt to enemies inside the radius (in addition to contact damage).")]
         public float explosionDamage = 1f;
+
+        [Header("Homing (Homing-behavior only)")]
+        [Tooltip("How aggressively the ball turns toward the nearest enemy (deg/sec).")]
+        public float homingTurnRate = 220f;
+        [Tooltip("Max range for homing detection (world units).")]
+        public float homingRange = 6f;
     }
 }

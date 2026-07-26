@@ -26,6 +26,9 @@ namespace Tether.Player
         public float TimeSinceLastFire => Time.time - _lastFireAt;
         public bool IsReady => TimeSinceLastFire >= _cooldown;
 
+        public void ReduceCooldown(float seconds) =>
+            _cooldown = Mathf.Max(1f, _cooldown - seconds);
+
         private float _lastFireAt = -999f;
 
         private void Update()

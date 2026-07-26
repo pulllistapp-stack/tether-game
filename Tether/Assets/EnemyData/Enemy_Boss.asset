@@ -25,3 +25,13 @@ MonoBehaviour:
   floatBobAmp: 0.7
   floatDriftAmp: 3.5
   isBoss: 1
+  xpReward: 25
+  coinReward: 15
+  isRangedShooter: 0
+  shootInterval: 2.2
+  shootStartDelay: 1.4
+  projectileSpeed: 5
+  projectileDamage: 1
+  isSplitter: 0
+  splitInto: {fileID: 0}
+  splitCount: 2

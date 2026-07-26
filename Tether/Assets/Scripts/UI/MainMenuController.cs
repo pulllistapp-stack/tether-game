@@ -14,7 +14,9 @@ namespace Tether.UI
         [SerializeField] private Text _statsLabel;
         [SerializeField] private Text _versionLabel;
         [SerializeField] private Button _startButton;
+        [SerializeField] private Button _shopButton;
         [SerializeField] private Button _quitButton;
+        [SerializeField] private MetaShopController _shop;
 
         private const string PrefTotal    = "tether.total_coins";
         private const string PrefBestWave = "tether.best_wave";
@@ -24,8 +26,24 @@ namespace Tether.UI
         {
             Time.timeScale = 1f;
 
+            // Auto-find buttons/shop by name if not wired
+            if (_startButton == null || _shopButton == null || _quitButton == null || _shop == null)
+            {
+                foreach (var b in FindObjectsByType<Button>(FindObjectsSortMode.None))
+                {
+                    if (_startButton == null && b.name.IndexOf("START", System.StringComparison.OrdinalIgnoreCase) >= 0)
+                        _startButton = b;
+                    else if (_shopButton == null && b.name.IndexOf("SHOP", System.StringComparison.OrdinalIgnoreCase) >= 0)
+                        _shopButton = b;
+                    else if (_quitButton == null && b.name.IndexOf("QUIT", System.StringComparison.OrdinalIgnoreCase) >= 0)
+                        _quitButton = b;
+                }
+                if (_shop == null) _shop = FindFirstObjectByType<MetaShopController>();
+            }
+
             if (_startButton != null) _startButton.onClick.AddListener(StartRun);
             if (_quitButton != null)  _quitButton.onClick.AddListener(Quit);
+            if (_shopButton != null && _shop != null) _shopButton.onClick.AddListener(_shop.Show);
 
             if (_statsLabel != null)
             {
