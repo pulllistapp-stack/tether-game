@@ -62,6 +62,14 @@ namespace Tether.Systems
             _routine = StartCoroutine(RunAllWaves());
         }
 
+        /// <summary>Replace the wave list at runtime (called by NodeConfigApplier before Start).</summary>
+        public void OverrideWaves(WaveDefinition[] waves)
+        {
+            _waves = waves;
+        }
+
+        public WaveDefinition[] AllWaves => _waves;
+
         private IEnumerator RunAllWaves()
         {
             for (int i = 0; i < _waves.Length; i++)

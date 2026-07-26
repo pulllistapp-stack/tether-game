@@ -76,7 +76,32 @@ namespace Tether.Systems
         private void HandleAllWavesCleared()
         {
             if (State != RunState.Playing) return;
-            SetState(RunState.Victory);
+
+            var session = Meta.RunSession.Instance;
+            if (session == null || session.CurrentNode == null)
+            {
+                // No run session (legacy standalone arena) — treat as final victory
+                SetState(RunState.Victory);
+                return;
+            }
+
+            session.MarkCurrentCleared();
+
+            // Cache HP so it survives the scene reload
+            var hp = FindFirstObjectByType<Player.PlayerHealth>();
+            if (hp != null) session.CachePlayerHp(hp.CurrentHp, hp.MaxHp);
+
+            if (session.CurrentNode.type == Meta.NodeType.Boss)
+            {
+                session.EndRun();
+                SetState(RunState.Victory);
+            }
+            else
+            {
+                // Non-boss node cleared → back to map for next choice
+                Time.timeScale = 1f;
+                SceneManager.LoadScene("Map");
+            }
         }
 
         private void SetState(RunState s)
@@ -99,6 +124,9 @@ namespace Tether.Systems
         public void GoToMainMenu()
         {
             Time.timeScale = 1f;
+            // Ending a run — tear down the persisted session so a new one starts clean
+            var session = Meta.RunSession.Instance;
+            if (session != null) session.EndRun();
             SceneManager.LoadScene(_mainMenuSceneName);
         }
     }

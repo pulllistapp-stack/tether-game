@@ -38,7 +38,17 @@ namespace Tether.Player
 
         private void Awake()
         {
-            CurrentHp = _maxHp;
+            // Restore HP from RunSession if we came back from Map with a cache
+            var session = Meta.RunSession.Instance;
+            if (session != null && session.CachedPlayerHp >= 0)
+            {
+                _maxHp = session.CachedPlayerMaxHp > 0 ? session.CachedPlayerMaxHp : _maxHp;
+                CurrentHp = Mathf.Clamp(session.CachedPlayerHp, 1, _maxHp);
+            }
+            else
+            {
+                CurrentHp = _maxHp;
+            }
             if (_flashRenderer != null) _baseColor = _flashRenderer.color;
         }
 

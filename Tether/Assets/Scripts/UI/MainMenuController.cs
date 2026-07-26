@@ -11,6 +11,8 @@ namespace Tether.UI
     public class MainMenuController : MonoBehaviour
     {
         [SerializeField] private string _arenaSceneName = "Arena_Test";
+        [SerializeField] private string _mapSceneName = "Map";
+        [SerializeField] private GameObject _runSessionPrefab;
         [SerializeField] private Text _statsLabel;
         [SerializeField] private Text _versionLabel;
         [SerializeField] private Button _startButton;
@@ -60,7 +62,23 @@ namespace Tether.UI
 
         public void StartRun()
         {
-            SceneManager.LoadScene(_arenaSceneName);
+            // Ensure a RunSession exists (spawn from prefab if not persisted yet), then reset + go to map
+            var session = Meta.RunSession.Instance;
+            if (session == null)
+            {
+                if (_runSessionPrefab != null)
+                {
+                    var go = Instantiate(_runSessionPrefab);
+                    session = go.GetComponent<Meta.RunSession>();
+                }
+                else
+                {
+                    var go = new GameObject("RunSession");
+                    session = go.AddComponent<Meta.RunSession>();
+                }
+            }
+            session.ResetForNewRun();
+            SceneManager.LoadScene(_mapSceneName);
         }
 
         public void Quit()
