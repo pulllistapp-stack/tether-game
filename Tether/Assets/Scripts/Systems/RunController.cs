@@ -20,26 +20,50 @@ namespace Tether.Systems
 
         public event Action<RunState> OnStateChanged;
 
+        private bool _hpSubscribed;
+        private bool _waveSubscribed;
+
         private void Start()
         {
-            if (_playerHealth == null) _playerHealth = FindFirstObjectByType<Player.PlayerHealth>();
-            if (_waveSystem == null)   _waveSystem   = FindFirstObjectByType<WaveSystem>();
-
-            if (_playerHealth != null) _playerHealth.OnDied += HandlePlayerDied;
-            if (_waveSystem   != null) _waveSystem.OnAllWavesCleared += HandleAllWavesCleared;
+            TrySubscribe();
         }
 
         private void OnDestroy()
         {
-            if (_playerHealth != null) _playerHealth.OnDied -= HandlePlayerDied;
-            if (_waveSystem   != null) _waveSystem.OnAllWavesCleared -= HandleAllWavesCleared;
+            if (_playerHealth != null && _hpSubscribed) _playerHealth.OnDied -= HandlePlayerDied;
+            if (_waveSystem   != null && _waveSubscribed) _waveSystem.OnAllWavesCleared -= HandleAllWavesCleared;
         }
 
         private void Update()
         {
+            // Lazy subscribe in case Player / WaveSystem were spawned after our Start()
+            if (!_hpSubscribed || !_waveSubscribed) TrySubscribe();
+
             if (State != RunState.Playing && Input.GetKeyDown(_restartKey))
             {
                 Restart();
+            }
+        }
+
+        private void TrySubscribe()
+        {
+            if (!_hpSubscribed)
+            {
+                if (_playerHealth == null) _playerHealth = FindFirstObjectByType<Player.PlayerHealth>();
+                if (_playerHealth != null)
+                {
+                    _playerHealth.OnDied += HandlePlayerDied;
+                    _hpSubscribed = true;
+                }
+            }
+            if (!_waveSubscribed)
+            {
+                if (_waveSystem == null) _waveSystem = FindFirstObjectByType<WaveSystem>();
+                if (_waveSystem != null)
+                {
+                    _waveSystem.OnAllWavesCleared += HandleAllWavesCleared;
+                    _waveSubscribed = true;
+                }
             }
         }
 

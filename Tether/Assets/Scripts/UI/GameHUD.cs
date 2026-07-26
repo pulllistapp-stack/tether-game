@@ -123,11 +123,11 @@ namespace Tether.UI
             switch (s)
             {
                 case Systems.RunController.RunState.GameOver:
-                    ShowOverlay("GAME OVER", BuildSummary() + "\n\nPress R to restart  •  Press ESC for menu");
+                    ShowOverlay("GAME OVER", BuildSummary());
                     CommitRunResult();
                     break;
                 case Systems.RunController.RunState.Victory:
-                    ShowOverlay("VICTORY", BuildSummary() + "\n\nPress R to run it back  •  Press ESC for menu");
+                    ShowOverlay("VICTORY", BuildSummary());
                     CommitRunResult();
                     break;
                 default:
@@ -149,11 +149,11 @@ namespace Tether.UI
             sb.Append("BEST COMBO  ").Append(stats.BestCombo).Append("x").AppendLine();
             if (wallet != null)
                 sb.Append("COINS  ").Append(wallet.RunCoins)
-                  .Append("  (lifetime  ").Append(wallet.LifetimeCoins + wallet.RunCoins).Append(")").AppendLine();
+                  .Append("  (lifetime  ").Append(wallet.LifetimeCoins + wallet.RunCoins).Append(")");
 
             if (stats.PickedUpgrades != null && stats.PickedUpgrades.Count > 0)
             {
-                sb.AppendLine().Append("BUILD:  ");
+                sb.AppendLine().AppendLine().Append("BUILD:  ");
                 bool first = true;
                 foreach (var c in stats.PickedUpgrades)
                 {

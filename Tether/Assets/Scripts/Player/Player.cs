@@ -12,6 +12,8 @@ namespace Tether.Player
         [SerializeField] private GameObject _ballPrefab;
         [SerializeField] private Transform _firePoint;
         [SerializeField] private float _fireCooldown = 0.4f;
+        [Tooltip("If true, the player continuously auto-fires whenever the cooldown is ready. Aim still follows the mouse.")]
+        [SerializeField] private bool _autoFire = true;
 
         [Header("Aim (optional visual)")]
         [SerializeField] private LineRenderer _aimLine;
@@ -39,7 +41,8 @@ namespace Tether.Player
             Vector2 aimDir = GetAimDirection();
             UpdateAimLine(aimDir);
 
-            if (Input.GetMouseButtonDown(0))
+            bool wantsFire = _autoFire || Input.GetMouseButton(0);
+            if (wantsFire)
             {
                 TryFire(aimDir);
             }

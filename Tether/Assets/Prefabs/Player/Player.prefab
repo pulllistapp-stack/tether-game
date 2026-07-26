@@ -272,6 +272,7 @@ MonoBehaviour:
     type: 3}
   _firePoint: {fileID: 5344763446209880111}
   _fireCooldown: 0.35
+  _autoFire: 1
   _aimLine: {fileID: 773043743365730497}
   _aimLineLength: 2.5
   _minAimY: 0.15
