@@ -29,8 +29,10 @@ namespace Tether.Systems
             public float enemySpeedMultiplier;
             [Tooltip("Delay before the wave begins spawning (real world seconds passed to WaitForSeconds; pauses if Time.timeScale = 0).")]
             public float startDelay;
-            [Tooltip("Interval between individual spawns.")]
+            [Tooltip("Interval between rows.")]
             public float spawnInterval;
+            [Tooltip("Enemies spawned side-by-side per row (evenly spaced across the spawn width). 0 or 1 = one at a time.")]
+            public int rowSize;
         }
 
         [Header("Spawn")]
@@ -87,9 +89,11 @@ namespace Tether.Systems
             }
             Shuffle(spawnList);
 
-            foreach (var data in spawnList)
+            int rowSize = Mathf.Max(1, w.rowSize);
+            for (int i = 0; i < spawnList.Count; i += rowSize)
             {
-                SpawnOne(data, w.enemySpeedMultiplier);
+                int rowCount = Mathf.Min(rowSize, spawnList.Count - i);
+                SpawnRow(spawnList, i, rowCount, w.enemySpeedMultiplier);
                 if (w.spawnInterval > 0f)
                     yield return new WaitForSeconds(w.spawnInterval);
             }
@@ -160,6 +164,18 @@ namespace Tether.Systems
                 UnityEngine.Random.Range(_spawnAreaMin.y, _spawnAreaMax.y)
             );
             SpawnAt(data, speedMul, pos);
+        }
+
+        /// <summary>Spawns `count` enemies at once, evenly spaced across the spawn width at the same row Y.</summary>
+        private void SpawnRow(List<Enemy.EnemyData> list, int startIndex, int count, float speedMul)
+        {
+            float y = _spawnAreaMax.y;
+            for (int i = 0; i < count; i++)
+            {
+                float t = count == 1 ? 0.5f : (float)i / (count - 1);
+                float x = Mathf.Lerp(_spawnAreaMin.x, _spawnAreaMax.x, t);
+                SpawnAt(list[startIndex + i], speedMul, new Vector2(x, y));
+            }
         }
 
         private void HandleEnemyDeath(Enemy.Enemy e)

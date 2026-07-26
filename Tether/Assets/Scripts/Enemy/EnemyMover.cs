@@ -13,7 +13,7 @@ namespace Tether.Enemy
         [SerializeField] private float _fallSpeed = 0.6f;
         [Range(0f, 1f)]
         [SerializeField] private float _homingStrength = 0.25f;
-        [SerializeField] private EnemyBehavior _behavior = EnemyBehavior.FallHoming;
+        [SerializeField] private EnemyBehavior _behavior = EnemyBehavior.FallStraight;
         [SerializeField] private float _sineAmplitude = 1.5f;
         [SerializeField] private float _sineFrequency = 0.6f;
 

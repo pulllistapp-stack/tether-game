@@ -26,7 +26,7 @@ namespace Tether.Enemy
         public float maxHp = 5f;
 
         [Header("Movement")]
-        public EnemyBehavior behavior = EnemyBehavior.FallHoming;
+        public EnemyBehavior behavior = EnemyBehavior.FallStraight;
         public float fallSpeed = 0.6f;
         [Range(0f, 1f)] public float homingStrength = 0.25f;
         [Tooltip("Sidewind only: horizontal amplitude in world units.")]

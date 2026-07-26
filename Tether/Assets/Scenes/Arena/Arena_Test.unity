@@ -191,6 +191,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 737371501}
     m_Modifications:
+    - target: {fileID: 1642133474557576844, guid: 0a83490f656f2c844aaa268ad8a124c4,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1094848185198783106, guid: 0a83490f656f2c844aaa268ad8a124c4,
         type: 3}
       propertyPath: m_Size.x
@@ -887,7 +892,8 @@ MonoBehaviour:
       count: 5
     enemySpeedMultiplier: 1
     startDelay: 1.5
-    spawnInterval: 0.3
+    spawnInterval: 1.2
+    rowSize: 5
   - label: Wave 2
     mix:
     - data: {fileID: 11400000, guid: 4e2525a07cdc5fe48947d3b80ccdb13f, type: 2}
@@ -898,7 +904,8 @@ MonoBehaviour:
       count: 1
     enemySpeedMultiplier: 1.1
     startDelay: 2.5
-    spawnInterval: 0.28
+    spawnInterval: 1.2
+    rowSize: 4
   - label: Wave 3
     mix:
     - data: {fileID: 11400000, guid: 4e2525a07cdc5fe48947d3b80ccdb13f, type: 2}
@@ -913,7 +920,8 @@ MonoBehaviour:
       count: 2
     enemySpeedMultiplier: 1.2
     startDelay: 3
-    spawnInterval: 0.25
+    spawnInterval: 1.1
+    rowSize: 5
   - label: "Wave 4 \u2014 BOSS"
     mix:
     - data: {fileID: 11400000, guid: ec8e37b67e4206844bd62d51b44e3f14, type: 2}

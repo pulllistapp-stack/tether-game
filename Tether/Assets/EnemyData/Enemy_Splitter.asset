@@ -16,7 +16,7 @@ MonoBehaviour:
   tintColor: {r: 0.85, g: 0.4, b: 0.9, a: 1}
   sizeMultiplier: 1.2
   maxHp: 4
-  behavior: 0
+  behavior: 1
   fallSpeed: 0.55
   homingStrength: 0.15
   sineAmplitude: 1.5

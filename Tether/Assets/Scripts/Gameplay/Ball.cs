@@ -31,6 +31,10 @@ namespace Tether.Gameplay
         [SerializeField] private float _returnSpeed = 14f;
         [SerializeField] private float _returnPickupRadius = 0.4f;
 
+        [Header("Out of Bounds")]
+        [Tooltip("Ball is destroyed once it falls behind the player past this Y (lets missed shots exit instead of bouncing forever).")]
+        [SerializeField] private float _voidY = -9f;
+
         private Rigidbody2D _rb;
         private Collider2D _collider;
         private int _bounceCount;
@@ -52,11 +56,21 @@ namespace Tether.Gameplay
             _rb.freezeRotation = true;
             if (_sprite == null) _sprite = GetComponent<SpriteRenderer>();
             if (_trail == null)  _trail  = GetComponent<TrailRenderer>();
+
+            // Balls fly through each other — physical ball-vs-ball bounces made aimed
+            // corner shots unpredictable, so this is disabled at the layer level.
+            Physics2D.IgnoreLayerCollision(gameObject.layer, gameObject.layer, true);
         }
 
         private void FixedUpdate()
         {
             _prevVelocity = _rb.linearVelocity;
+
+            if (!_returning && _rb.position.y < _voidY)
+            {
+                Destroy(gameObject);
+                return;
+            }
 
             if (_returning)
             {
@@ -180,18 +194,19 @@ namespace Tether.Gameplay
         {
             _bounceCount++;
 
-            bool hitEnemy = collision.gameObject.TryGetComponent<Enemy.Enemy>(out var enemy);
-            bool hitWall  = collision.gameObject.GetComponent<Wall>() != null;
+            bool hitEnemy  = collision.gameObject.TryGetComponent<Enemy.Enemy>(out var enemy);
+            bool hitWall   = collision.gameObject.GetComponent<Wall>() != null;
+            bool hitPlayer = collision.gameObject.GetComponent<Player.PlayerHealth>() != null;
 
             float damage = (_data != null ? _data.damage : _damage) * DamageUpgradeMul();
             if (hitEnemy) enemy.TakeDamage(damage);
 
-            // Subtle screen shake on wall bounce for kinetic feel
-            if (hitWall && CameraSystems.CameraShaker.Instance != null)
+            // Subtle screen shake on wall/player-body bounce for kinetic feel
+            if ((hitWall || hitPlayer) && CameraSystems.CameraShaker.Instance != null)
                 CameraSystems.CameraShaker.Instance.Shake(0.06f);
 
-            if (hitWall)  Audio.AudioManager.Instance?.Play("ball_bounce");
-            if (hitEnemy) Audio.AudioManager.Instance?.Play("ball_hit_enemy");
+            if (hitWall || hitPlayer) Audio.AudioManager.Instance?.Play("ball_bounce");
+            if (hitEnemy)             Audio.AudioManager.Instance?.Play("ball_hit_enemy");
 
             // Behavior branches
             var behavior = _data != null ? _data.behavior : BallBehavior.Normal;
@@ -233,17 +248,23 @@ namespace Tether.Gameplay
                 _rb.linearVelocity = _rb.linearVelocity.normalized * speedNow;
             }
 
-            int maxB = _data != null ? _data.maxBounces : _maxBounces;
-            if (maxB > 0 && _bounceCount >= maxB)
+            // Bouncing off the player's own body is a pure reflect — never destroy/recall here,
+            // otherwise a bounce that happens to land on the return-threshold vanishes on contact
+            // instead of visibly bouncing.
+            if (!hitPlayer)
             {
-                Destroy(gameObject);
-                return;
-            }
+                int maxB = _data != null ? _data.maxBounces : _maxBounces;
+                if (maxB > 0 && _bounceCount >= maxB)
+                {
+                    Destroy(gameObject);
+                    return;
+                }
 
-            // Return to player after N bounces (skips for Split children mid-tree to keep them lively)
-            if (_returnAfterBounces > 0 && _bounceCount >= _returnAfterBounces && !_returning)
-            {
-                EnterReturnMode();
+                // Return to player after N bounces (skips for Split children mid-tree to keep them lively)
+                if (_returnAfterBounces > 0 && _bounceCount >= _returnAfterBounces && !_returning)
+                {
+                    EnterReturnMode();
+                }
             }
         }
 
