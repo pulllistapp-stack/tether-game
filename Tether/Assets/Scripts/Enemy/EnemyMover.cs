@@ -93,6 +93,9 @@ namespace Tether.Enemy
 
         private void FixedUpdate()
         {
+            if (Systems.TimeStopSystem.Instance != null && Systems.TimeStopSystem.Instance.IsActive)
+                return;
+
             Vector2 pos = _rb.position;
             Vector2 velocity;
 

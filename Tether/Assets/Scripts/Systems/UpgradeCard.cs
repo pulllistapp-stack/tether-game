@@ -40,5 +40,9 @@ namespace Tether.Systems
 
         [Header("Rarity")]
         [Range(1, 10)] public int weight = 5;
+
+        [Header("Relic grant (optional)")]
+        [Tooltip("If set, picking this card grants the relic to RelicSystem instead of applying `effect`. Lets us seed the relic pool through the upgrade offer.")]
+        public Relic grantRelic;
     }
 }

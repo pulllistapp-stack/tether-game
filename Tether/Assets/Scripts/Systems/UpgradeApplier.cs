@@ -50,6 +50,15 @@ namespace Tether.Systems
             if (card == null) return;
             _picked.Add(card);
 
+            // Relic-grant cards bypass the effect switch and just hand the relic
+            // to the RelicSystem; effect field is ignored.
+            if (card.grantRelic != null && RelicSystem.Instance != null)
+            {
+                RelicSystem.Instance.Grant(card.grantRelic);
+                OnUpgradeApplied?.Invoke(card);
+                return;
+            }
+
             switch (card.effect)
             {
                 case UpgradeEffect.BallDamage:       BallDamageMul *= card.magnitude; break;

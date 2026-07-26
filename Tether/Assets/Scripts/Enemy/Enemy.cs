@@ -71,6 +71,19 @@ namespace Tether.Enemy
             if (Utility.HitStop.Instance != null)
                 Utility.HitStop.Instance.Freeze(_deathHitStop);
             Audio.AudioManager.Instance?.Play("enemy_die");
+            if (Systems.TimeStopSystem.Instance != null)
+                Systems.TimeStopSystem.Instance.AddChargeFromEnemyKill();
+
+            // Bloody Moon relic: heal 1 HP every 10 kills (checked via RunStats)
+            if (Systems.RelicSystem.Instance != null && Systems.RelicSystem.Instance.HasRelic("bloody_moon"))
+            {
+                var stats = Meta.RunStats.Instance;
+                if (stats != null && (stats.Kills + 1) % 10 == 0)
+                {
+                    var hp = FindFirstObjectByType<Player.PlayerHealth>();
+                    if (hp != null) hp.Heal(1);
+                }
+            }
 
             DropCoin();
             DropXpOrb();

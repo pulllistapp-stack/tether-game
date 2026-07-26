@@ -201,6 +201,12 @@ namespace Tether.Gameplay
             bool hitPlayer = collision.gameObject.GetComponent<Player.PlayerHealth>() != null;
 
             float damage = (_data != null ? _data.damage : _damage) * DamageUpgradeMul();
+            // Relics: Dimensional Fragment (+30%) and Red Thread of Fate (x2 raw dmg)
+            if (Systems.RelicSystem.Instance != null)
+            {
+                if (Systems.RelicSystem.Instance.HasRelic("dim_fragment")) damage *= 1.3f;
+                if (Systems.RelicSystem.Instance.HasRelic("red_thread"))    damage *= 2f;
+            }
             if (hitEnemy) enemy.TakeDamage(damage);
 
             // Subtle screen shake on wall/player-body bounce for kinetic feel
@@ -209,6 +215,20 @@ namespace Tether.Gameplay
 
             if (hitWall || hitPlayer) Audio.AudioManager.Instance?.Play("ball_bounce");
             if (hitEnemy)             Audio.AudioManager.Instance?.Play("ball_hit_enemy");
+
+            // Charge Sakuya's Time Stop meter — the primary offensive ability feeds off aggression
+            if (Systems.TimeStopSystem.Instance != null)
+            {
+                if (hitWall) Systems.TimeStopSystem.Instance.AddChargeFromWallBounce();
+                if (hitEnemy) Systems.TimeStopSystem.Instance.AddChargeFromEnemyHit();
+            }
+
+            // Silver Knives relic: on a wall bounce, spit 3 knife-like children
+            if (hitWall && !_returning && Systems.RelicSystem.Instance != null &&
+                Systems.RelicSystem.Instance.HasRelic("silver_knives"))
+            {
+                SpawnKniveChildren();
+            }
 
             // Behavior branches
             var behavior = _data != null ? _data.behavior : BallBehavior.Normal;
@@ -295,6 +315,26 @@ namespace Tether.Gameplay
                 if (bounceCap > 0 && _bounceCount >= bounceCap && !_returning)
                 {
                     EnterReturnMode();
+                }
+            }
+        }
+
+        private void SpawnKniveChildren()
+        {
+            // Fires 3 short-lived mini-balls in a narrow forward fan on wall contact.
+            Vector2 baseDir = _rb.linearVelocity.normalized;
+            if (baseDir == Vector2.zero) baseDir = Vector2.up;
+            for (int i = 0; i < 3; i++)
+            {
+                float angle = (i - 1) * 12f; // -12, 0, +12 degrees
+                Vector2 dir = Quaternion.Euler(0f, 0f, angle) * baseDir;
+                var childObj = Instantiate(gameObject, transform.position, Quaternion.identity);
+                if (childObj.TryGetComponent<Ball>(out var childBall))
+                {
+                    // Ensure children can't infinite-recurse via the relic (their bounce triggers spawn again)
+                    childBall.SetSplitDepth(_splitDepth + 99);
+                    childBall.transform.localScale *= 0.65f;
+                    childBall.Launch(dir);
                 }
             }
         }

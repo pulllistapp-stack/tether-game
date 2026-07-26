@@ -39,6 +39,9 @@ namespace Tether.Enemy
             yield return new WaitForSeconds(_startDelay);
             while (true)
             {
+                // Pause the shoot cadence entirely during a Time Stop
+                while (Systems.TimeStopSystem.Instance != null && Systems.TimeStopSystem.Instance.IsActive)
+                    yield return null;
                 Fire();
                 yield return new WaitForSeconds(_interval);
             }

@@ -27,6 +27,7 @@ namespace Tether.UI
         [SerializeField] private Text _dashLabel;
         [SerializeField] private Text _novaLabel;
         [SerializeField] private Text _levelLabel;
+        [SerializeField] private Text _timeStopLabel;
         [SerializeField] private CanvasGroup _overlayGroup;
         [SerializeField] private Text _overlayTitle;
         [SerializeField] private Text _overlayHint;
@@ -116,6 +117,27 @@ namespace Tether.UI
             {
                 var ls = Meta.LevelSystem.Instance;
                 _levelLabel.text = "LVL " + ls.Level + "  (" + ls.CurrentXp + "/" + ls.XpToNext + ")";
+            }
+
+            if (_timeStopLabel != null && Systems.TimeStopSystem.Instance != null)
+            {
+                var ts = Systems.TimeStopSystem.Instance;
+                if (ts.IsActive)
+                {
+                    _timeStopLabel.text = "☠ TIME STOP  " + ts.ActiveTimeRemaining.ToString("F1") + "s";
+                    _timeStopLabel.color = new Color(1f, 0.35f, 0.75f);
+                }
+                else if (ts.IsReady)
+                {
+                    _timeStopLabel.text = "TIME STOP  <f>  READY";
+                    _timeStopLabel.color = new Color(1f, 0.7f, 0.9f);
+                }
+                else
+                {
+                    int pct = Mathf.RoundToInt(ts.Charge01 * 100f);
+                    _timeStopLabel.text = "TIME STOP  " + pct + "%";
+                    _timeStopLabel.color = new Color(0.65f, 0.6f, 0.75f);
+                }
             }
         }
 

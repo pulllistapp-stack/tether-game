@@ -49,8 +49,28 @@ namespace Tether.Enemy
         // so the trigger fires on Player's OnTriggerEnter2D. We hook there
         // via PlayerHealth polling (already OverlapCircle-based), OR we
         // handle it here by polling too.
+        private Vector2 _frozenVel;
+        private bool _wasFrozen;
+
         private void FixedUpdate()
         {
+            bool frozen = Systems.TimeStopSystem.Instance != null && Systems.TimeStopSystem.Instance.IsActive;
+            if (frozen)
+            {
+                if (!_wasFrozen)
+                {
+                    _frozenVel = _rb.linearVelocity;
+                    _rb.linearVelocity = Vector2.zero;
+                    _wasFrozen = true;
+                }
+                return;
+            }
+            else if (_wasFrozen)
+            {
+                _rb.linearVelocity = _frozenVel;
+                _wasFrozen = false;
+            }
+
             var playerGO = GameObject.FindGameObjectWithTag("Player");
             if (playerGO == null) return;
             var hp = playerGO.GetComponent<Player.PlayerHealth>();

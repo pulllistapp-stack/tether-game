@@ -73,6 +73,9 @@ namespace Tether.Player
         {
             float cooldownMul = Systems.UpgradeApplier.Instance != null
                 ? Systems.UpgradeApplier.Instance.FireCooldownMul : 1f;
+            // Red Thread of Fate relic slows fire rate significantly (paired with damage buff on Ball side)
+            if (Systems.RelicSystem.Instance != null && Systems.RelicSystem.Instance.HasRelic("red_thread"))
+                cooldownMul *= 2f;
             int extras = Systems.UpgradeApplier.Instance != null
                 ? Systems.UpgradeApplier.Instance.ExtraProjectiles : 0;
 
