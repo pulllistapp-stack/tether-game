@@ -35,7 +35,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.35, y: 1.35, z: 1.35}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5344763446209880111}
@@ -288,10 +288,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63929b3d5a90c3c4daee0923203e39ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tether.Player.PlayerMovement
-  _speed: 6
+  _speed: 7.5
   _verticalMovement: 1
-  _boundsMin: {x: -5.5, y: -7}
-  _boundsMax: {x: 5.5, y: 6.5}
+  _boundsMin: {x: -8.4, y: -7}
+  _boundsMax: {x: 8.4, y: 6.5}
 --- !u!114 &4602866914691117465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,8 +347,8 @@ MonoBehaviour:
   _dashDistance: 3.2
   _dashDuration: 0.16
   _cooldown: 1.4
-  _minX: -5.5
-  _maxX: 5.5
+  _minX: -8.4
+  _maxX: 8.4
 --- !u!114 &5156536097955900478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,7 +363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tether.Player.NovaBomb
   _key: 101
   _cooldown: 10
-  _radius: 4.5
+  _radius: 5.5
   _damage: 6
   _enemyLayers:
     serializedVersion: 2
