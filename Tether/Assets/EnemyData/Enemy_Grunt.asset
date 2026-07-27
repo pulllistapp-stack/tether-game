@@ -14,10 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tether.Enemy.EnemyData
   displayName: Grunt
   tintColor: {r: 0.9, g: 0.25, b: 0.35, a: 1}
-  sizeMultiplier: 1
+  sizeMultiplier: 0.55
+  spriteOverride: {fileID: -7564351752938086157, guid: 3741890748c9e8a46b17790bb422abae,
+    type: 3}
   maxHp: 5
   behavior: 1
   fallSpeed: 0.65
   homingStrength: 0.3
   sineAmplitude: 1.5
   sineFrequency: 0.6
+  floatY: 3.5
+  floatBobAmp: 0.6
+  floatDriftAmp: 2.5
+  isBoss: 0
+  xpReward: 1
+  coinReward: 1
+  isRangedShooter: 0
+  shootInterval: 2.2
+  shootStartDelay: 1.4
+  projectileSpeed: 5
+  projectileDamage: 1
+  isSplitter: 0
+  splitInto: {fileID: 0}
+  splitCount: 2
+  isTeleporter: 0
+  teleportInterval: 2.5
+  teleportRangeX: 4
+  isHealer: 0
+  healInterval: 3
+  healRadius: 2.5
+  healAmount: 2

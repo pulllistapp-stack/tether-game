@@ -38,7 +38,18 @@ namespace Tether.Enemy
             if (data == null) return;
 
             _currentHp = data.maxHp;
-            if (_sprite != null) _sprite.color = data.tintColor;
+            if (_sprite != null)
+            {
+                if (data.spriteOverride != null)
+                {
+                    _sprite.sprite = data.spriteOverride;
+                    _sprite.color = Color.white;
+                }
+                else
+                {
+                    _sprite.color = data.tintColor;
+                }
+            }
             transform.localScale = Vector3.one * data.sizeMultiplier;
 
             // Push movement config into EnemyMover if present

@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tether.Enemy.EnemyData
   displayName: Cirno
   tintColor: {r: 0.45, g: 0.85, b: 1, a: 1}
-  sizeMultiplier: 2.6
+  sizeMultiplier: 1.1
+  spriteOverride: {fileID: 8227216458829226598, guid: 194c5abbacbf54043b0d1ca94837c0b8,
+    type: 3}
   maxHp: 40
   behavior: 3
   fallSpeed: 0.4

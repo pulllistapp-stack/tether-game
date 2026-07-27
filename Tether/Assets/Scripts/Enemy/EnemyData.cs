@@ -21,6 +21,8 @@ namespace Tether.Enemy
         public string displayName = "Grunt";
         public Color tintColor = new Color(0.9f, 0.25f, 0.35f, 1f);
         public float sizeMultiplier = 1f;
+        [Tooltip("Optional art override. When set, Enemy.Configure swaps the SpriteRenderer to this and forces the tint to white so the art reads true.")]
+        public Sprite spriteOverride;
 
         [Header("Stats")]
         public float maxHp = 5f;

@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tether.Enemy.EnemyData
   displayName: Healer
   tintColor: {r: 0.4, g: 0.95, b: 0.65, a: 1}
-  sizeMultiplier: 1.15
+  sizeMultiplier: 0.6
+  spriteOverride: {fileID: -7564351752938086157, guid: 3741890748c9e8a46b17790bb422abae,
+    type: 3}
   maxHp: 5
   behavior: 1
   fallSpeed: 0.3

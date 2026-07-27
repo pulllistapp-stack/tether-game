@@ -14,10 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tether.Enemy.EnemyData
   displayName: Sidewinder
   tintColor: {r: 1, g: 0.75, b: 0.2, a: 1}
-  sizeMultiplier: 0.85
+  sizeMultiplier: 0.5
+  spriteOverride: {fileID: -7564351752938086157, guid: 3741890748c9e8a46b17790bb422abae,
+    type: 3}
   maxHp: 3
   behavior: 1
   fallSpeed: 0.95
   homingStrength: 0.25
   sineAmplitude: 2.2
   sineFrequency: 0.7
+  floatY: 3.5
+  floatBobAmp: 0.6
+  floatDriftAmp: 2.5
+  isBoss: 0
+  xpReward: 1
+  coinReward: 1
+  isRangedShooter: 0
+  shootInterval: 2.2
+  shootStartDelay: 1.4
+  projectileSpeed: 5
+  projectileDamage: 1
+  isSplitter: 0
+  splitInto: {fileID: 0}
+  splitCount: 2
+  isTeleporter: 0
+  teleportInterval: 2.5
+  teleportRangeX: 4
+  isHealer: 0
+  healInterval: 3
+  healRadius: 2.5
+  healAmount: 2

@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tether.Enemy.EnemyData
   displayName: Tank
   tintColor: {r: 0.55, g: 0.15, b: 0.25, a: 1}
-  sizeMultiplier: 1.6
+  sizeMultiplier: 0.7
+  spriteOverride: {fileID: 5904079400930659584, guid: 50b3df60da16dff42a4a74ef86db5d57,
+    type: 3}
   maxHp: 15
   behavior: 1
   fallSpeed: 0.35
@@ -35,3 +37,10 @@ MonoBehaviour:
   isSplitter: 0
   splitInto: {fileID: 0}
   splitCount: 2
+  isTeleporter: 0
+  teleportInterval: 2.5
+  teleportRangeX: 4
+  isHealer: 0
+  healInterval: 3
+  healRadius: 2.5
+  healAmount: 2
