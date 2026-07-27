@@ -9,9 +9,10 @@ namespace Tether.Enemy
     /// </summary>
     public class EnemyHealthBar : MonoBehaviour
     {
-        [SerializeField] private float _width = 0.6f;
-        [SerializeField] private float _height = 0.09f;
-        [SerializeField] private float _yOffset = 0.5f;
+        [SerializeField] private float _width = 1.25f;
+        [SerializeField] private float _height = 0.2f;
+        [Tooltip("World-space gap above the sprite's top edge — the bar auto-clears taller enemies.")]
+        [SerializeField] private float _yPadding = 0.28f;
         [SerializeField] private float _visibleDuration = 2.5f;
         [SerializeField] private float _fadeDuration = 0.35f;
 
@@ -57,7 +58,14 @@ namespace Tether.Enemy
 
             float sx = (_width / parentScale) / Mathf.Max(0.001f, spriteW);
             float sy = (_height / parentScale) / Mathf.Max(0.001f, spriteH);
-            float localY = _yOffset / parentScale;
+
+            // Sit just above the enemy's own sprite instead of a fixed offset, so a
+            // 2.5x boss doesn't wear its bar through its chest.
+            var ownRenderer = GetComponent<SpriteRenderer>();
+            float spriteTopWorld = ownRenderer != null && ownRenderer.sprite != null
+                ? ownRenderer.sprite.bounds.extents.y * parentScale
+                : 0.5f;
+            float localY = (spriteTopWorld + _yPadding) / parentScale;
 
             _track.transform.localScale = new Vector3(sx, sy, 1f);
             _track.transform.localPosition = new Vector3(0f, localY, 0f);

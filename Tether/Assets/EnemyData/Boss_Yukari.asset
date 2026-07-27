@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tether.Enemy.EnemyData
   displayName: Yakumo Yukari
   tintColor: {r: 0.85, g: 0.35, b: 0.75, a: 1}
-  sizeMultiplier: 1.65
+  sizeMultiplier: 2.4
   spriteOverride: {fileID: -5343148046711022821, guid: f742d2ada06e2cd498f90f7813548cd2,
     type: 3}
   maxHp: 50

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tether.Enemy.EnemyData
   displayName: Sidewinder
   tintColor: {r: 1, g: 0.75, b: 0.2, a: 1}
-  sizeMultiplier: 0.75
+  sizeMultiplier: 1.05
   spriteOverride: {fileID: -7564351752938086157, guid: 3741890748c9e8a46b17790bb422abae,
     type: 3}
   maxHp: 3

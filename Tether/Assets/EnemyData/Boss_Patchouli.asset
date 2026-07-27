@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tether.Enemy.EnemyData
   displayName: Patchouli Knowledge
   tintColor: {r: 0.55, g: 0.35, b: 0.75, a: 1}
-  sizeMultiplier: 1.75
+  sizeMultiplier: 2.5
   spriteOverride: {fileID: 5523534563515818674, guid: 2e564afb6cc43ef47a63b9328f62c7ff,
     type: 3}
   maxHp: 60
