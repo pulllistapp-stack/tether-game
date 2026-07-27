@@ -246,8 +246,10 @@ namespace Tether.Gameplay
                 if (hitEnemy) Systems.TimeStopSystem.Instance.AddChargeFromEnemyHit();
             }
 
-            // Silver Knives relic: on a wall bounce, spit 3 knife-like children
-            if (hitWall && !_returning && Systems.RelicSystem.Instance != null &&
+            // Silver Knives relic: on a wall bounce, spit 3 knife-like children.
+            // _splitDepth < 99 excludes knife children themselves (marked +99 below) —
+            // without this they'd re-trigger the relic on their own bounce and recurse forever.
+            if (hitWall && !_returning && _splitDepth < 99 && Systems.RelicSystem.Instance != null &&
                 Systems.RelicSystem.Instance.HasRelic("silver_knives"))
             {
                 SpawnKniveChildren();
