@@ -25,7 +25,17 @@ namespace Tether.UI
         private Text _currentLabel;
         private readonly List<Button> _aspectButtons = new List<Button>();
         private readonly List<Button> _resButtons = new List<Button>();
+        private readonly List<Button> _fitButtons = new List<Button>();
         private Text _fullscreenLabel;
+        private Text _zoomLabel;
+
+        private static readonly Systems.CameraFitter.FitMode[] FitModes =
+        {
+            Systems.CameraFitter.FitMode.FitAll,
+            Systems.CameraFitter.FitMode.FillWidth,
+            Systems.CameraFitter.FitMode.FillHeight,
+        };
+        private static readonly string[] FitLabels = { "Fit All", "Fill Width", "Fill Height" };
 
         private void Awake()
         {
@@ -84,7 +94,7 @@ namespace Tether.UI
             panel.anchorMax = new Vector2(0.5f, 0.5f);
             panel.pivot = new Vector2(0.5f, 0.5f);
             panel.anchoredPosition = Vector2.zero;
-            panel.sizeDelta = new Vector2(660f, 470f);
+            panel.sizeDelta = new Vector2(660f, 610f);
             var panelImg = panel.gameObject.AddComponent<Image>();
             panelImg.color = new Color(0.09f, 0.1f, 0.15f, 0.98f);
 
@@ -115,13 +125,64 @@ namespace Tether.UI
                     _aspectButtons.Add(btn);
                 });
 
+            // --- Camera framing: this is what actually changes how much you see ---
+            MakeLabel(panel, "FRAMING", new Vector2(24f, -232f), new Vector2(240f, 24f),
+                15, new Color(0.7f, 0.75f, 0.85f), TextAnchor.MiddleLeft, FontStyle.Bold,
+                new Vector2(0f, 1f), new Vector2(0f, 1f));
+
+            BuildGrid(panel, FitModes.Length, 3, new Vector2(24f, -260f), 200f, 34f, 8f,
+                (i, rt) =>
+                {
+                    var btn = MakeButton(rt, FitLabels[i], 15);
+                    int idx = i;
+                    btn.onClick.AddListener(() =>
+                    {
+                        Systems.DisplaySettings.Instance?.SetFitMode(FitModes[idx]);
+                        RefreshLabels();
+                    });
+                    _fitButtons.Add(btn);
+                });
+
+            // --- Zoom stepper ---
+            MakeLabel(panel, "ZOOM", new Vector2(24f, -308f), new Vector2(240f, 24f),
+                15, new Color(0.7f, 0.75f, 0.85f), TextAnchor.MiddleLeft, FontStyle.Bold,
+                new Vector2(0f, 1f), new Vector2(0f, 1f));
+
+            var zoomOutRect = NewRect("ZoomOut", panel);
+            zoomOutRect.anchorMin = new Vector2(0f, 1f); zoomOutRect.anchorMax = new Vector2(0f, 1f);
+            zoomOutRect.pivot = new Vector2(0f, 1f);
+            zoomOutRect.anchoredPosition = new Vector2(24f, -336f);
+            zoomOutRect.sizeDelta = new Vector2(60f, 34f);
+            var zoomOut = MakeButton(zoomOutRect, "−", 20);
+            zoomOut.onClick.AddListener(() =>
+            {
+                var ds = Systems.DisplaySettings.Instance;
+                if (ds != null) { ds.SetZoom(ds.Zoom - 0.08f); RefreshLabels(); }
+            });
+
+            _zoomLabel = MakeLabel(panel, "1.04", new Vector2(92f, -336f), new Vector2(90f, 34f),
+                16, new Color(1f, 0.9f, 0.6f), TextAnchor.MiddleCenter, FontStyle.Bold,
+                new Vector2(0f, 1f), new Vector2(0f, 1f));
+
+            var zoomInRect = NewRect("ZoomIn", panel);
+            zoomInRect.anchorMin = new Vector2(0f, 1f); zoomInRect.anchorMax = new Vector2(0f, 1f);
+            zoomInRect.pivot = new Vector2(0f, 1f);
+            zoomInRect.anchoredPosition = new Vector2(190f, -336f);
+            zoomInRect.sizeDelta = new Vector2(60f, 34f);
+            var zoomIn = MakeButton(zoomInRect, "+", 20);
+            zoomIn.onClick.AddListener(() =>
+            {
+                var ds = Systems.DisplaySettings.Instance;
+                if (ds != null) { ds.SetZoom(ds.Zoom + 0.08f); RefreshLabels(); }
+            });
+
             // --- Resolution section ---
-            MakeLabel(panel, "RESOLUTION", new Vector2(24f, -232f), new Vector2(240f, 24f),
+            MakeLabel(panel, "RESOLUTION  (build only)", new Vector2(24f, -384f), new Vector2(320f, 24f),
                 15, new Color(0.7f, 0.75f, 0.85f), TextAnchor.MiddleLeft, FontStyle.Bold,
                 new Vector2(0f, 1f), new Vector2(0f, 1f));
 
             var resolutions = Systems.DisplaySettings.Resolutions;
-            BuildGrid(panel, resolutions.Length, 3, new Vector2(24f, -260f), 200f, 34f, 8f,
+            BuildGrid(panel, resolutions.Length, 3, new Vector2(24f, -412f), 200f, 34f, 8f,
                 (i, rt) =>
                 {
                     var btn = MakeButton(rt, resolutions[i].label, 15);
@@ -138,7 +199,7 @@ namespace Tether.UI
             var fsRect = NewRect("FullscreenBtn", panel);
             fsRect.anchorMin = new Vector2(0f, 1f); fsRect.anchorMax = new Vector2(0f, 1f);
             fsRect.pivot = new Vector2(0f, 1f);
-            fsRect.anchoredPosition = new Vector2(24f, -352f);
+            fsRect.anchoredPosition = new Vector2(24f, -504f);
             fsRect.sizeDelta = new Vector2(260f, 34f);
             var fsBtn = MakeButton(fsRect, "FULLSCREEN: OFF", 15);
             _fullscreenLabel = fsBtn.GetComponentInChildren<Text>();
@@ -150,9 +211,9 @@ namespace Tether.UI
                 RefreshLabels();
             });
 
-            MakeLabel(panel, "F2 or ESC to close   •   editor previews aspect only",
-                new Vector2(0f, 20f), new Vector2(620f, 24f),
-                13, new Color(0.55f, 0.6f, 0.7f), TextAnchor.MiddleCenter, FontStyle.Normal,
+            MakeLabel(panel, "F2 or ESC to close   •   Framing + Zoom work everywhere; Resolution/Fullscreen need a build",
+                new Vector2(0f, 18f), new Vector2(640f, 24f),
+                12, new Color(0.55f, 0.6f, 0.7f), TextAnchor.MiddleCenter, FontStyle.Normal,
                 new Vector2(0.5f, 0f), new Vector2(0.5f, 0f));
         }
 
@@ -228,17 +289,26 @@ namespace Tether.UI
             var ds = Systems.DisplaySettings.Instance;
             if (ds == null) return;
 
+            var cam = Camera.main;
+            float orthoSize = cam != null ? cam.orthographicSize : 0f;
+            float camAspect = cam != null ? cam.aspect : 0f;
+
             if (_currentLabel != null)
-                _currentLabel.text = "Aspect  " + ds.CurrentAspectLabel +
-                                     "        Resolution  " + ds.CurrentResolutionLabel +
-                                     "        Window  " + Screen.width + " x " + Screen.height;
+                _currentLabel.text = "Aspect " + ds.CurrentAspectLabel +
+                                     "   •   Window " + Screen.width + "x" + Screen.height +
+                                     "   •   View " + (orthoSize * camAspect * 2f).ToString("F1") +
+                                     " x " + (orthoSize * 2f).ToString("F1") + " units";
 
             if (_fullscreenLabel != null)
                 _fullscreenLabel.text = "FULLSCREEN: " + (ds.Fullscreen ? "ON" : "OFF");
 
+            if (_zoomLabel != null)
+                _zoomLabel.text = ds.Zoom.ToString("F2");
+
             // Highlight the active choice so the current pick is obvious
             for (int i = 0; i < _aspectButtons.Count; i++) Tint(_aspectButtons[i], i == ds.AspectIndex);
             for (int i = 0; i < _resButtons.Count; i++) Tint(_resButtons[i], i == ds.ResolutionIndex);
+            for (int i = 0; i < _fitButtons.Count; i++) Tint(_fitButtons[i], FitModes[i] == ds.FitMode);
         }
 
         private static void Tint(Button btn, bool active)

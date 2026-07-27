@@ -57,15 +57,22 @@ namespace Tether.Systems
         private const string PrefAspect = "tether.display.aspect";
         private const string PrefResolution = "tether.display.resolution";
         private const string PrefFullscreen = "tether.display.fullscreen";
+        private const string PrefFitMode = "tether.display.fitmode";
+        private const string PrefZoom = "tether.display.zoom";
 
         public int AspectIndex { get; private set; }
         public int ResolutionIndex { get; private set; } = 2; // 1920x1080
         public bool Fullscreen { get; private set; }
+        public CameraFitter.FitMode FitMode { get; private set; } = CameraFitter.FitMode.FitAll;
+        public float Zoom { get; private set; } = 1.04f;
 
-        /// <summary>Camera orthographic size, so the arena can be framed per aspect.</summary>
-        [SerializeField] private float _baseOrthographicSize = 8.4375f;
+        /// <summary>Arena half-extents the camera frames against. Kept here so the
+        /// fitter attached to each scene's camera gets the same numbers.</summary>
+        [SerializeField] private float _arenaHalfWidth = 9.5f;
+        [SerializeField] private float _arenaHalfHeight = 8f;
 
         private Camera _cachedCamera;
+        private CameraFitter _cachedFitter;
 
         private void Awake()
         {
@@ -76,6 +83,8 @@ namespace Tether.Systems
             AspectIndex = Mathf.Clamp(PlayerPrefs.GetInt(PrefAspect, 0), 0, Aspects.Length - 1);
             ResolutionIndex = Mathf.Clamp(PlayerPrefs.GetInt(PrefResolution, 2), 0, Resolutions.Length - 1);
             Fullscreen = PlayerPrefs.GetInt(PrefFullscreen, 0) == 1;
+            FitMode = (CameraFitter.FitMode)Mathf.Clamp(PlayerPrefs.GetInt(PrefFitMode, 0), 0, 2);
+            Zoom = Mathf.Clamp(PlayerPrefs.GetFloat(PrefZoom, 1.04f), 0.6f, 2f);
 
             SceneManager.sceneLoaded += HandleSceneLoaded;
         }
@@ -86,18 +95,52 @@ namespace Tether.Systems
             SceneManager.sceneLoaded -= HandleSceneLoaded;
         }
 
-        private void Start() => ApplyAspect();
+        private void Start() { ApplyAspect(); EnsureFitter(); }
 
         private void HandleSceneLoaded(Scene s, LoadSceneMode m)
         {
-            _cachedCamera = null; // each scene brings its own camera
+            // Each scene brings its own camera
+            _cachedCamera = null;
+            _cachedFitter = null;
             ApplyAspect();
+            EnsureFitter();
         }
 
         private void LateUpdate()
         {
             // The window can be resized at any time, so keep the letterbox honest.
             ApplyAspect();
+            if (_cachedFitter == null) EnsureFitter();
+        }
+
+        /// <summary>Attaches a CameraFitter to the active camera and pushes current framing.</summary>
+        private void EnsureFitter()
+        {
+            var cam = Camera.main;
+            if (cam == null) return;
+
+            _cachedFitter = cam.GetComponent<CameraFitter>();
+            if (_cachedFitter == null) _cachedFitter = cam.gameObject.AddComponent<CameraFitter>();
+
+            _cachedFitter.SetArenaBounds(_arenaHalfWidth, _arenaHalfHeight);
+            _cachedFitter.SetMode(FitMode);
+            _cachedFitter.SetPadding(Zoom);
+        }
+
+        public void SetFitMode(CameraFitter.FitMode mode)
+        {
+            FitMode = mode;
+            PlayerPrefs.SetInt(PrefFitMode, (int)mode);
+            PlayerPrefs.Save();
+            if (_cachedFitter != null) _cachedFitter.SetMode(mode);
+        }
+
+        public void SetZoom(float zoom)
+        {
+            Zoom = Mathf.Clamp(zoom, 0.6f, 2f);
+            PlayerPrefs.SetFloat(PrefZoom, Zoom);
+            PlayerPrefs.Save();
+            if (_cachedFitter != null) _cachedFitter.SetPadding(Zoom);
         }
 
         public void SetAspect(int index)
@@ -127,9 +170,27 @@ namespace Tether.Systems
         public void ApplyResolution()
         {
             var r = Resolutions[ResolutionIndex];
-            // No-op in the editor; the aspect letterbox is what previews there.
+#if UNITY_EDITOR
+            // Screen.SetResolution is ignored in the editor — the Game view size
+            // owns the window there. Framing still updates because CameraFitter
+            // reacts to whatever aspect the Game view is actually at.
+            return;
+#else
             Screen.SetResolution(r.width, r.height,
                 Fullscreen ? FullScreenMode.FullScreenWindow : FullScreenMode.Windowed);
+#endif
+        }
+
+        public bool IsEditorPreview
+        {
+            get
+            {
+#if UNITY_EDITOR
+                return true;
+#else
+                return false;
+#endif
+            }
         }
 
         private void ApplyAspect()
