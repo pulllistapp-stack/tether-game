@@ -31,6 +31,11 @@ namespace Tether.Gameplay
         [SerializeField] private float _returnSpeed = 14f;
         [SerializeField] private float _returnPickupRadius = 0.4f;
 
+        [Header("Lighting")]
+        [SerializeField] private bool _emitLight = true;
+        [SerializeField] private float _lightRadius = 2.4f;
+        [SerializeField] private float _lightIntensity = 1.15f;
+
         [Header("Out of Bounds")]
         [Tooltip("Ball is destroyed once it falls behind the player past this Y (lets missed shots exit instead of bouncing forever).")]
         [SerializeField] private float _voidY = -9f;
@@ -56,6 +61,14 @@ namespace Tether.Gameplay
             _rb.freezeRotation = true;
             if (_sprite == null) _sprite = GetComponent<SpriteRenderer>();
             if (_trail == null)  _trail  = GetComponent<TrailRenderer>();
+
+            // Balls are the brightest thing on screen — give each one a light so it
+            // actually casts into the arena instead of just being a bright sprite.
+            if (_emitLight && GetComponent<Utility.AutoLight2D>() == null)
+            {
+                var al = gameObject.AddComponent<Utility.AutoLight2D>();
+                al.Configure(_lightRadius, _lightIntensity);
+            }
 
             // Balls fly through each other — physical ball-vs-ball bounces made aimed
             // corner shots unpredictable, so this is disabled at the layer level.

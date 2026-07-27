@@ -79,10 +79,31 @@ namespace Tether.Systems
             if (CameraSystems.CameraShaker.Instance != null)
                 CameraSystems.CameraShaker.Instance.Shake(0.15f);
 
+            // Sink the arena and crank bloom so the frozen moment reads as Sakuya's
+            // world, not just a stat effect.
+            var fx = SceneLightingBootstrap.Instance;
+            // Capture the authored baselines so we restore to whatever the scene
+            // was set to rather than a hardcoded guess.
+            float restoreGlobal = fx != null ? fx.GlobalIntensity : 0.62f;
+            float restoreBloom  = fx != null ? fx.BaseBloomIntensity : 1.1f;
+            if (fx != null)
+            {
+                fx.SetGlobalIntensity(restoreGlobal * 0.48f);
+                fx.SetBloomIntensity(restoreBloom * 2f);
+                fx.SetChromatic(0.35f);
+            }
+
             while (ActiveTimeRemaining > 0f)
             {
                 ActiveTimeRemaining -= Time.unscaledDeltaTime;
                 yield return null;
+            }
+
+            if (fx != null)
+            {
+                fx.SetGlobalIntensity(restoreGlobal);
+                fx.SetBloomIntensity(restoreBloom);
+                fx.SetChromatic(0f);
             }
 
             IsActive = false;
