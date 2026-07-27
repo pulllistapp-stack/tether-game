@@ -68,8 +68,8 @@ namespace Tether.Systems
 
         /// <summary>Arena half-extents the camera frames against. Kept here so the
         /// fitter attached to each scene's camera gets the same numbers.</summary>
-        [SerializeField] private float _arenaHalfWidth = 9.5f;
-        [SerializeField] private float _arenaHalfHeight = 8f;
+        [SerializeField] private float _arenaHalfWidth = 6.5f;
+        [SerializeField] private float _arenaHalfHeight = 10f;
 
         private Camera _cachedCamera;
         private CameraFitter _cachedFitter;

@@ -57,7 +57,7 @@ namespace Tether.UI
                     coins, wave, combo);
             }
 
-            if (_versionLabel != null) _versionLabel.text = "TETHER  v0.4";
+            if (_versionLabel != null) _versionLabel.text = "TETHER  v0.8";
         }
 
         public void StartRun()

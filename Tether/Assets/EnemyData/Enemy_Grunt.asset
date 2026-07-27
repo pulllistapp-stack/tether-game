@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tether.Enemy.EnemyData
   displayName: Grunt
   tintColor: {r: 0.9, g: 0.25, b: 0.35, a: 1}
-  sizeMultiplier: 1.15
+  sizeMultiplier: 1.7
   spriteOverride: {fileID: -7564351752938086157, guid: 3741890748c9e8a46b17790bb422abae,
     type: 3}
   maxHp: 5

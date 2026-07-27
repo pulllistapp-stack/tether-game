@@ -21,8 +21,8 @@ namespace Tether.Systems
         }
 
         [Header("Arena bounds (world units, half-extents)")]
-        [SerializeField] private float _arenaHalfWidth = 9.5f;
-        [SerializeField] private float _arenaHalfHeight = 8f;
+        [SerializeField] private float _arenaHalfWidth = 6.5f;
+        [SerializeField] private float _arenaHalfHeight = 10f;
 
         [Header("Framing")]
         [SerializeField] private FitMode _mode = FitMode.FitAll;

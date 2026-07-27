@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tether.Enemy.EnemyData
   displayName: Splitter
   tintColor: {r: 0.85, g: 0.4, b: 0.9, a: 1}
-  sizeMultiplier: 1.25
+  sizeMultiplier: 1.85
   spriteOverride: {fileID: -7564351752938086157, guid: 3741890748c9e8a46b17790bb422abae,
     type: 3}
   maxHp: 4

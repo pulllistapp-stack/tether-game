@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tether.Enemy.EnemyData
   displayName: Patchouli Knowledge
   tintColor: {r: 0.55, g: 0.35, b: 0.75, a: 1}
-  sizeMultiplier: 2.5
+  sizeMultiplier: 3.7
   spriteOverride: {fileID: 5523534563515818674, guid: 2e564afb6cc43ef47a63b9328f62c7ff,
     type: 3}
   maxHp: 60
@@ -23,9 +23,9 @@ MonoBehaviour:
   homingStrength: 0.25
   sineAmplitude: 1.5
   sineFrequency: 0.6
-  floatY: 5
+  floatY: 6
   floatBobAmp: 0.8
-  floatDriftAmp: 5.5
+  floatDriftAmp: 3
   isBoss: 1
   xpReward: 25
   coinReward: 20
