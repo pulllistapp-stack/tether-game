@@ -42,6 +42,7 @@ namespace Tether.Meta
             if (dist <= _pickupRadius)
             {
                 LevelSystem.Instance?.AddXp(_value);
+                Utility.Fx.Sparkle(transform.position, new Color(0.35f, 0.85f, 1f), 5, 3.2f);
                 Destroy(gameObject);
                 return;
             }

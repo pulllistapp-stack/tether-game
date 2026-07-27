@@ -48,6 +48,8 @@ namespace Tether.Systems
 
         private void Update()
         {
+            if (RunController.IsRunOver) return;
+
             if (Input.GetKeyDown(_activateKey) && IsReady && !IsActive)
             {
                 StartCoroutine(FreezeRoutine());

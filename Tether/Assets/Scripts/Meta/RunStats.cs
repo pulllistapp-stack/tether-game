@@ -77,6 +77,10 @@ namespace Tether.Meta
 
         private void HandleEnemyDied()
         {
+            // Enemies destroyed during teardown (or a boss's dying minions) must not
+            // keep inflating the score after the summary is already on screen.
+            if (Systems.RunController.IsRunOver) return;
+
             Kills++;
             CurrentCombo++;
             LastKillTime = Time.time;

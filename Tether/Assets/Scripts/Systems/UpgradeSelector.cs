@@ -58,6 +58,10 @@ namespace Tether.Systems
 
         private void TryOffer(string source)
         {
+            // A late level-up (XP orb landing as the boss dies) must not throw a
+            // card modal over the run summary.
+            if (RunController.IsRunOver) return;
+
             if (_modalOpen)
             {
                 _pendingOffers.Enqueue(source);
@@ -68,6 +72,7 @@ namespace Tether.Systems
 
         private void OfferCards()
         {
+            if (RunController.IsRunOver) return;
             if (_ui == null || _cardPool == null || _cardPool.Length == 0) return;
 
             var picks = WeightedDraw(_cardPool, _cardsPerOffer);
@@ -83,16 +88,24 @@ namespace Tether.Systems
         private IEnumerator EngagePauseAfterHitStop()
         {
             yield return new WaitForSecondsRealtime(0.1f);
+            if (RunController.IsRunOver) yield break;
             Time.timeScale = 0f;
         }
 
         private void HandleCardPicked(UpgradeCard card)
         {
             if (_applier != null) _applier.Apply(card);
-            Time.timeScale = 1f;
             _ui.Hide();
             _modalOpen = false;
             OnPicked?.Invoke();
+
+            // Never hand time back to a finished run — the summary screen owns the freeze
+            if (RunController.IsRunOver)
+            {
+                _pendingOffers.Clear();
+                return;
+            }
+            Time.timeScale = 1f;
 
             // Drain any queued offers (e.g., double level-up during a wave clear)
             if (_pendingOffers.Count > 0)

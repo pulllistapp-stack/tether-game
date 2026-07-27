@@ -218,6 +218,14 @@ namespace Tether.Gameplay
             if (hitWall || hitPlayer) Audio.AudioManager.Instance?.Play("ball_bounce");
             if (hitEnemy)             Audio.AudioManager.Instance?.Play("ball_hit_enemy");
 
+            // Expanding ring at the contact point sells the bounce
+            if ((hitWall || hitPlayer) && collision.contactCount > 0)
+            {
+                Color ringColor = _sprite != null ? _sprite.color : Color.white;
+                ringColor.a = 0.7f;
+                Utility.Fx.ImpactRing(collision.GetContact(0).point, ringColor);
+            }
+
             // Charge Sakuya's Time Stop meter — the primary offensive ability feeds off aggression
             if (Systems.TimeStopSystem.Instance != null)
             {

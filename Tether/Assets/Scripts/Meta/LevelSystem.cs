@@ -46,6 +46,7 @@ namespace Tether.Meta
         public void AddXp(int amount)
         {
             if (amount <= 0) return;
+            if (Systems.RunController.IsRunOver) return;
             CurrentXp += amount;
 
             while (CurrentXp >= XpRequiredFor(Level))

@@ -21,15 +21,31 @@ namespace Tether.Enemy
         [SerializeField] private EnemyData _data;
         [SerializeField] private SpriteRenderer _sprite;
 
+        [Header("Feel (on hit)")]
+        [SerializeField] private bool _showDamageNumbers = true;
+        [SerializeField] private bool _showHealthBar = true;
+
         public event Action<Enemy> OnDeath;
         public EnemyData Data => _data;
 
         private float _currentHp;
+        private EnemyHealthBar _healthBar;
+
+        private float MaxHp => _data != null ? _data.maxHp : _maxHp;
 
         private void Awake()
         {
             if (_sprite == null) _sprite = GetComponent<SpriteRenderer>();
-            _currentHp = _data != null ? _data.maxHp : _maxHp;
+            _currentHp = MaxHp;
+        }
+
+        private void Start()
+        {
+            if (_showHealthBar && _sprite != null && _healthBar == null)
+            {
+                _healthBar = gameObject.AddComponent<EnemyHealthBar>();
+                _healthBar.Build(_sprite.sprite, _sprite.sortingOrder);
+            }
         }
 
         public void Configure(EnemyData data)
@@ -55,11 +71,25 @@ namespace Tether.Enemy
             // Push movement config into EnemyMover if present
             var mover = GetComponent<EnemyMover>();
             if (mover != null) mover.ApplyData(data);
+
+            // Warp-in visual — added after Configure so it animates toward the final scale/tint
+            if (GetComponent<SpawnWarp>() == null) gameObject.AddComponent<SpawnWarp>();
         }
 
         public void TakeDamage(float damage)
         {
             _currentHp -= damage;
+
+            if (_showDamageNumbers)
+            {
+                // Big hits read as crits so heavy-damage builds feel different
+                bool crit = damage >= MaxHp * 0.5f;
+                Utility.Fx.DamageNumber(transform.position, damage, crit);
+            }
+
+            if (_healthBar != null && _currentHp > 0f)
+                _healthBar.SetRatio(_currentHp / Mathf.Max(0.01f, MaxHp));
+
             if (_currentHp <= 0f)
             {
                 Die();
@@ -68,8 +98,9 @@ namespace Tether.Enemy
 
         public void Heal(float amount)
         {
-            float max = _data != null ? _data.maxHp : _maxHp;
+            float max = MaxHp;
             _currentHp = Mathf.Min(max, _currentHp + Mathf.Abs(amount));
+            if (_healthBar != null) _healthBar.SetRatio(_currentHp / Mathf.Max(0.01f, max));
         }
 
         private void Die()

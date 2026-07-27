@@ -36,6 +36,7 @@ namespace Tether.Meta
 
         public void AddCoin(int amount = 1)
         {
+            if (Systems.RunController.IsRunOver) return;
             RunCoins += amount;
             OnRunCoinsChanged?.Invoke(RunCoins);
         }

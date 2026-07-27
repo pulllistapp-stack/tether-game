@@ -76,8 +76,17 @@ namespace Tether.UI
             if (_runController != null) _runController.OnStateChanged -= HandleStateChanged;
         }
 
+        // Combo punch animation state
+        private const float ComboPunchDuration = 0.22f;
+        private int _lastComboSeen;
+        private float _comboPunchTime = -999f;
+
         private void Update()
         {
+            // Once the summary is up the HUD is a frozen snapshot — no live combo
+            // punches or ticking counters behind the panel.
+            if (Systems.RunController.IsRunOver) return;
+
             if (_hpLabel != null && _playerHealth != null)
                 _hpLabel.text = "HP  " + _playerHealth.CurrentHp + " / " + _playerHealth.MaxHp;
 
@@ -105,6 +114,16 @@ namespace Tether.UI
                     float hue = Mathf.Clamp01(c / 30f);
                     _comboLabel.color = Color.Lerp(new Color(1f, 0.9f, 0.4f), new Color(1f, 0.4f, 0.2f), hue);
                 }
+
+                // Punch the label whenever the streak ticks up
+                if (c > _lastComboSeen && c >= 2) _comboPunchTime = Time.unscaledTime;
+                _lastComboSeen = c;
+
+                float since = Time.unscaledTime - _comboPunchTime;
+                float punch = since < ComboPunchDuration
+                    ? 1f + 0.45f * (1f - since / ComboPunchDuration)
+                    : 1f;
+                _comboLabel.rectTransform.localScale = Vector3.one * punch;
             }
 
             if (_dashLabel != null && _dash != null)

@@ -38,6 +38,8 @@ namespace Tether.Player
 
         private void Update()
         {
+            if (Systems.RunController.IsRunOver) return;
+
             Vector2 aimDir = GetAimDirection();
             UpdateAimLine(aimDir);
 

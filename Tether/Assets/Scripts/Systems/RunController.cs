@@ -18,10 +18,25 @@ namespace Tether.Systems
 
         public RunState State { get; private set; } = RunState.Playing;
 
+        /// <summary>
+        /// Global "the run is finished" gate. Static so every gameplay system can
+        /// check it without holding a reference, and so it survives the frame where
+        /// the controller itself is being torn down during a scene load.
+        /// Nothing may award XP, offer cards, tick combos, or restore timeScale
+        /// while this is true.
+        /// </summary>
+        public static bool IsRunOver { get; private set; }
+
         public event Action<RunState> OnStateChanged;
 
         private bool _hpSubscribed;
         private bool _waveSubscribed;
+
+        private void Awake()
+        {
+            // Fresh scene load = fresh run, unless something ends it again this frame
+            IsRunOver = false;
+        }
 
         private void Start()
         {
@@ -107,14 +122,30 @@ namespace Tether.Systems
         private void SetState(RunState s)
         {
             State = s;
+            IsRunOver = s != RunState.Playing;
+
             // Freeze the world when the run is over so waves/balls don't keep
             // ticking behind the overlay. Restart / GoToMainMenu reset to 1.
-            if (s != RunState.Playing) Time.timeScale = 0f;
+            if (IsRunOver)
+            {
+                Time.timeScale = 0f;
+                // Any modal that was mid-flight (upgrade cards from a late level-up)
+                // must get out of the way — the run summary owns the screen now.
+                var upgradeUi = FindFirstObjectByType<UI.UpgradeUI>();
+                if (upgradeUi != null) upgradeUi.Hide();
+
+                // Clear anything still in flight so the frozen frame reads clean
+                foreach (var ball in FindObjectsByType<Gameplay.Ball>(FindObjectsSortMode.None))
+                    Destroy(ball.gameObject);
+                foreach (var proj in FindObjectsByType<Enemy.EnemyProjectile>(FindObjectsSortMode.None))
+                    Destroy(proj.gameObject);
+            }
             OnStateChanged?.Invoke(s);
         }
 
         public void Restart()
         {
+            IsRunOver = false;
             Time.timeScale = 1f;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
@@ -123,6 +154,7 @@ namespace Tether.Systems
 
         public void GoToMainMenu()
         {
+            IsRunOver = false;
             Time.timeScale = 1f;
             // Ending a run — tear down the persisted session so a new one starts clean
             var session = Meta.RunSession.Instance;

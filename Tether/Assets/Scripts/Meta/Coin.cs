@@ -40,6 +40,7 @@ namespace Tether.Meta
             if (dist <= _pickupRadius)
             {
                 CoinWallet.Instance?.AddCoin(_value);
+                Utility.Fx.Sparkle(transform.position, new Color(1f, 0.85f, 0.25f), 5, 3.2f);
                 Destroy(gameObject);
                 return;
             }
