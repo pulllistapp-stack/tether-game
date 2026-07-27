@@ -129,6 +129,13 @@ namespace Tether.Systems
                 _tracked.RemoveAll(e => e == null);
                 yield return null;
             }
+
+            // Sweep up any XP orbs/coins still drifting outside pickup range so clearing
+            // the wave never wastes rewards the player didn't have time to walk to.
+            foreach (var orb in FindObjectsByType<Meta.XpOrb>(FindObjectsSortMode.None))
+                orb.ForceCollect();
+            foreach (var coin in FindObjectsByType<Meta.Coin>(FindObjectsSortMode.None))
+                coin.ForceCollect();
         }
 
         [Header("Boss")]

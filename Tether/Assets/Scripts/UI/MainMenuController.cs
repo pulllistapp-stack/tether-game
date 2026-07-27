@@ -62,7 +62,11 @@ namespace Tether.UI
 
         public void StartRun()
         {
-            // Ensure a RunSession exists (spawn from prefab if not persisted yet), then reset + go to map
+            // Arkanoid-roguelite pacing: no node map, just one continuous run straight
+            // into the arena. RunSession is kept around (CurrentNode stays unset) so
+            // per-run singletons (wallet/level/relics/stats) still reset the same way,
+            // and RunController's "no current node" path already treats wave-clear as
+            // the run's final victory.
             var session = Meta.RunSession.Instance;
             if (session == null)
             {
@@ -78,7 +82,7 @@ namespace Tether.UI
                 }
             }
             session.ResetForNewRun();
-            SceneManager.LoadScene(_mapSceneName);
+            SceneManager.LoadScene(_arenaSceneName);
         }
 
         public void Quit()

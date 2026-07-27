@@ -44,5 +44,9 @@ namespace Tether.Systems
         [Header("Relic grant (optional)")]
         [Tooltip("If set, picking this card grants the relic to RelicSystem instead of applying `effect`. Lets us seed the relic pool through the upgrade offer.")]
         public Relic grantRelic;
+
+        [Header("Ball grant (optional)")]
+        [Tooltip("If set, picking this card unlocks the ball as a new BallSlotManager slot instead of applying `effect`. UpgradeSelector hides this once the player already owns it or the slot cap is full.")]
+        public Gameplay.BallData grantBall;
     }
 }

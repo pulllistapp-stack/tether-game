@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using System.Collections;
 
 namespace Tether.Systems
 {
@@ -115,8 +116,24 @@ namespace Tether.Systems
             {
                 // Non-boss node cleared → back to map for next choice
                 Time.timeScale = 1f;
-                SceneManager.LoadScene("Map");
+                StartCoroutine(GoToMapAfterOffersResolve());
             }
+        }
+
+        /// <summary>A level-up (or wave-clear) card can be offered on the very same
+        /// frame the last enemy dies. Loading Map immediately would tear the modal
+        /// down before the player can pick, so wait for UpgradeSelector to clear.</summary>
+        private IEnumerator GoToMapAfterOffersResolve()
+        {
+            var selector = FindFirstObjectByType<UpgradeSelector>();
+            if (selector != null)
+            {
+                // One frame for a same-frame offer to actually open its modal
+                yield return null;
+                while (selector.HasActiveOrPendingOffer)
+                    yield return null;
+            }
+            SceneManager.LoadScene("Map");
         }
 
         private void SetState(RunState s)

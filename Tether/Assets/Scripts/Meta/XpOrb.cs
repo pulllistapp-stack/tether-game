@@ -21,6 +21,15 @@ namespace Tether.Meta
 
         public void SetValue(int v) => _value = v;
 
+        /// <summary>Instantly grants this orb's XP, bypassing magnet range/distance.
+        /// Called on wave-clear so leftover orbs outside pickup range aren't wasted.</summary>
+        public void ForceCollect()
+        {
+            LevelSystem.Instance?.AddXp(_value);
+            Utility.Fx.Sparkle(transform.position, new Color(0.35f, 0.85f, 1f), 5, 3.2f);
+            Destroy(gameObject);
+        }
+
         private void Awake()
         {
             _spawnTime = Time.time;

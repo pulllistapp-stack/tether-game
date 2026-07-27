@@ -27,8 +27,10 @@ namespace Tether.Meta
                 switch (item.effect)
                 {
                     case ShopEffect.UnlockBall:
+                        // Converts one starting-ball slot in the fixed 5-ball hand to this
+                        // type at run start — same mechanism as a level-up "Ball: X" card.
                         if (slots != null && item.ballDataUnlock != null)
-                            slots.AddSlotIfMissing(item.ballDataUnlock);
+                            slots.ConvertSlot(item.ballDataUnlock);
                         break;
                     case ShopEffect.StartingHpBonus:
                         if (hp != null) hp.ExtendMaxHp(Mathf.RoundToInt(item.magnitude));

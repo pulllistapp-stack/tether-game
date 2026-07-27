@@ -327,11 +327,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e4a8ed6b45ed084aaee864f44dd6a0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Tether.Player.BallSlotManager
-  _slots:
-  - {fileID: 11400000, guid: 555a89d05f5a5294297307b000faa264, type: 2}
-  - {fileID: 11400000, guid: d9c778c1274bf6b438c9f6bc4217f69b, type: 2}
-  - {fileID: 11400000, guid: fd50fa4d07e77074188cd33beda0de22, type: 2}
-  _startIndex: 0
+  _startingBall: {fileID: 11400000, guid: 555a89d05f5a5294297307b000faa264, type: 2}
+  _maxSlots: 5
 --- !u!114 &7873131266760739525
 MonoBehaviour:
   m_ObjectHideFlags: 0

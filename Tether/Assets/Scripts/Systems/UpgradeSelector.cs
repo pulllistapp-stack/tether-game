@@ -23,9 +23,15 @@ namespace Tether.Systems
         public event Action OnPicked;
 
         private Meta.LevelSystem _levelSystem;
+        private Player.BallSlotManager _ballSlots;
         private bool _modalOpen;
         private readonly System.Collections.Generic.Queue<string> _pendingOffers =
             new System.Collections.Generic.Queue<string>();
+
+        /// <summary>True while a card is on screen or another offer is queued behind it.
+        /// Scene-transition code (e.g. node-clear → Map) should wait for this to clear
+        /// so a level-up that lands on the same frame as the last kill isn't skipped.</summary>
+        public bool HasActiveOrPendingOffer => _modalOpen || _pendingOffers.Count > 0;
 
         private void Start()
         {
@@ -33,6 +39,7 @@ namespace Tether.Systems
             if (_applier == null)    _applier    = FindFirstObjectByType<UpgradeApplier>();
             if (_ui == null)         _ui         = FindFirstObjectByType<UI.UpgradeUI>();
             if (_levelSystem == null) _levelSystem = FindFirstObjectByType<Meta.LevelSystem>();
+            if (_ballSlots == null) _ballSlots = FindFirstObjectByType<Player.BallSlotManager>();
 
             if (_waveSystem != null) _waveSystem.OnWaveCleared += HandleWaveCleared;
             if (_levelSystem != null) _levelSystem.OnLeveledUp += HandleLeveledUp;
@@ -75,7 +82,8 @@ namespace Tether.Systems
             if (RunController.IsRunOver) return;
             if (_ui == null || _cardPool == null || _cardPool.Length == 0) return;
 
-            var picks = WeightedDraw(_cardPool, _cardsPerOffer);
+            var available = AvailableCards();
+            var picks = WeightedDraw(available, _cardsPerOffer);
             if (picks.Count == 0) return;
 
             _modalOpen = true;
@@ -115,7 +123,24 @@ namespace Tether.Systems
             }
         }
 
-        private static List<UpgradeCard> WeightedDraw(UpgradeCard[] pool, int count)
+        /// <summary>Drops a ball card once every slot in the hand is already that type
+        /// (nothing left to convert) — the offer silently falls back to items.</summary>
+        private List<UpgradeCard> AvailableCards()
+        {
+            var list = new List<UpgradeCard>(_cardPool.Length);
+            foreach (var c in _cardPool)
+            {
+                if (c == null) continue;
+                // Only hide a ball card once every slot in the hand already is that
+                // type — otherwise picking it again keeps converting more slots to it.
+                if (c.grantBall != null && _ballSlots != null && _ballSlots.AllChargesAreType(c.grantBall))
+                    continue;
+                list.Add(c);
+            }
+            return list;
+        }
+
+        private static List<UpgradeCard> WeightedDraw(IList<UpgradeCard> pool, int count)
         {
             var remaining = new List<UpgradeCard>(pool);
             var drawn = new List<UpgradeCard>(count);

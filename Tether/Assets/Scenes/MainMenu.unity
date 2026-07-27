@@ -253,13 +253,9 @@ MonoBehaviour:
   _itemsRoot: {fileID: 1139451427}
   _closeButton: {fileID: 1102747065}
   _items:
-  - {fileID: 11400000, guid: 69d8c53e7cc314e46823ad6152637909, type: 2}
-  - {fileID: 11400000, guid: fd6c69a642e66d240b213155169deebd, type: 2}
   - {fileID: 11400000, guid: 69473435c3652e24f9e2acd7764b289a, type: 2}
   - {fileID: 11400000, guid: 61ffb8c9a5de0bc4287ee2b1c4569cbf, type: 2}
   - {fileID: 11400000, guid: 563e4ee400eeefb4ebc413c496b95689, type: 2}
-  - {fileID: 11400000, guid: 2577a62a5a3a7ac40902ed532ac20277, type: 2}
-  - {fileID: 11400000, guid: e0d3a9a1170c607408ec9e162742e060, type: 2}
   - {fileID: 11400000, guid: ceb0fc1d8b4ed1841a85925600e33de4, type: 2}
   - {fileID: 11400000, guid: db9552387cb1fc94a84e730001ab216a, type: 2}
   - {fileID: 11400000, guid: f02beb9a29f36414e8ab22373aab2938, type: 2}

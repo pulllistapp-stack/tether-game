@@ -60,6 +60,16 @@ namespace Tether.Systems
                 return;
             }
 
+            // Ball-grant cards similarly bypass the effect switch and retype one charge
+            // in the player's fixed 5-ball hand instead of applying `effect`.
+            if (card.grantBall != null)
+            {
+                var slots = FindFirstObjectByType<Player.BallSlotManager>();
+                if (slots != null) slots.ConvertSlot(card.grantBall);
+                OnUpgradeApplied?.Invoke(card);
+                return;
+            }
+
             switch (card.effect)
             {
                 case UpgradeEffect.BallDamage:       BallDamageMul *= card.magnitude; break;

@@ -19,6 +19,15 @@ namespace Tether.Meta
         private Vector2 _idleVel;
         private float _spawnTime;
 
+        /// <summary>Instantly grants this coin's value, bypassing magnet range/distance.
+        /// Called on wave-clear so leftover coins outside pickup range aren't wasted.</summary>
+        public void ForceCollect()
+        {
+            CoinWallet.Instance?.AddCoin(_value);
+            Utility.Fx.Sparkle(transform.position, new Color(1f, 0.85f, 0.25f), 5, 3.2f);
+            Destroy(gameObject);
+        }
+
         private void Awake()
         {
             _spawnTime = Time.time;

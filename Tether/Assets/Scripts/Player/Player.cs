@@ -83,6 +83,9 @@ namespace Tether.Player
 
             if (Time.time - _lastFireTime < _fireCooldown * cooldownMul) return;
             if (_ballPrefab == null) return;
+            // Empty-handed: don't burn the cooldown or play the fire sound on a dry attempt —
+            // the next real shot fires the instant a ball comes back instead of queuing behind it.
+            if (_slots == null || _slots.AvailableCount <= 0) return;
 
             _lastFireTime = Time.time;
 
@@ -101,12 +104,23 @@ namespace Tether.Player
 
         private void SpawnAndLaunchBall(Vector2 dir)
         {
+            if (_slots == null) return;
+
+            // Fixed 5-ball hand: no free slot means no shot this attempt, full stop.
+            int slotIndex = _slots.ReserveNextAvailable();
+            if (slotIndex < 0) return;
+
             var ballObj = Instantiate(_ballPrefab, _firePoint.position, Quaternion.identity);
             if (ballObj.TryGetComponent<Gameplay.Ball>(out var ball))
             {
-                if (_slots != null && _slots.CurrentData != null)
-                    ball.Configure(_slots.CurrentData);
+                var data = _slots.DataAt(slotIndex);
+                if (data != null) ball.Configure(data);
+                ball.SetHomeSlot(_slots, slotIndex);
                 ball.Launch(dir);
+            }
+            else
+            {
+                _slots.Release(slotIndex);
             }
         }
     }

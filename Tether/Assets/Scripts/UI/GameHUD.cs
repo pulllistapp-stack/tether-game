@@ -99,8 +99,9 @@ namespace Tether.UI
             if (_enemiesLabel != null && _waveSystem != null)
                 _enemiesLabel.text = "ENEMIES  " + _waveSystem.EnemiesAlive;
 
-            if (_ballLabel != null && _ballSlots != null && _ballSlots.CurrentData != null)
-                _ballLabel.text = "[" + (_ballSlots.CurrentIndex + 1) + "] " + _ballSlots.CurrentData.displayName.ToUpper();
+            if (_ballLabel != null && _ballSlots != null)
+                _ballLabel.text = "BALLS " + _ballSlots.AvailableCount + "/" + _ballSlots.SlotCount +
+                    "  " + _ballSlots.LoadoutSummary();
 
             if (_coinsLabel != null && Meta.CoinWallet.Instance != null)
                 _coinsLabel.text = "COINS  " + Meta.CoinWallet.Instance.RunCoins;

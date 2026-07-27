@@ -48,9 +48,29 @@ namespace Tether.Gameplay
         private Transform _returnTarget;
         private Vector2 _prevVelocity;
 
+        // Ammo-hand bookkeeping: only the ball the player directly fired owns a slot.
+        // Split/knife children clear this (see SpawnSplitChildren/SpawnKniveChildren)
+        // so they're free bonus balls, not additional draws against the 5-ball hand.
+        private Player.BallSlotManager _homeSlots;
+        private int _homeSlotIndex = -1;
+
         public BallData Data => _data;
 
         public void SetSplitDepth(int depth) => _splitDepth = depth;
+
+        /// <summary>Ties this ball to a BallSlotManager charge. The charge is released
+        /// back to the hand the moment this ball is destroyed, whatever the cause.</summary>
+        public void SetHomeSlot(Player.BallSlotManager slots, int index)
+        {
+            _homeSlots = slots;
+            _homeSlotIndex = index;
+        }
+
+        private void OnDestroy()
+        {
+            if (_homeSlots != null && _homeSlotIndex >= 0)
+                _homeSlots.Release(_homeSlotIndex);
+        }
 
         private void Awake()
         {
@@ -175,7 +195,7 @@ namespace Tether.Gameplay
                         new GradientColorKey(data.tintColor * 0.7f, 1f)
                     },
                     new GradientAlphaKey[] {
-                        new GradientAlphaKey(0.85f, 0f),
+                        new GradientAlphaKey(0.55f, 0f),
                         new GradientAlphaKey(0f, 1f)
                     }
                 );
@@ -382,6 +402,9 @@ namespace Tether.Gameplay
                 var childObj = Instantiate(gameObject, transform.position, Quaternion.identity);
                 if (childObj.TryGetComponent<Ball>(out var childBall))
                 {
+                    // Instantiate clones the parent's fields, so explicitly free this child
+                    // from the ammo hand — it's a bonus ball, not a second draw on the slot.
+                    childBall.SetHomeSlot(null, -1);
                     // Ensure children can't infinite-recurse via the relic (their bounce triggers spawn again)
                     childBall.SetSplitDepth(_splitDepth + 99);
                     childBall.transform.localScale *= 0.65f;
@@ -407,6 +430,9 @@ namespace Tether.Gameplay
                 var childObj = Instantiate(gameObject, transform.position, Quaternion.identity);
                 if (childObj.TryGetComponent<Ball>(out var childBall))
                 {
+                    // Instantiate clones the parent's fields, so explicitly free this child
+                    // from the ammo hand — it's a bonus ball, not a second draw on the slot.
+                    childBall.SetHomeSlot(null, -1);
                     childBall.SetSplitDepth(_splitDepth + 1);
                     childBall.Configure(childData);
                     childBall.Launch(dir);
