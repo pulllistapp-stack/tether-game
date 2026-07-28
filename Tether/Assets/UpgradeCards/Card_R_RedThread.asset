@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 184ecb55e0f298b47939fa052b774600, type: 3}
+  m_Name: Card_R_RedThread
+  m_EditorClassIdentifier: Assembly-CSharp::Tether.Systems.UpgradeCard
+  displayName: "\u2605 Red Thread of Fate"
+  description: Fire cooldown doubled, but every ball deals double damage.
+  tint: {r: 0.95, g: 0.25, b: 0.35, a: 1}
+  icon: {fileID: 0}
+  effect: 0
+  magnitude: 1.25
+  weight: 2
+  grantRelic: {fileID: 11400000, guid: c23ad91554f1d05459bb6a868d3f4ca7, type: 2}

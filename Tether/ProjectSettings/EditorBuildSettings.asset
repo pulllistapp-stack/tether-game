@@ -6,7 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_ThirdParty/LostCrypt/Main.unity
-    guid: a2b58d8c2e473104380da39b8eb2a7e5
+    path: Assets/Scenes/MainMenu.unity
+    guid: 8e66db81a7f4fdb48973823365696351
+  - enabled: 1
+    path: Assets/Scenes/Map.unity
+    guid: bd54357722eb8af4281c6888a3328120
+  - enabled: 1
+    path: Assets/Scenes/Arena/Arena_Test.unity
+    guid: 98757f1d155044b4dbfdb1270acc2bd7
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

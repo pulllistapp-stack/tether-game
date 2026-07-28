@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f4bd3f047291e249ac6f03d4645ea9a, type: 3}
+  m_Name: Ball_Split
+  m_EditorClassIdentifier: Assembly-CSharp::Tether.Gameplay.BallData
+  displayName: Split
+  tintColor: {r: 0.6, g: 0.85, b: 1, a: 1}
+  icon: {fileID: 0}
+  speed: 11
+  damage: 1
+  maxBounces: -1
+  sizeMultiplier: 1.1
+  behavior: 1
+  splitCount: 2
+  splitAngle: 35
+  splitChild: {fileID: 11400000, guid: 555a89d05f5a5294297307b000faa264, type: 2}
+  splitMaxDepth: 1
+  explosionRadius: 1.2
+  explosionDamage: 1
