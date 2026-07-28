@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System;
 using System.Collections.Generic;
 
@@ -82,6 +83,10 @@ namespace Tether.UI
                 _group.interactable = false;
                 _group.blocksRaycasts = false;
             }
+            // The clicked card button stays selected in the EventSystem otherwise,
+            // and later re-fires via the keyboard "Submit" action (Space/Enter) —
+            // e.g. pressing the dash key would silently "click" it again.
+            if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(null);
         }
 
         private void HandleClick(int idx)

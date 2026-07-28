@@ -17,6 +17,11 @@ namespace Tether.Enemy
         [SerializeField] private float _deathShake = 0.4f;
         [SerializeField] private float _deathHitStop = 0.04f;
 
+        [Header("Escape (missed — got past the player)")]
+        [Tooltip("Enemy is destroyed and deals contact damage once it falls below this Y instead of drifting off forever. Matches Ball's void line.")]
+        [SerializeField] private float _escapeY = -9f;
+        [SerializeField] private int _escapeDamage = 1;
+
         [Header("Runtime refs")]
         [SerializeField] private EnemyData _data;
         [SerializeField] private SpriteRenderer _sprite;
@@ -30,6 +35,10 @@ namespace Tether.Enemy
 
         private float _currentHp;
         private EnemyHealthBar _healthBar;
+        // Destroy() only takes effect at end of frame, so a ball collision landing the
+        // same frame the enemy escapes could still call TakeDamage -> Die and hand out
+        // XP/coins for an enemy that already got past the player. This guards against it.
+        private bool _isGone;
 
         private float MaxHp => _data != null ? _data.maxHp : _maxHp;
 
@@ -46,6 +55,26 @@ namespace Tether.Enemy
                 _healthBar = gameObject.AddComponent<EnemyHealthBar>();
                 _healthBar.Build(_sprite.sprite, _sprite.sortingOrder);
             }
+        }
+
+        private void Update()
+        {
+            if (transform.position.y < _escapeY) Escape();
+        }
+
+        /// <summary>Punishes a miss instead of letting the enemy drift off-screen forever:
+        /// hits the player once for slipping past, then disappears with no rewards
+        /// (no coins/XP/combo — this isn't a kill).</summary>
+        private void Escape()
+        {
+            if (_isGone) return;
+            _isGone = true;
+
+            var hp = FindFirstObjectByType<Player.PlayerHealth>();
+            if (hp != null) hp.TakeEscapeDamage(_escapeDamage);
+
+            OnDeath?.Invoke(this);
+            Destroy(gameObject);
         }
 
         public void Configure(EnemyData data)
@@ -78,6 +107,11 @@ namespace Tether.Enemy
 
         public void TakeDamage(float damage)
         {
+            if (_isGone) return;
+            // Already past the line this same frame — a same-frame ball hit racing
+            // Update()'s escape check must never resolve as a kill (no XP/coins for
+            // something that got away), so route it through Escape() instead.
+            if (transform.position.y < _escapeY) { Escape(); return; }
             _currentHp -= damage;
 
             if (_showDamageNumbers)
@@ -105,6 +139,9 @@ namespace Tether.Enemy
 
         private void Die()
         {
+            if (_isGone) return;
+            _isGone = true;
+
             OnDeath?.Invoke(this);
             Meta.SceneEnemyListener.ReportDeath();
 

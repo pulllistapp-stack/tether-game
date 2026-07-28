@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 namespace Tether.UI
 {
@@ -124,6 +125,10 @@ namespace Tether.UI
             _group.alpha = 0f;
             _group.interactable = false;
             _group.blocksRaycasts = false;
+            // Resume/Restart/Main Menu stays selected in the EventSystem otherwise, and
+            // later re-fires via the keyboard "Submit" action (Space/Enter) during play —
+            // e.g. pressing the dash key would silently "click" whichever button was last used.
+            if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(null);
         }
     }
 }

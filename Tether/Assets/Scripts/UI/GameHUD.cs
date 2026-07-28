@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace Tether.UI
 {
@@ -238,6 +239,12 @@ namespace Tether.UI
             if (_overlayGroup == null) return;
             _overlayGroup.alpha = 0f;
             _overlayGroup.blocksRaycasts = false;
+            // ShowOverlay sets this true; without resetting it here the Restart/Main
+            // Menu buttons stay IsInteractable()==true while merely invisible, so if
+            // either was ever the selected UI object, the keyboard "Submit" action
+            // (Space/Enter) — e.g. pressing dash — silently "clicks" it during play.
+            _overlayGroup.interactable = false;
+            if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(null);
         }
     }
 }

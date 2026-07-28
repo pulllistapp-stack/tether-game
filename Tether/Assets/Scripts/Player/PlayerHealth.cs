@@ -97,6 +97,21 @@ namespace Tether.Player
         public void TakeDamage(int damage)
         {
             if (IsDead || IsInvulnerable) return;
+            ApplyDamage(damage);
+        }
+
+        /// <summary>Same as TakeDamage but ignores the post-hit invulnerability window.
+        /// Each escaped enemy is its own discrete punishment, not repeated contact from
+        /// the same source — several escaping in the same beat (e.g. a spawned row)
+        /// must each land instead of the first one shielding the rest.</summary>
+        public void TakeEscapeDamage(int damage)
+        {
+            if (IsDead) return;
+            ApplyDamage(damage);
+        }
+
+        private void ApplyDamage(int damage)
+        {
             CurrentHp = Mathf.Max(0, CurrentHp - damage);
             OnDamaged?.Invoke(CurrentHp, _maxHp);
 

@@ -16,9 +16,9 @@ namespace Tether.Player
         [SerializeField] private float _dashDuration = 0.16f;
         [SerializeField] private float _cooldown = 1.4f;
 
-        [Header("Bounds (world, x)")]
-        [SerializeField] private float _minX = -5.5f;
-        [SerializeField] private float _maxX = 5.5f;
+        [Header("Bounds (world units)")]
+        [SerializeField] private Vector2 _boundsMin = new Vector2(-5.5f, -7f);
+        [SerializeField] private Vector2 _boundsMax = new Vector2(5.5f, 6.5f);
 
         public float Cooldown => _cooldown;
         public float TimeSinceLastDash => Time.time - _lastDashAt;
@@ -37,13 +37,13 @@ namespace Tether.Player
         private void Update()
         {
             float h = Input.GetAxisRaw("Horizontal");
-            if (Mathf.Abs(h) > 0.1f) _lastMoveDir = new Vector2(Mathf.Sign(h), 0f);
+            float v = Input.GetAxisRaw("Vertical");
+            Vector2 input = new Vector2(h, v);
+            if (input.sqrMagnitude > 0.01f) _lastMoveDir = input.normalized;
 
             if (Input.GetKeyDown(_dashKey) && IsReady && _routine == null)
             {
-                Vector2 dir = Mathf.Abs(h) > 0.1f
-                    ? new Vector2(Mathf.Sign(h), 0f)
-                    : _lastMoveDir;
+                Vector2 dir = input.sqrMagnitude > 0.01f ? input.normalized : _lastMoveDir;
                 _routine = StartCoroutine(DashRoutine(dir));
             }
         }
@@ -59,7 +59,8 @@ namespace Tether.Player
 
             Vector3 start = transform.position;
             Vector3 target = start + (Vector3)(dir * _dashDistance);
-            target.x = Mathf.Clamp(target.x, _minX, _maxX);
+            target.x = Mathf.Clamp(target.x, _boundsMin.x, _boundsMax.x);
+            target.y = Mathf.Clamp(target.y, _boundsMin.y, _boundsMax.y);
 
             float t = 0f;
             while (t < _dashDuration)
