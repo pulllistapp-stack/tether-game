@@ -1,0 +1,1365 @@
+fileFormatVersion: 2
+guid: 23b43093f2625a341bdd59395066d921
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 285680423710393726
+    second: ArenaCarpet_0
+  - first:
+      213: 1817005198492078908
+    second: ArenaCarpet_1
+  - first:
+      213: -7418208755761155224
+    second: ArenaCarpet_2
+  - first:
+      213: 5308267947756257495
+    second: ArenaCarpet_3
+  - first:
+      213: -4794291037631592972
+    second: ArenaCarpet_4
+  - first:
+      213: 3765413853087748847
+    second: ArenaCarpet_5
+  - first:
+      213: 8381125957723276896
+    second: ArenaCarpet_6
+  - first:
+      213: -5865483729270740739
+    second: ArenaCarpet_7
+  - first:
+      213: -1464541031665188693
+    second: ArenaCarpet_8
+  - first:
+      213: -3215402080763803794
+    second: ArenaCarpet_9
+  - first:
+      213: -5403322356098186213
+    second: ArenaCarpet_10
+  - first:
+      213: -4653334280660820039
+    second: ArenaCarpet_11
+  - first:
+      213: -5050285194002753613
+    second: ArenaCarpet_12
+  - first:
+      213: -1585164872914325030
+    second: ArenaCarpet_13
+  - first:
+      213: -7272135518989524152
+    second: ArenaCarpet_14
+  - first:
+      213: -4922012970092361660
+    second: ArenaCarpet_15
+  - first:
+      213: 6244020925214876994
+    second: ArenaCarpet_16
+  - first:
+      213: 4298691989277527706
+    second: ArenaCarpet_17
+  - first:
+      213: 7954025339848602470
+    second: ArenaCarpet_18
+  - first:
+      213: -8715078272046649995
+    second: ArenaCarpet_19
+  - first:
+      213: 9087616495676077935
+    second: ArenaCarpet_20
+  - first:
+      213: 8486342429940974116
+    second: ArenaCarpet_21
+  - first:
+      213: 7961471702890642781
+    second: ArenaCarpet_22
+  - first:
+      213: -7662590554858877071
+    second: ArenaCarpet_23
+  - first:
+      213: 3808929827275892178
+    second: ArenaCarpet_24
+  - first:
+      213: -9154185318118517860
+    second: ArenaCarpet_25
+  - first:
+      213: 5994911159470660557
+    second: ArenaCarpet_26
+  - first:
+      213: -4325595655205629540
+    second: ArenaCarpet_27
+  - first:
+      213: -1409195523179271208
+    second: ArenaCarpet_28
+  - first:
+      213: 1555305220523220556
+    second: ArenaCarpet_29
+  - first:
+      213: 788429615659551503
+    second: ArenaCarpet_30
+  - first:
+      213: -5440177955780225828
+    second: ArenaCarpet_31
+  - first:
+      213: -4977429529845833351
+    second: ArenaCarpet_32
+  - first:
+      213: -6533738725899090279
+    second: ArenaCarpet_33
+  - first:
+      213: 549442725749280727
+    second: ArenaCarpet_34
+  - first:
+      213: -2570836748758701635
+    second: ArenaCarpet_35
+  - first:
+      213: 6970488785888230060
+    second: ArenaCarpet_36
+  - first:
+      213: 1438385334448963901
+    second: ArenaCarpet_37
+  - first:
+      213: -1960538754462044154
+    second: ArenaCarpet_38
+  - first:
+      213: -2282736731876034013
+    second: ArenaCarpet_39
+  - first:
+      213: -5746174110524915540
+    second: ArenaCarpet_40
+  - first:
+      213: 4051731695835297803
+    second: ArenaCarpet_41
+  - first:
+      213: -2705376207811263330
+    second: ArenaCarpet_42
+  - first:
+      213: 9187547145287713723
+    second: ArenaCarpet_43
+  - first:
+      213: -130601894115032893
+    second: ArenaCarpet_44
+  - first:
+      213: 7657272847262324356
+    second: ArenaCarpet_45
+  - first:
+      213: -3275488050475674235
+    second: ArenaCarpet_46
+  - first:
+      213: -8723673482270145347
+    second: ArenaCarpet_47
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 0
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ArenaCarpet_0
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 0
+        width: 25
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e758a8ee4d0f6f300800000000000000
+      internalID: 285680423710393726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_1
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 165
+        width: 14
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c339823e99c473910800000000000000
+      internalID: 1817005198492078908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_2
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 168
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 863f923a07a3d0990800000000000000
+      internalID: -7418208755761155224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_3
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 174
+        width: 10
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d08a96f291caa940800000000000000
+      internalID: 5308267947756257495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_4
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 168
+        width: 11
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f54128d3b1477db0800000000000000
+      internalID: -4794291037631592972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_5
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 146
+        width: 27
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe251a903ff614430800000000000000
+      internalID: 3765413853087748847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_6
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 0
+        width: 25
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 066c6e747adbf4470800000000000000
+      internalID: 8381125957723276896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_7
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 153
+        width: 27
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df8ebf8ff9d999ea0800000000000000
+      internalID: -5865483729270740739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_8
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 150
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba0cc90f0b7ecabe0800000000000000
+      internalID: -1464541031665188693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_9
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 135
+        width: 11
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e67850ee7d89063d0800000000000000
+      internalID: -3215402080763803794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_10
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 134
+        width: 11
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1447d5f1fa8305b0800000000000000
+      internalID: -5403322356098186213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_11
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 119
+        width: 26
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bf501c40290c6fb0800000000000000
+      internalID: -4653334280660820039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_12
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 140
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b71d05af58c9e9b0800000000000000
+      internalID: -5050285194002753613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_13
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 115
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad1b38752fc500ae0800000000000000
+      internalID: -1585164872914325030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_14
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 140
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 843e020664f241b90800000000000000
+      internalID: -7272135518989524152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_15
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 126
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44887c9184f71bbb0800000000000000
+      internalID: -4922012970092361660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_16
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 85
+        width: 25
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 245e98103f737a650800000000000000
+      internalID: 6244020925214876994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_17
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 121
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9e44bbb69508ab30800000000000000
+      internalID: 4298691989277527706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_18
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 121
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 663b12487ef526e60800000000000000
+      internalID: 7954025339848602470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_19
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 115
+        width: 11
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57d2fec6c72dd0780800000000000000
+      internalID: -8715078272046649995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_20
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 125
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f67b0c7fd03bd1e70800000000000000
+      internalID: 9087616495676077935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_21
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 104
+        width: 15
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42205fa3a7b85c570800000000000000
+      internalID: 8486342429940974116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_22
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 57
+        width: 32
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5dfe140554dc7e60800000000000000
+      internalID: 7961471702890642781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_23
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 108
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17f8f5e0d7209a590800000000000000
+      internalID: -7662590554858877071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_24
+      rect:
+        serializedVersion: 2
+        x: 177
+        y: 101
+        width: 8
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d56b215f790cd430800000000000000
+      internalID: 3808929827275892178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_25
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 103
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c93137144fcc5f080800000000000000
+      internalID: -9154185318118517860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_26
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 107
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcb1648efe3323350800000000000000
+      internalID: 5994911159470660557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_27
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 70
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c91de796ba568f3c0800000000000000
+      internalID: -4325595655205629540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_28
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 74
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8db24dd4328817ce0800000000000000
+      internalID: -1409195523179271208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_29
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 61
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4ed8929bdd859510800000000000000
+      internalID: 1555305220523220556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_30
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 77
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0b09c3ee8011fa00800000000000000
+      internalID: 788429615659551503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_31
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 58
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd41fc6f8fa9084b0800000000000000
+      internalID: -5440177955780225828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_32
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 43
+        width: 20
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 971eff2d63e9ceab0800000000000000
+      internalID: -4977429529845833351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_33
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 29
+        width: 18
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 996429bfe3f7355a0800000000000000
+      internalID: -6533738725899090279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_34
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 36
+        width: 12
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7df45bc7f3300a700800000000000000
+      internalID: 549442725749280727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_35
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 40
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db9a7be099d825cd0800000000000000
+      internalID: -2570836748758701635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_36
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 27
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: caa36b99e962cb060800000000000000
+      internalID: 6970488785888230060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_37
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 43
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3146fd37db26f310800000000000000
+      internalID: 1438385334448963901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_38
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 29
+        width: 10
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60037e3e364cac4e0800000000000000
+      internalID: -1960538754462044154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_39
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 42
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32afacc69071250e0800000000000000
+      internalID: -2282736731876034013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_40
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 9
+        width: 17
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca0cd9c471d7140b0800000000000000
+      internalID: -5746174110524915540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_41
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 40
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b083477a284aa3830800000000000000
+      internalID: 4051731695835297803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_42
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 13
+        width: 24
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e94cd953ca2947ad0800000000000000
+      internalID: -2705376207811263330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_43
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 20
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb347007379b08f70800000000000000
+      internalID: 9187547145287713723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_44
+      rect:
+        serializedVersion: 2
+        x: 185
+        y: 13
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c0c74ee442003ef0800000000000000
+      internalID: -130601894115032893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_45
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 26
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4869059a519144a60800000000000000
+      internalID: 7657272847262324356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_46
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 1
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5855c5de8f02b82d0800000000000000
+      internalID: -3275488050475674235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArenaCarpet_47
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 3
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db40bc810394fe680800000000000000
+      internalID: -8723673482270145347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ArenaCarpet_0: 285680423710393726
+      ArenaCarpet_1: 1817005198492078908
+      ArenaCarpet_10: -5403322356098186213
+      ArenaCarpet_11: -4653334280660820039
+      ArenaCarpet_12: -5050285194002753613
+      ArenaCarpet_13: -1585164872914325030
+      ArenaCarpet_14: -7272135518989524152
+      ArenaCarpet_15: -4922012970092361660
+      ArenaCarpet_16: 6244020925214876994
+      ArenaCarpet_17: 4298691989277527706
+      ArenaCarpet_18: 7954025339848602470
+      ArenaCarpet_19: -8715078272046649995
+      ArenaCarpet_2: -7418208755761155224
+      ArenaCarpet_20: 9087616495676077935
+      ArenaCarpet_21: 8486342429940974116
+      ArenaCarpet_22: 7961471702890642781
+      ArenaCarpet_23: -7662590554858877071
+      ArenaCarpet_24: 3808929827275892178
+      ArenaCarpet_25: -9154185318118517860
+      ArenaCarpet_26: 5994911159470660557
+      ArenaCarpet_27: -4325595655205629540
+      ArenaCarpet_28: -1409195523179271208
+      ArenaCarpet_29: 1555305220523220556
+      ArenaCarpet_3: 5308267947756257495
+      ArenaCarpet_30: 788429615659551503
+      ArenaCarpet_31: -5440177955780225828
+      ArenaCarpet_32: -4977429529845833351
+      ArenaCarpet_33: -6533738725899090279
+      ArenaCarpet_34: 549442725749280727
+      ArenaCarpet_35: -2570836748758701635
+      ArenaCarpet_36: 6970488785888230060
+      ArenaCarpet_37: 1438385334448963901
+      ArenaCarpet_38: -1960538754462044154
+      ArenaCarpet_39: -2282736731876034013
+      ArenaCarpet_4: -4794291037631592972
+      ArenaCarpet_40: -5746174110524915540
+      ArenaCarpet_41: 4051731695835297803
+      ArenaCarpet_42: -2705376207811263330
+      ArenaCarpet_43: 9187547145287713723
+      ArenaCarpet_44: -130601894115032893
+      ArenaCarpet_45: 7657272847262324356
+      ArenaCarpet_46: -3275488050475674235
+      ArenaCarpet_47: -8723673482270145347
+      ArenaCarpet_5: 3765413853087748847
+      ArenaCarpet_6: 8381125957723276896
+      ArenaCarpet_7: -5865483729270740739
+      ArenaCarpet_8: -1464541031665188693
+      ArenaCarpet_9: -3215402080763803794
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -18,7 +18,6 @@ GameObject:
   - component: {fileID: 4008258808698691028}
   - component: {fileID: 7873131266760739525}
   - component: {fileID: 5156536097955900478}
-  - component: {fileID: 384771000830108477}
   m_Layer: 13
   m_Name: Player
   m_TagString: Player
@@ -291,8 +290,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Tether.Player.PlayerMovement
   _speed: 7
   _verticalMovement: 1
-  _boundsMin: {x: -5.4, y: -8.6}
-  _boundsMax: {x: 5.4, y: 5.5}
+  _boundsMin: {x: -8, y: -9.5}
+  _boundsMax: {x: 8, y: 9.5}
 --- !u!114 &4602866914691117465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,23 +368,6 @@ MonoBehaviour:
   _shake: 0.6
   _hitStop: 0.06
   _flashColor: {r: 0.6, g: 0.85, b: 1, a: 0.7}
---- !u!114 &384771000830108477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 237159654626511003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6bcbd1d9309f5146a9fefee6621c767, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Tether.Utility.AutoLight2D
-  _radius: 2.6
-  _intensity: 0.85
-  _whiten: 0.55
-  _pulseAmount: 0.08
-  _pulseSpeed: 3.5
 --- !u!1 &2282872535106983640
 GameObject:
   m_ObjectHideFlags: 0

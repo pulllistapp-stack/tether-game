@@ -35,8 +35,7 @@ namespace Tether.Meta
             _spawnTime = Time.time;
             _idleVel = new Vector2(Random.Range(-1.5f, 1.5f), Random.Range(0.5f, 1.5f));
 
-            if (GetComponent<Utility.AutoLight2D>() == null)
-                gameObject.AddComponent<Utility.AutoLight2D>().Configure(1.5f, 0.9f);
+            // Pickup lights removed — user asked for lights on flying projectiles only.
         }
 
         private void Start()

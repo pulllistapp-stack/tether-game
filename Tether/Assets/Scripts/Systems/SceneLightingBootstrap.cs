@@ -19,16 +19,18 @@ namespace Tether.Systems
         [Header("Global light")]
         [Tooltip("Base ambience. 1 = fully lit (no darkening); lower values sink the arena into shadow so point lights read.")]
         [Range(0f, 1f)]
-        [SerializeField] private float _globalIntensity = 0.62f;
-        [SerializeField] private Color _globalColor = new Color(0.62f, 0.66f, 0.85f);
+        [SerializeField] private float _globalIntensity = 1.0f;
+        [SerializeField] private Color _globalColor = Color.white;
 
         [Header("Post-processing")]
-        [SerializeField] private bool _enablePostProcessing = true;
-        [SerializeField] private float _bloomIntensity = 1.1f;
-        [SerializeField] private float _bloomThreshold = 0.85f;
-        [SerializeField] private float _baseVignette = 0.28f;
-        [SerializeField] private float _saturation = 8f;
-        [SerializeField] private float _contrast = 12f;
+        // Disabled by user request — the only lights on screen should be the ball
+        // point-lights attached via AutoLight2D. No bloom, no vignette, no color grade.
+        [SerializeField] private bool _enablePostProcessing = false;
+        [SerializeField] private float _bloomIntensity = 0f;
+        [SerializeField] private float _bloomThreshold = 1f;
+        [SerializeField] private float _baseVignette = 0f;
+        [SerializeField] private float _saturation = 0f;
+        [SerializeField] private float _contrast = 0f;
 
         public static SceneLightingBootstrap Instance { get; private set; }
 
